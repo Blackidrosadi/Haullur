@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "478336185579",
+    "project_id": "haullur",
+    "storage_bucket": "haullur.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:478336185579:android:fa68f194c30eb7f7707aae",
+        "android_client_info": {
+          "package_name": "com.rosadi.haullur"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "478336185579-5kfml4f5apbm2417den1s2t4334nvriu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rosadi.haullur",
+            "certificate_hash": "2b156452d56d663263e76eeb4df49a26f9775e6c"
+          }
+        },
+        {
+          "client_id": "478336185579-270htkhpkc5c0bjqjnmscvfpgvob8h0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaLh-pNetMv1kinI4D6OZUXieeJZ-5pt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "478336185579-270htkhpkc5c0bjqjnmscvfpgvob8h0p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">HAULLUR</string>
+    <string name="username">Rijal</string>
+    <string name="desk">Ojo lali lurr,</string>
+    <string name="desk2">Narik haul setiap jemuah legi.</string>
+    <string name="halo">Halo,</string>
+
+    <string-array name="list_rt">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+</resources>
