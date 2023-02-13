@@ -13,8 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rosadi.haullur.Keluarga.DataKeluargaActivity;
+import com.rosadi.haullur.Keluarga.DataKeluargaDetailActivity;
 import com.rosadi.haullur.List.Model.Keluarga;
 import com.rosadi.haullur.R;
+import com.rosadi.haullur._util.Konfigurasi;
 
 import java.net.URLEncoder;
 import java.util.List;
@@ -67,6 +69,18 @@ public class KeluargaAdapter extends RecyclerView.Adapter<KeluargaAdapter.ViewHo
                         e.printStackTrace();
                     }
                 }
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, DataKeluargaDetailActivity.class);
+                i.putExtra(Konfigurasi.KEY_ID, keluarga.getId());
+                i.putExtra(Konfigurasi.KEY_NAMA, keluarga.getNama());
+                i.putExtra(Konfigurasi.KEY_RT, keluarga.getRt());
+                i.putExtra(Konfigurasi.KEY_TELEPON, keluarga.getTelepon());
+                context.startActivity(i);
             }
         });
     }

@@ -12,7 +12,7 @@
         android:layout_height="80dp"
         android:paddingHorizontal="15dp">
         <RelativeLayout
-            android:id="@+id/back"
+            android:id="@+id/kembali"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true">
@@ -25,13 +25,14 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/nama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_toEndOf="@+id/back"
-            android:layout_toStartOf="@+id/editkeluarga"
+            android:layout_toStartOf="@+id/edit"
+            android:layout_toEndOf="@+id/kembali"
             android:text="Kepala Keluarga"
             android:textColor="@android:color/white"
             android:textSize="18sp"
@@ -39,11 +40,11 @@
 
 
         <RelativeLayout
-            android:id="@+id/editkeluarga"
+            android:id="@+id/edit"
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/hapuskeluarga">
+            android:layout_toLeftOf="@+id/hapus">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -53,7 +54,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/hapuskeluarga"
+            android:id="@+id/hapus"
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:layout_alignParentEnd="true"
@@ -70,32 +71,28 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:paddingVertical="10dp"
-        android:paddingHorizontal="30dp"
-        android:baselineAligned="false">
+        android:paddingHorizontal="30dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@drawable/bg_button_rounded"
-            android:layout_toLeftOf="@+id/tambahalmarhum"
+            android:layout_toLeftOf="@+id/tambah_almarhum"
             android:paddingHorizontal="10dp">
 
-            <EditText
-                android:id="@+id/jumlah"
+            <TextView
+                android:id="@+id/jumlah_almarhum"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@null"
                 android:gravity="center_vertical"
                 android:hint="5 Almarhum"
                 android:paddingHorizontal="10dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white_50"
+                android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/tambahalmarhum"
+            android:id="@+id/tambah_almarhum"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@drawable/bg_button_rounded_accent"
@@ -105,11 +102,12 @@
             android:layout_marginStart="10dp"
             android:layout_alignParentEnd="true"
             android:gravity="center">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_add"
-                android:padding="5dp"/>
+                android:padding="5dp"
+                android:src="@drawable/ic_add" />
 
         </RelativeLayout>
 
@@ -117,6 +115,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="30dp"/>

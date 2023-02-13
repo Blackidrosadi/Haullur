@@ -16,4 +16,10 @@
         <item name="android:fontFamily">@font/segoe_ui_font</item>
         <item name="fontFamily">@font/segoe_ui_font</item>
     </style>
+    <style name="Theme.HAULLUR.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.HAULLUR.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.HAULLUR.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

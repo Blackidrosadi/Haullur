@@ -9,7 +9,17 @@ public class Konfigurasi {
     public static final String URL_LOGIN    = URL + "user/login.php";
 
     public static final String URL_LOAD_KELUARGA    = URL + "keluarga/load.php";
+    public static final String URL_CARI_KELUARGA    = URL + "keluarga/cari.php?cari=";
+    public static final String URL_LOAD_KELUARGA_TERBARU    = URL + "keluarga/loadTerbaru.php";
+
     public static final String URL_TAMBAH_KELUARGA    = URL + "keluarga/tambah.php";
+    public static final String URL_EDIT_KELUARGA    = URL + "keluarga/edit.php";
+    public static final String URL_HAPUS_KELUARGA    = URL + "keluarga/hapus.php";
+
+    public static final String URL_LOAD_ALMARHUM    = URL + "keluarga/loadAlmarhum.php?id=";
+    public static final String URL_TAMBAH_ALMARHUM    = URL + "keluarga/tambahAlmarhum.php";
+    public static final String URL_EDIT_ALMARHUM    = URL + "keluarga/editAlmarhum.php";
+    public static final String URL_HAPUS_ALMARHUM    = URL + "keluarga/hapusAlmarhum.php";
 
     /**
      * TAG / KEY
@@ -31,4 +41,6 @@ public class Konfigurasi {
     public static final String KEY_LEVEL = "level";
 
     public static final String KEY_RT = "rt";
+
+    public static final String KEY_ID_KELUARGA = "id";
 }

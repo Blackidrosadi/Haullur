@@ -88,10 +88,10 @@ public class RequestHandler {
         return sb.toString();
     }
 
-    public String sendGetRequestParam(String requestURL, String id) {
+    public String sendGetRequestParam(String requestURL, String param) {
         StringBuilder sb = new StringBuilder();
         try {
-            URL url = new URL(requestURL + id);
+            URL url = new URL(requestURL + param);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
