@@ -31,7 +31,11 @@ public class LoginActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences(Konfigurasi.KEY_USER_PREFERENCE, MODE_PRIVATE);
         if (preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null) != null) {
-            startActivity(new Intent(this, MainActivity.class));
+            Intent intent = new Intent(this, MainActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+
+            LoginActivity.this.finish();
         }
 
         EditText telepon = findViewById(R.id.telepon);

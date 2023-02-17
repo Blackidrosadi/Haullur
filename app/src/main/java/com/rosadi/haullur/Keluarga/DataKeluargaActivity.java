@@ -3,6 +3,7 @@ package com.rosadi.haullur.Keluarga;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -95,6 +96,15 @@ public class DataKeluargaActivity extends AppCompatActivity {
         recyclerView.setAdapter(keluargaAdapter);
 
         loadKeluarga();
+
+        SwipeRefreshLayout pullToRefresh = findViewById(R.id.swiperefresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadKeluarga();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
     }
 
     private void loadKeluarga() {

@@ -5,6 +5,7 @@ public class Konfigurasi {
      * URL FILE PHP
      */
     public static final String URL  = "http://192.168.1.34:8080/haullur/";
+//    public static final String URL  = "https://fprg-haullur.000webhostapp.com/haullur/";
 
     public static final String URL_LOGIN    = URL + "user/login.php";
 
@@ -20,6 +21,8 @@ public class Konfigurasi {
     public static final String URL_TAMBAH_ALMARHUM    = URL + "keluarga/tambahAlmarhum.php";
     public static final String URL_EDIT_ALMARHUM    = URL + "keluarga/editAlmarhum.php";
     public static final String URL_HAPUS_ALMARHUM    = URL + "keluarga/hapusAlmarhum.php";
+
+    public static final String URL_LOAD_TOTAL_ALMARHUM    = URL + "keluarga/loadTotalAlmarhum.php?id=";
 
     /**
      * TAG / KEY

@@ -22,4 +22,9 @@
     </style>
     <style name="Theme.HAULLUR.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.HAULLUR.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ThemeOverlay.Material3.NavigationView" >
+        <item name="android:listDivider">@color/white_50</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
 </resources>

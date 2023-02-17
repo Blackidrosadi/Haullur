@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rosadi.haullur.Keluarga.DataKeluargaActivity;
 import com.rosadi.haullur.Keluarga.DataKeluargaDetailActivity;
 import com.rosadi.haullur.List.Model.Keluarga;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
+import com.rosadi.haullur._util.volley.RequestHandler;
+
 
 import java.net.URLEncoder;
 import java.util.List;
@@ -72,6 +74,8 @@ public class KeluargaAdapter extends RecyclerView.Adapter<KeluargaAdapter.ViewHo
             }
         });
 
+        loadTotalAlmarhums(holder.total, keluarga.getId());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +89,33 @@ public class KeluargaAdapter extends RecyclerView.Adapter<KeluargaAdapter.ViewHo
         });
     }
 
+    private void loadTotalAlmarhums(TextView total, String id) {
+        class LoadTotalAlmarhums extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+
+                total.setText(s.trim());
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                RequestHandler handler = new RequestHandler();
+                String s = handler.sendGetRequestParam(Konfigurasi.URL_LOAD_TOTAL_ALMARHUM, id);
+                return s;
+            }
+        }
+
+        LoadTotalAlmarhums totalAlmarhums = new LoadTotalAlmarhums();
+        totalAlmarhums.execute();
+    }
+
     @Override
     public int getItemCount() {
         return keluargaList.size();
@@ -92,7 +123,7 @@ public class KeluargaAdapter extends RecyclerView.Adapter<KeluargaAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView nama, rt;
+        TextView nama, rt, total;
         ImageView telepon;
 
         public ViewHolder(@NonNull View itemView) {
@@ -101,6 +132,7 @@ public class KeluargaAdapter extends RecyclerView.Adapter<KeluargaAdapter.ViewHo
             nama = itemView.findViewById(R.id.nama);
             rt = itemView.findViewById(R.id.rt);
             telepon = itemView.findViewById(R.id.telepon);
+            total = itemView.findViewById(R.id.total_almarhums);
         }
     }
 }
