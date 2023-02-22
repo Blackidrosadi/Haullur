@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primary"
     android:gravity="center"
     android:orientation="vertical"
@@ -14,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingHorizontal="15dp"
-        android:text="Ubah Nama Almarhum"
+        android:text="Tambah Program Haul"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -28,13 +27,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="30dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Nama"
+            android:text="Deskripsi (Opsional)"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -43,32 +42,79 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_card_secondary_rounded">
 
         <EditText
-            android:id="@+id/nama"
+            android:id="@+id/deskripsi"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:inputType="text"
-            android:maxLines="1"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:hint="Masukkan nama..."
+            android:hint="Deskripsi..."
+            android:maxLength="60"
             android:textColorHint="@color/white_50"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="10dp"
+            android:gravity="start"
+            android:padding="10dp"
             android:background="@null"/>
 
     </LinearLayout>
-    
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Tanggal"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pilih_tanggal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_card_secondary_rounded"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:id="@+id/tanggal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/date"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="10dp"
+            android:text="Pilih Tanggal"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_date"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"/>
+
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/simpan"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center"
-        android:background="@drawable/bg_button_rounded"
+        android:background="@drawable/bg_card_accent_rounded"
         android:layout_marginTop="25dp"
         android:focusable="true"
         android:clickable="true"
@@ -92,6 +138,7 @@
         android:layout_height="40dp"
         android:gravity="center"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:focusable="true"
         android:clickable="true"
         android:background="@drawable/bg_card_secondary_rounded"
@@ -103,30 +150,6 @@
             android:gravity="center"
             android:paddingHorizontal="15dp"
             android:text="Batal"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/hapus"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:background="@drawable/bg_button_rounded_accent"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="25dp"
-        android:focusable="true"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingHorizontal="15dp"
-            android:text="Hapus"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />

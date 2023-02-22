@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Haul.ProgramHaulActivity"
+    tools:context=".Akun.AkunActivity"
     android:background="@drawable/bg_layout"
     android:orientation="vertical">
     <RelativeLayout
@@ -30,7 +30,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/kembali"
-            android:text="Program Haul"
+            android:text="Pengaturan Akun"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />

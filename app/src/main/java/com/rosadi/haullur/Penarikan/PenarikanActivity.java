@@ -6,15 +6,12 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.rosadi.haullur.R;
 
 import java.text.NumberFormat;
@@ -31,6 +28,7 @@ public class PenarikanActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openDialog();
+                asdasdsa
             }
         });
     }

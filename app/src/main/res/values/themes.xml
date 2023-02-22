@@ -27,4 +27,7 @@
         <item name="android:listDivider">@color/white_50</item>
         <item name="android:textColorSecondary">@color/white</item>
     </style>
+    <style name="MyDatePickerStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/primary</item>
+    </style>
 </resources>

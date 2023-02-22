@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/bg"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_button_rounded"
-    android:paddingVertical="15dp"
+    android:paddingVertical="10dp"
     android:paddingHorizontal="20dp"
     android:layout_marginBottom="10dp">
+
     <RelativeLayout
         android:id="@+id/item1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_button_rounded_accent"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_centerVertical="true"
+        android:background="@drawable/bg_button_rounded_accent"
         android:gravity="center">
 
         <TextView
@@ -21,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="?"
             android:textColor="@android:color/white"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
@@ -31,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginHorizontal="10dp"
-        android:layout_toStartOf="@+id/telepon"
         android:layout_toEndOf="@+id/item1"
         android:orientation="vertical">
         <TextView
@@ -40,7 +41,7 @@
             android:layout_height="wrap_content"
             android:text="Robert Jumari Pattinson"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -49,19 +50,8 @@
             android:layout_height="wrap_content"
             android:text="RT 2"
             android:textColor="@android:color/white"
-            android:textSize="14sp"/>
+            android:textSize="12sp"/>
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/telepon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@mipmap/ic_whatsapp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?android:attr/selectableItemBackground"/>
 
 </RelativeLayout>
