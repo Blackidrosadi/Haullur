@@ -108,7 +108,7 @@ public class DataKeluargaActivity extends AppCompatActivity {
     }
 
     private void loadKeluarga() {
-        class LoadKeluarga extends AsyncTask<Void, Void, String> {
+        class LoadData extends AsyncTask<Void, Void, String> {
 
             ProgressDialog progressDialog;
 
@@ -156,8 +156,8 @@ public class DataKeluargaActivity extends AppCompatActivity {
             }
         }
 
-        LoadKeluarga loadKeluarga = new LoadKeluarga();
-        loadKeluarga.execute();
+        LoadData loadData = new LoadData();
+        loadData.execute();
     }
 
     private void cariKeluarga(String cari) {

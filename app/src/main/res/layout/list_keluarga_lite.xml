@@ -7,7 +7,9 @@
     android:background="@drawable/bg_button_rounded"
     android:paddingVertical="10dp"
     android:paddingHorizontal="20dp"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true">
 
     <RelativeLayout
         android:id="@+id/item1"
@@ -21,7 +23,7 @@
             android:id="@+id/total_almarhums"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="?"
+            android:text="\?"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -49,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="RT 2"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white_50"
             android:textSize="12sp"/>
 
     </LinearLayout>

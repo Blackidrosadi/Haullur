@@ -45,10 +45,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/rt"
+            android:id="@+id/jumlah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RT 2"
+            android:text="RP 20.000"
             android:textColor="@color/white_50"
             android:textSize="14sp" />
 
@@ -60,14 +60,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:background="?android:attr/selectableItemBackground"
         android:padding="5dp">
+
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@mipmap/ic_whatsapp"/>
+            android:src="@mipmap/ic_whatsapp" />
 
     </RelativeLayout>
 

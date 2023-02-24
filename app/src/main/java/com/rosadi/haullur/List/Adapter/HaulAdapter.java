@@ -50,7 +50,7 @@ public class HaulAdapter extends RecyclerView.Adapter<HaulAdapter.ViewHolder> {
             holder.status.setText("Selesai");
             holder.status.setTextColor(context.getResources().getColor(R.color.accent));
             if (haul.getDeskripsi().equals("Haul Jemuah Legi")) {
-                holder.program.setText(haul.getDeskripsi() + ", " + haul.getTanggal());
+                holder.program.setText(haul.getDeskripsi() + "; " + haul.getTanggal());
                 holder.tanggal.setVisibility(View.GONE);
             } else {
                 holder.program.setText(haul.getDeskripsi());

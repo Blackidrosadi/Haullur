@@ -32,9 +32,11 @@ public class Konfigurasi {
     public static final String URL_LOAD_TOTAL_ALMARHUM  = URL + "keluarga/loadTotalAlmarhum.php?id=";
 
     public static final String URL_LOAD_PROGRAM_HAUL        = URL + "haul/loadProgram.php";
+    public static final String URL_LOAD_PROGRAM_AKTIF_HAUL  = URL + "haul/loadProgramAktif.php";
     public static final String URL_TAMBAH_PROGRAM_HAUL      = URL + "haul/tambahProgram.php";
     public static final String URL_CEK_PROGRAM_HAUL         = URL + "haul/cekProgram.php";
 
+    public static final String URL_TRANSAKSI_PENARIKAN      = URL + "penarikan/tambah.php";
     /**
      * TAG / KEY
      */
@@ -56,10 +58,13 @@ public class Konfigurasi {
 
     public static final String KEY_RT = "rt";
 
+    public static final String KEY_ID_HAUL      = "id_haul";
     public static final String KEY_ID_KELUARGA  = "id_keluarga";
     public static final String KEY_ID_AKUN      = "id_akun";
 
     public static final String KEY_TANGGAL      = "tanggal";
     public static final String KEY_DESKRIPSI    = "deskripsi";
     public static final String KEY_STATUS       = "status";
+
+    public static final String KEY_JUMLAH       = "jumlah";
 }

@@ -144,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
                 String s = rh.sendGetRequest(Konfigurasi.URL_CEK_PROGRAM_HAUL);
                 return s;
             }
+
+
         }
 
         LoadData loadData = new LoadData();

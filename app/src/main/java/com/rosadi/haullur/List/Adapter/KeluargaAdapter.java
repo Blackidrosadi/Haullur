@@ -176,7 +176,7 @@ public class KeluargaAdapter extends RecyclerView.Adapter<KeluargaAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView nama, rt, jumlah;
-        ImageView telepon;
+        RelativeLayout telepon;
 
         RelativeLayout bg, bgjumlah;
 

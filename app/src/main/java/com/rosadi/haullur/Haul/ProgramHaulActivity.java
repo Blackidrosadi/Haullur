@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import com.rosadi.haullur.List.Adapter.HaulAdapter;
 import com.rosadi.haullur.List.Model.Haul;
+import com.rosadi.haullur.MainActivity;
+import com.rosadi.haullur.Penarikan.PenarikanActivity;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;
@@ -34,6 +37,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class ProgramHaulActivity extends AppCompatActivity {
 
@@ -59,68 +63,7 @@ public class ProgramHaulActivity extends AppCompatActivity {
         findViewById(R.id.tambah).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog(ProgramHaulActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.dialog_tambah_program);
-                dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                dialog.setCancelable(false);
-
-                TextView tanggalTV = dialog.findViewById(R.id.tanggal);
-                EditText deskripsiET = dialog.findViewById(R.id.deskripsi);
-
-                Calendar c = Calendar.getInstance();
-                int tahun = c.get(Calendar.YEAR);
-                int bulan = c.get(Calendar.MONTH);
-                int tanggal = c.get(Calendar.DAY_OF_MONTH);
-
-                dialog.findViewById(R.id.pilih_tanggal).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                                ProgramHaulActivity.this,
-                                new DatePickerDialog.OnDateSetListener() {
-                                    @Override
-                                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                                        try {
-                                            Date date = simpleDateFormat.parse(i2 + "-" + (i1 + 1) + "-" + i);
-                                            simpleDateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy");
-                                            tanggalTV.setText(""+simpleDateFormat.format(date));
-                                        } catch (ParseException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                },
-                                tahun, bulan, tanggal
-                        );
-                        datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
-                        datePickerDialog.show();
-                    }
-                });
-
-                dialog.findViewById(R.id.simpan).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (tanggalTV.getText().toString().equals("Pilih Tanggal")) {
-                            Toast.makeText(ProgramHaulActivity.this, "Tanggal program haul belum dipilih!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            if (deskripsiET.getText().toString().equals("")) {
-                                tambahProgramHaul(dialog, tanggalTV.getText().toString(), "Haul Jemuah Legi");
-                            } else {
-                                tambahProgramHaul(dialog, tanggalTV.getText().toString(), deskripsiET.getText().toString());
-                            }
-                        }
-                    }
-                });
-
-                dialog.findViewById(R.id.batal).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
+                cekProgramHaul();
             }
         });
 
@@ -130,6 +73,109 @@ public class ProgramHaulActivity extends AppCompatActivity {
         recyclerView.setAdapter(haulAdapter);
 
         loadHaul();
+    }
+
+    private void cekProgramHaul() {
+        class LoadData extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog progressDialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog = ProgressDialog.show(ProgramHaulActivity.this, "Informasi", "Memeriksa program haul...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                progressDialog.dismiss();
+
+                if (s.trim().equals("1")) {
+                    Toast.makeText(ProgramHaulActivity.this, "Selesaikan haul sebelumnya sebelum menambah program haul baru!", Toast.LENGTH_SHORT).show();
+                } else {
+                    dialogTambahProgram();
+                }
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendGetRequest(Konfigurasi.URL_CEK_PROGRAM_HAUL);
+                return s;
+            }
+
+
+        }
+
+        LoadData loadData = new LoadData();
+        loadData.execute();
+    }
+
+    private void dialogTambahProgram() {
+        Dialog dialog = new Dialog(ProgramHaulActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_tambah_program);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+
+        TextView tanggalTV = dialog.findViewById(R.id.tanggal);
+        EditText deskripsiET = dialog.findViewById(R.id.deskripsi);
+
+        Calendar c = Calendar.getInstance();
+        int tahun = c.get(Calendar.YEAR);
+        int bulan = c.get(Calendar.MONTH);
+        int tanggal = c.get(Calendar.DAY_OF_MONTH);
+
+        dialog.findViewById(R.id.pilih_tanggal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        ProgramHaulActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                                try {
+                                    Date date = simpleDateFormat.parse(i2 + "-" + (i1 + 1) + "-" + i);
+                                    Locale local = new Locale("id", "id");
+                                    simpleDateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy", local);
+                                    tanggalTV.setText(""+simpleDateFormat.format(date));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        tahun, bulan, tanggal
+                );
+                datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
+                datePickerDialog.show();
+            }
+        });
+
+        dialog.findViewById(R.id.simpan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tanggalTV.getText().toString().equals("Pilih Tanggal")) {
+                    Toast.makeText(ProgramHaulActivity.this, "Tanggal program haul belum dipilih!", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (deskripsiET.getText().toString().equals("")) {
+                        tambahProgramHaul(dialog, tanggalTV.getText().toString(), "Haul Jemuah Legi");
+                    } else {
+                        tambahProgramHaul(dialog, tanggalTV.getText().toString(), deskripsiET.getText().toString());
+                    }
+                }
+            }
+        });
+
+        dialog.findViewById(R.id.batal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     private void loadHaul() {
