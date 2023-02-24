@@ -151,7 +151,7 @@ public class KeluargaByAkunAdapter extends RecyclerView.Adapter<KeluargaByAkunAd
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 progressDialog.dismiss();
-//                loadKeluargaTerbaru();
+                ((PenarikanActivity) context).loadPenarikanByPetugas();
 
                 Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
             }
