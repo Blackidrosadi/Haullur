@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     LoginActivity.this.finish();
 
-                    System.out.println("namasayaaaaa : " + nama);
+                    System.out.println("namasayaaaaa : " + id);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

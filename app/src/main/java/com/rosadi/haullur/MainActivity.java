@@ -62,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_menu_akun:
                         startActivity(new Intent(MainActivity.this, AkunActivity.class));
                         return true;
+
+                    case R.id.nav_log_out:
+                        preferences.edit().clear().commit();
+
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        finish();
                 }
 
                 return true;

@@ -6,7 +6,7 @@
     <group android:checkableBehavior="none">
         <item
             android:id="@+id/nav_menu_haul"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@mipmap/ic_penarikan_white"
             android:title="Haul" />
 
         <item
@@ -14,27 +14,10 @@
             android:icon="@drawable/ic_user"
             android:title="Akun" />
 
-        <item
-            android:id="@+id/nav_menu2"
-            android:icon="@mipmap/ic_informasi"
-            android:title="Menu 2" />
-
-        <item
-            android:id="@+id/nav_log_out2"
-            android:icon="@android:drawable/ic_lock_power_off"
-            android:title="Log Out" />
-        <item
-            android:id="@+id/nav_menu4"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Menu 2" />
     </group>
 
     <item android:title="Lainnya">
         <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_user"
-                android:title="User" />
             <item
                 android:id="@+id/nav_log_out"
                 android:icon="@android:drawable/ic_lock_power_off"
