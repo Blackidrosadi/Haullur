@@ -13,13 +13,14 @@ public class Konfigurasi {
     public static final String URL_TAMBAH_PENUGASAN     = URL + "akun/tambahPenugasan.php";
     public static final String URL_HAPUS_PENUGASAN      = URL + "akun/hapusPenugasan.php";
 
-    public static final String URL_LOAD_KELUARGA            = URL + "keluarga/load.php";
     public static final String URL_LOAD_KELUARGA_BY_PETUGAS = URL + "keluarga/loadByPetugas.php?id=";
-    public static final String URL_LOAD_KELUARGA_TERBARU    = URL + "keluarga/loadTerbaru.php";
     public static final String URL_CARI_KELUARGA            = URL + "keluarga/cari.php?cari=";
 
     public static final String URL_LOAD_KELUARGA_FREE       = URL + "keluarga/loadFree.php";
     public static final String URL_CARI_KELUARGA_FREE       = URL + "keluarga/cariFree.php?cari=";
+
+    public static final String URL_LOAD_KELUARGA_PAGINATION = URL + "keluarga/loadPagination.php?page=";
+    public static final String URL_LOAD_KELUARGA_BARU_DITAMBAHKAN = URL + "keluarga/loadDataBaruDitambahkan.php";
 
     public static final String URL_TAMBAH_KELUARGA      = URL + "keluarga/tambah.php";
     public static final String URL_EDIT_KELUARGA        = URL + "keluarga/edit.php";

@@ -65,7 +65,7 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:layout_toLeftOf="@+id/filter"
+            android:layout_toLeftOf="@+id/carinya"
             android:paddingHorizontal="10dp">
 
             <EditText
@@ -84,7 +84,7 @@
                 android:textStyle="bold" />
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/filter"
+            android:id="@+id/carinya"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@drawable/bg_button_rounded"
@@ -98,7 +98,7 @@
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:src="@mipmap/ic_menu" />
+                android:src="@drawable/ic_search" />
 
         </RelativeLayout>
 
@@ -109,11 +109,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="30dp"/>
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_above="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="30dp"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>
