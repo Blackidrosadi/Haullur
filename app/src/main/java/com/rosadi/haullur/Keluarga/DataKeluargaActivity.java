@@ -175,6 +175,7 @@ public class DataKeluargaActivity extends AppCompatActivity {
                                 keluarga.setNama(object.getString(Konfigurasi.KEY_NAMA));
                                 keluarga.setRt(object.getString(Konfigurasi.KEY_RT));
                                 keluarga.setTelepon(object.getString(Konfigurasi.KEY_TELEPON));
+                                keluarga.setjumlahAlmarhum(object.getString(Konfigurasi.KEY_JUMLAH_ALMARHUM));
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -225,6 +226,7 @@ public class DataKeluargaActivity extends AppCompatActivity {
                         keluarga.setNama(object.getString(Konfigurasi.KEY_NAMA));
                         keluarga.setRt(object.getString(Konfigurasi.KEY_RT));
                         keluarga.setTelepon(object.getString(Konfigurasi.KEY_TELEPON));
+                        keluarga.setjumlahAlmarhum(object.getString(Konfigurasi.KEY_JUMLAH_ALMARHUM));
                         keluargaList.add(keluarga);
                     }
                     keluargaAdapter.notifyDataSetChanged();
@@ -349,6 +351,7 @@ public class DataKeluargaActivity extends AppCompatActivity {
                     i.putExtra(Konfigurasi.KEY_NAMA, data.getString(Konfigurasi.KEY_NAMA));
                     i.putExtra(Konfigurasi.KEY_RT, data.getString(Konfigurasi.KEY_RT));
                     i.putExtra(Konfigurasi.KEY_TELEPON, data.getString(Konfigurasi.KEY_TELEPON));
+                    i.putExtra(Konfigurasi.KEY_JUMLAH_ALMARHUM, data.getString(Konfigurasi.KEY_JUMLAH_ALMARHUM));
                     startActivity(i);
 
                 } catch (JSONException e) {

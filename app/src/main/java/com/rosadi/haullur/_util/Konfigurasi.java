@@ -4,7 +4,8 @@ public class Konfigurasi {
     /**
      * URL FILE PHP
      */
-    public static final String URL  = "http://192.168.1.34:8080/haullur/";
+//    public static final String URL  = "http://192.168.1.34:8080/haullur/";
+    public static final String URL  = "http://192.168.0.155:8080/haullur/";
 //    public static final String URL  = "https://fprg-haullur.000webhostapp.com/haullur/";
 
     public static final String URL_LOGIN                = URL + "akun/login.php";
@@ -19,8 +20,8 @@ public class Konfigurasi {
     public static final String URL_LOAD_KELUARGA_FREE       = URL + "keluarga/loadFree.php";
     public static final String URL_CARI_KELUARGA_FREE       = URL + "keluarga/cariFree.php?cari=";
 
-    public static final String URL_LOAD_KELUARGA_PAGINATION = URL + "keluarga/loadPagination.php?page=";
-    public static final String URL_LOAD_KELUARGA_BARU_DITAMBAHKAN = URL + "keluarga/loadDataBaruDitambahkan.php";
+    public static final String URL_LOAD_KELUARGA_PAGINATION         = URL + "keluarga/loadPagination.php?page=";
+    public static final String URL_LOAD_KELUARGA_BARU_DITAMBAHKAN   = URL + "keluarga/loadDataBaruDitambahkan.php";
 
     public static final String URL_TAMBAH_KELUARGA      = URL + "keluarga/tambah.php";
     public static final String URL_EDIT_KELUARGA        = URL + "keluarga/edit.php";
@@ -30,7 +31,6 @@ public class Konfigurasi {
     public static final String URL_TAMBAH_ALMARHUM      = URL + "keluarga/tambahAlmarhum.php";
     public static final String URL_EDIT_ALMARHUM        = URL + "keluarga/editAlmarhum.php";
     public static final String URL_HAPUS_ALMARHUM       = URL + "keluarga/hapusAlmarhum.php";
-    public static final String URL_LOAD_TOTAL_ALMARHUM  = URL + "keluarga/loadTotalAlmarhum.php?id=";
 
     public static final String URL_LOAD_PROGRAM_HAUL        = URL + "haul/loadProgram.php";
     public static final String URL_LOAD_PROGRAM_AKTIF_HAUL  = URL + "haul/loadProgramAktif.php";
@@ -39,6 +39,7 @@ public class Konfigurasi {
 
     public static final String URL_LOAD_PENARIKAN           = URL + "penarikan/load.php?id=";
     public static final String URL_TRANSAKSI_PENARIKAN      = URL + "penarikan/tambah.php";
+    public static final String URL_KELUARGA_PENARIKAN       = URL + "penarikan/loadKeluarga.php";
     /**
      * TAG / KEY
      */
@@ -51,12 +52,12 @@ public class Konfigurasi {
     public static final String KEY_USER_LEVEL_PREFERENCE    = "level_pref";
     public static final String KEY_JSON_ARRAY_RESULT        = "result";
 
-    public static final String KEY_ID       = "id";
-    public static final String KEY_NAMA     = "nama";
-    public static final String KEY_EMAIL    = "email";
-    public static final String KEY_TELEPON  = "telepon";
-    public static final String KEY_SANDI    = "sandi";
-    public static final String KEY_LEVEL    = "level";
+    public static final String KEY_ID               = "id";
+    public static final String KEY_NAMA             = "nama";
+    public static final String KEY_EMAIL            = "email";
+    public static final String KEY_TELEPON          = "telepon";
+    public static final String KEY_SANDI            = "sandi";
+    public static final String KEY_LEVEL            = "level";
 
     public static final String KEY_RT = "rt";
 
@@ -68,5 +69,6 @@ public class Konfigurasi {
     public static final String KEY_DESKRIPSI    = "deskripsi";
     public static final String KEY_STATUS       = "status";
 
-    public static final String KEY_JUMLAH       = "jumlah";
+    public static final String KEY_JUMLAH_UANG          = "jumlah_uang";
+    public static final String KEY_JUMLAH_ALMARHUM      = "jumlah_almarhum";
 }

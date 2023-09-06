@@ -305,6 +305,7 @@ public class DetailAkunActivity extends AppCompatActivity {
                         keluarga.setNama(object.getString(Konfigurasi.KEY_NAMA));
                         keluarga.setRt(object.getString(Konfigurasi.KEY_RT));
                         keluarga.setTelepon(object.getString(Konfigurasi.KEY_TELEPON));
+                        keluarga.setjumlahAlmarhum(object.getString(Konfigurasi.KEY_JUMLAH_ALMARHUM));
                         keluargaList.add(keluarga);
                     }
 
@@ -358,6 +359,7 @@ public class DetailAkunActivity extends AppCompatActivity {
                         keluarga.setNama(object.getString(Konfigurasi.KEY_NAMA));
                         keluarga.setRt(object.getString(Konfigurasi.KEY_RT));
                         keluarga.setTelepon(object.getString(Konfigurasi.KEY_TELEPON));
+                        keluarga.setjumlahAlmarhum(object.getString(Konfigurasi.KEY_JUMLAH_ALMARHUM));
                         keluargaList.add(keluarga);
                     }
 
@@ -444,6 +446,7 @@ public class DetailAkunActivity extends AppCompatActivity {
                         keluarga.setNama(object.getString(Konfigurasi.KEY_NAMA));
                         keluarga.setRt(object.getString(Konfigurasi.KEY_RT));
                         keluarga.setTelepon(object.getString(Konfigurasi.KEY_TELEPON));
+                        keluarga.setjumlahAlmarhum(object.getString(Konfigurasi.KEY_JUMLAH_ALMARHUM));
                         keluargaList.add(keluarga);
                     }
 

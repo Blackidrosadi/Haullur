@@ -1,7 +1,7 @@
 package com.rosadi.haullur.List.Model;
 
 public class Penarikan {
-    String id, idHaul, idKeluarga, jumlah, deskripsi, idAkun, nama, rt;
+    String id, idHaul, idKeluarga, jumlahUang, deskripsi, idAkun, nama, rt, jumlahAlmarhum;
 
     public String getId() {
         return id;
@@ -27,12 +27,12 @@ public class Penarikan {
         this.idKeluarga = idKeluarga;
     }
 
-    public String getJumlah() {
-        return jumlah;
+    public String getJumlahUang() {
+        return jumlahUang;
     }
 
-    public void setJumlah(String jumlah) {
-        this.jumlah = jumlah;
+    public void setJumlahUang(String jumlahUang) {
+        this.jumlahUang = jumlahUang;
     }
 
     public String getDeskripsi() {
@@ -65,5 +65,13 @@ public class Penarikan {
 
     public void setRt(String rt) {
         this.rt = rt;
+    }
+
+    public String getJumlahAlmarhum() {
+        return jumlahAlmarhum;
+    }
+
+    public void setJumlahAlmarhum(String jumlahAlmarhum) {
+        this.jumlahAlmarhum = jumlahAlmarhum;
     }
 }

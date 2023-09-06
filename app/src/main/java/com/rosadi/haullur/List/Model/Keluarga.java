@@ -1,7 +1,7 @@
 package com.rosadi.haullur.List.Model;
 
 public class Keluarga {
-    String id, nama, rt, telepon;
+    String id, nama, rt, telepon, jumlahAlmarhum;
 
     public String getId() {
         return id;
@@ -33,5 +33,13 @@ public class Keluarga {
 
     public void setTelepon(String telepon) {
         this.telepon = telepon;
+    }
+
+    public String getJumlah() {
+        return jumlahAlmarhum;
+    }
+
+    public void setjumlahAlmarhum(String jumlahAlmarhum) {
+        this.jumlahAlmarhum = jumlahAlmarhum;
     }
 }

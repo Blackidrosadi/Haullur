@@ -58,7 +58,7 @@ public class KeluargaAdapter extends RecyclerView.Adapter<KeluargaAdapter.ViewHo
 
         holder.nama.setText(keluarga.getNama());
         holder.rt.setText("RT " + keluarga.getRt());
-        loadTotalAlmarhums(holder.jumlah, keluarga.getId());
+        holder.jumlah.setText(keluarga.getJumlah());
 
         if (context.getClass().getSimpleName().equals("DataKeluargaActivity")) {
             holder.telepon.setOnClickListener(new View.OnClickListener() {
@@ -139,33 +139,6 @@ public class KeluargaAdapter extends RecyclerView.Adapter<KeluargaAdapter.ViewHo
             holder.bg.setBackground(context.getResources().getDrawable(R.drawable.bg_button_rounded));
             holder.bgjumlah.setBackground(context.getResources().getDrawable(R.drawable.bg_card_accent_rounded));
         }
-    }
-
-    private void loadTotalAlmarhums(TextView total, String id) {
-        class LoadTotalAlmarhums extends AsyncTask<Void, Void, String> {
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-
-                total.setText(s.trim());
-            }
-
-            @Override
-            protected String doInBackground(Void... voids) {
-                RequestHandler handler = new RequestHandler();
-                String s = handler.sendGetRequestParam(Konfigurasi.URL_LOAD_TOTAL_ALMARHUM, id);
-                return s;
-            }
-        }
-
-        LoadTotalAlmarhums totalAlmarhums = new LoadTotalAlmarhums();
-        totalAlmarhums.execute();
     }
 
     @Override

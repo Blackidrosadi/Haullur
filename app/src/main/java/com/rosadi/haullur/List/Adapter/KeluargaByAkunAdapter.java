@@ -67,7 +67,7 @@ public class KeluargaByAkunAdapter extends RecyclerView.Adapter<KeluargaByAkunAd
 
         holder.nama.setText(keluarga.getNama());
         holder.rt.setText("RT " + keluarga.getRt());
-        loadTotalAlmarhums(holder.jumlah, keluarga.getId());
+        holder.jumlah.setText(keluarga.getJumlah());
 
         if (context.getClass().getSimpleName().equals("DetailAkunActivity")) {
             holder.telepon.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +161,7 @@ public class KeluargaByAkunAdapter extends RecyclerView.Adapter<KeluargaByAkunAd
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put(Konfigurasi.KEY_ID_HAUL, ((PenarikanActivity) context).idHaul);
                 hashMap.put(Konfigurasi.KEY_ID_KELUARGA, idKeluarga);
-                hashMap.put(Konfigurasi.KEY_JUMLAH, String.valueOf(jumlah));
+                hashMap.put(Konfigurasi.KEY_JUMLAH_UANG, String.valueOf(jumlah));
                 hashMap.put(Konfigurasi.KEY_DESKRIPSI, "");
                 hashMap.put(Konfigurasi.KEY_ID_AKUN, ((PenarikanActivity) context).idAkun);
 
@@ -230,33 +230,6 @@ public class KeluargaByAkunAdapter extends RecyclerView.Adapter<KeluargaByAkunAd
                 }
             }
         });
-    }
-
-    private void loadTotalAlmarhums(TextView total, String id) {
-        class LoadTotalAlmarhums extends AsyncTask<Void, Void, String> {
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-
-                total.setText(s.trim());
-            }
-
-            @Override
-            protected String doInBackground(Void... voids) {
-                RequestHandler handler = new RequestHandler();
-                String s = handler.sendGetRequestParam(Konfigurasi.URL_LOAD_TOTAL_ALMARHUM, id);
-                return s;
-            }
-        }
-
-        LoadTotalAlmarhums totalAlmarhums = new LoadTotalAlmarhums();
-        totalAlmarhums.execute();
     }
 
     @Override

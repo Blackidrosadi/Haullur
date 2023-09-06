@@ -36,6 +36,7 @@ import org.json.JSONObject;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class PenarikanActivity extends AppCompatActivity {
@@ -103,24 +104,6 @@ public class PenarikanActivity extends AppCompatActivity {
         dialogTambah.setCancelable(false);
 
         RecyclerView recyclerView = dialogTambah.findViewById(R.id.recycler_view);
-        EditText cari = dialogTambah.findViewById(R.id.cari);
-
-        cari.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                cariKeluargaFree(recyclerView, charSequence.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(PenarikanActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -167,6 +150,7 @@ public class PenarikanActivity extends AppCompatActivity {
                         keluarga.setNama(object.getString(Konfigurasi.KEY_NAMA));
                         keluarga.setRt(object.getString(Konfigurasi.KEY_RT));
                         keluarga.setTelepon(object.getString(Konfigurasi.KEY_TELEPON));
+                        keluarga.setjumlahAlmarhum(object.getString(Konfigurasi.KEY_JUMLAH_ALMARHUM));
                         keluargaList.add(keluarga);
                     }
 
@@ -182,8 +166,12 @@ public class PenarikanActivity extends AppCompatActivity {
 
             @Override
             protected String doInBackground(Void... voids) {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put(Konfigurasi.KEY_ID_AKUN, preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
+                hashMap.put(Konfigurasi.KEY_ID_HAUL, idHaul);
+
                 RequestHandler rh = new RequestHandler();
-                String s = rh.sendGetRequestParam(Konfigurasi.URL_LOAD_KELUARGA_BY_PETUGAS, preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
+                String s = rh.sendPostRequest(Konfigurasi.URL_KELUARGA_PENARIKAN, hashMap);
                 return s;
             }
         }
@@ -261,11 +249,12 @@ public class PenarikanActivity extends AppCompatActivity {
                         penarikan.setId(object.getString(Konfigurasi.KEY_ID));
                         penarikan.setIdHaul(object.getString(Konfigurasi.KEY_ID_HAUL));
                         penarikan.setIdKeluarga(object.getString(Konfigurasi.KEY_ID_KELUARGA));
-                        penarikan.setJumlah(object.getString(Konfigurasi.KEY_JUMLAH));
+                        penarikan.setJumlahUang(object.getString(Konfigurasi.KEY_JUMLAH_UANG));
                         penarikan.setDeskripsi(object.getString(Konfigurasi.KEY_DESKRIPSI));
                         penarikan.setIdAkun(object.getString(Konfigurasi.KEY_ID_AKUN));
                         penarikan.setNama(object.getString(Konfigurasi.KEY_NAMA));
                         penarikan.setRt(object.getString(Konfigurasi.KEY_RT));
+                        penarikan.setJumlahAlmarhum(object.getString(Konfigurasi.KEY_JUMLAH_ALMARHUM));
                         penarikanList.add(penarikan);
                     }
 
