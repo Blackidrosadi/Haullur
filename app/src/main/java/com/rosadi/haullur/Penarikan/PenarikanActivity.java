@@ -49,7 +49,7 @@ public class PenarikanActivity extends AppCompatActivity {
     PenarikanAdapter penarikanAdapter;
     ArrayList<Penarikan> penarikanList = new ArrayList<>();
 
-    TextView deskripsiTV, tanggalTV;
+    TextView deskripsiTV, tanggalTV, totaldanaTV;
     RecyclerView recyclerView;
 
     public Dialog dialogTambah;
@@ -66,6 +66,7 @@ public class PenarikanActivity extends AppCompatActivity {
         nama.setText(preferences.getString(Konfigurasi.KEY_USER_NAMA_PREFERENCE, null));
         deskripsiTV = findViewById(R.id.deskripsi);
         tanggalTV = findViewById(R.id.tanggal);
+        totaldanaTV = findViewById(R.id.totaldana);
         recyclerView = findViewById(R.id.recycler_view);
 
         findViewById(R.id.kembali).setOnClickListener(new View.OnClickListener() {
@@ -94,6 +95,7 @@ public class PenarikanActivity extends AppCompatActivity {
         recyclerView.setAdapter(penarikanAdapter);
 
         loadData();
+        loadTotalPenarikanByPetugas();
     }
 
     private void openDialogTransaksi() {
@@ -218,6 +220,69 @@ public class PenarikanActivity extends AppCompatActivity {
             protected String doInBackground(Void... voids) {
                 RequestHandler rh = new RequestHandler();
                 String s = rh.sendGetRequest(Konfigurasi.URL_LOAD_PROGRAM_AKTIF_HAUL);
+                return s;
+            }
+        }
+
+        LoadData loadData = new LoadData();
+        loadData.execute();
+    }
+
+    public void loadTotalPenarikanByPetugas() {
+        class LoadData extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    String totaldana = jsonObject.getString(Konfigurasi.KEY_JSON_ARRAY_RESULT);
+
+                    Locale local = new Locale("id", "id");
+                    String replaceable = String.format("[Rp,.\\s]",
+                            NumberFormat.getCurrencyInstance()
+                                    .getCurrency()
+                                    .getSymbol(local));
+                    String cleanString = totaldana.replaceAll(replaceable, "");
+
+                    double parsed;
+                    try {
+                        parsed = Double.parseDouble(cleanString);
+                    } catch (NumberFormatException e) {
+                        parsed = 0.00;
+                    }
+
+                    NumberFormat formatter = NumberFormat
+                            .getCurrencyInstance(local);
+                    formatter.setMaximumFractionDigits(0);
+                    formatter.setParseIntegerOnly(true);
+                    String formatted = formatter.format((parsed));
+
+                    String replace = String.format("[Rp\\s]",
+                            NumberFormat.getCurrencyInstance().getCurrency()
+                                    .getSymbol(local));
+                    String clean = formatted.replaceAll(replace, "");
+
+                    if (clean.equals("0")) {
+                        totaldanaTV.setText("0,-");
+                    } else {
+                        totaldanaTV.setText(clean + ",-");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendGetRequestParam(Konfigurasi.URL_TOTAL_DANA_PENARIKAN, preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
                 return s;
             }
         }

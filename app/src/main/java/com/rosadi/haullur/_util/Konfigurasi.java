@@ -5,7 +5,7 @@ public class Konfigurasi {
      * URL FILE PHP
      */
 //    public static final String URL  = "http://192.168.1.34:8080/haullur/";
-    public static final String URL  = "http://192.168.0.155:8080/haullur/";
+    public static final String URL  = "http://192.168.1.69:8080/haullur/";
 //    public static final String URL  = "https://fprg-haullur.000webhostapp.com/haullur/";
 
     public static final String URL_LOGIN                = URL + "akun/login.php";
@@ -40,6 +40,7 @@ public class Konfigurasi {
     public static final String URL_LOAD_PENARIKAN           = URL + "penarikan/load.php?id=";
     public static final String URL_TRANSAKSI_PENARIKAN      = URL + "penarikan/tambah.php";
     public static final String URL_KELUARGA_PENARIKAN       = URL + "penarikan/loadKeluarga.php";
+    public static final String URL_TOTAL_DANA_PENARIKAN     = URL + "penarikan/getTotalPenarikanByPetugas.php?id=";
     /**
      * TAG / KEY
      */
