@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Sep 2023 pada 15.57
+-- Waktu pembuatan: 07 Sep 2023 pada 11.09
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.2.0
 
@@ -952,7 +952,8 @@ INSERT INTO `almarhums` (`id`, `nama`, `id_keluarga`) VALUES
 (927, 'Bapak Minin', 50),
 (928, 'Bu Mutmainah', 50),
 (929, 'Bu Suwaidah', 50),
-(930, 'Bu Tasmina', 50);
+(930, 'Bu Tasmina', 50),
+(932, 'TEST', 59);
 
 -- --------------------------------------------------------
 
@@ -1018,7 +1019,7 @@ INSERT INTO `keluarga` (`id`, `nama`, `rt`, `telepon`, `id_user`) VALUES
 (35, 'Bapak Misbakhul Isya', 2, '', 0),
 (36, 'Bapak Abdilah', 2, '', 0),
 (37, 'Bapak Samsuri/Ibu Khotimah', 2, '', 0),
-(38, 'Bapak Ayub', 2, '', 0),
+(38, 'Bapak Ayub', 2, '', 1),
 (39, 'Bapak Apri', 2, '', 0),
 (40, 'Bapak Yan Rakasiwi', 2, '', 0),
 (41, 'Bapak H. Mudjiono', 2, '', 4),
@@ -1052,8 +1053,9 @@ CREATE TABLE `penarikan` (
 --
 
 INSERT INTO `penarikan` (`id`, `id_haul`, `id_keluarga`, `jumlah`, `deskripsi`, `id_user`) VALUES
-(20, 16, 32, 100000, '', 1),
-(21, 16, 25, 80000, '', 1);
+(25, 16, 32, 25000, '', 1),
+(26, 16, 38, 50000, '', 1),
+(29, 16, 25, 25000, '', 1);
 
 -- --------------------------------------------------------
 
@@ -1126,25 +1128,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `almarhums`
 --
 ALTER TABLE `almarhums`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=932;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=933;
 
 --
 -- AUTO_INCREMENT untuk tabel `haul`
 --
 ALTER TABLE `haul`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `keluarga`
 --
 ALTER TABLE `keluarga`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT untuk tabel `penarikan`
 --
 ALTER TABLE `penarikan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
