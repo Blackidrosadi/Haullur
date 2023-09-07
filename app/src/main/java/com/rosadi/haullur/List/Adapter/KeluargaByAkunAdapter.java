@@ -15,15 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rosadi.haullur.Akun.DetailAkunActivity;
-import com.rosadi.haullur.Keluarga.DataKeluargaActivity;
-import com.rosadi.haullur.Keluarga.DataKeluargaDetailActivity;
 import com.rosadi.haullur.List.Model.Keluarga;
 import com.rosadi.haullur.Penarikan.PenarikanActivity;
 import com.rosadi.haullur.R;
@@ -99,7 +95,7 @@ public class KeluargaByAkunAdapter extends RecyclerView.Adapter<KeluargaByAkunAd
                 public void onClick(View view) {
                     Dialog dialog = new Dialog(context);
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setContentView(R.layout.dialog_penarikan);
+                    dialog.setContentView(R.layout.dialog_dana_penarikan);
                     dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     dialog.setCancelable(false);
 
