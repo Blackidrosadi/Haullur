@@ -95,7 +95,6 @@ public class PenarikanActivity extends AppCompatActivity {
         recyclerView.setAdapter(penarikanAdapter);
 
         loadData();
-        loadTotalPenarikanByPetugas();
     }
 
     private void openDialogTransaksi() {
@@ -211,6 +210,7 @@ public class PenarikanActivity extends AppCompatActivity {
                     tanggalTV.setText(tanggal);
 
                     loadPenarikanByPetugas();
+                    loadTotalPenarikanByPetugas();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -281,8 +281,15 @@ public class PenarikanActivity extends AppCompatActivity {
 
             @Override
             protected String doInBackground(Void... voids) {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put(Konfigurasi.KEY_ID, preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
+                hashMap.put(Konfigurasi.KEY_ID_HAUL, idHaul);
+
+                System.out.println("iduser = " + preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
+                System.out.println("idhaul = " + idHaul);
+
                 RequestHandler rh = new RequestHandler();
-                String s = rh.sendGetRequestParam(Konfigurasi.URL_TOTAL_DANA_PENARIKAN, preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
+                String s = rh.sendPostRequest(Konfigurasi.URL_TOTAL_DANA_PENARIKAN, hashMap);
                 return s;
             }
         }
@@ -335,8 +342,12 @@ public class PenarikanActivity extends AppCompatActivity {
 
             @Override
             protected String doInBackground(Void... voids) {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put(Konfigurasi.KEY_ID, preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
+                hashMap.put(Konfigurasi.KEY_ID_HAUL, idHaul);
+
                 RequestHandler rh = new RequestHandler();
-                String s = rh.sendGetRequestParam(Konfigurasi.URL_LOAD_PENARIKAN, preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
+                String s = rh.sendPostRequest(Konfigurasi.URL_LOAD_PENARIKAN, hashMap);
                 return s;
             }
         }

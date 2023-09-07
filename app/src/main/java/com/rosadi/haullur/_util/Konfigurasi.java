@@ -36,12 +36,12 @@ public class Konfigurasi {
     public static final String URL_TAMBAH_PROGRAM_HAUL      = URL + "haul/tambahProgram.php";
     public static final String URL_CEK_PROGRAM_HAUL         = URL + "haul/cekProgram.php";
 
-    public static final String URL_LOAD_PENARIKAN           = URL + "penarikan/load.php?id=";
+    public static final String URL_LOAD_PENARIKAN           = URL + "penarikan/load.php";
     public static final String URL_TRANSAKSI_PENARIKAN      = URL + "penarikan/tambah.php";
     public static final String URL_KELUARGA_PENARIKAN       = URL + "penarikan/loadKeluarga.php";
-    public static final String URL_TOTAL_DANA_PENARIKAN     = URL + "penarikan/getTotalPenarikanByPetugas.php?id=";
+    public static final String URL_TOTAL_DANA_PENARIKAN     = URL + "penarikan/getTotalPenarikanByPetugas.php";
     public static final String URL_UPDATE_DANA_PENARIKAN    = URL + "penarikan/update.php";
-    public static final String URL_HAPUS_DANA_PENARIKAN    = URL + "penarikan/hapus.php";
+    public static final String URL_HAPUS_DANA_PENARIKAN     = URL + "penarikan/hapus.php";
     /**
      * TAG / KEY
      */
