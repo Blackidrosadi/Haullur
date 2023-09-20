@@ -160,7 +160,7 @@ public class ProgramHaulActivity extends AppCompatActivity {
                     Toast.makeText(ProgramHaulActivity.this, "Tanggal program haul belum dipilih!", Toast.LENGTH_SHORT).show();
                 } else {
                     if (deskripsiET.getText().toString().equals("")) {
-                        tambahProgramHaul(dialog, tanggalTV.getText().toString(), "Haul Jemuah Legi");
+                            tambahProgramHaul(dialog, tanggalTV.getText().toString(), "Haul Jemuah Legi");
                     } else {
                         tambahProgramHaul(dialog, tanggalTV.getText().toString(), deskripsiET.getText().toString());
                     }

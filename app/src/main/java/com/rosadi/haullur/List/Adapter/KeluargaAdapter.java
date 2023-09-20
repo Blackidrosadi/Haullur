@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.rosadi.haullur.Akun.DetailAkunActivity;
 import com.rosadi.haullur.Keluarga.DataKeluargaDetailActivity;
+import com.rosadi.haullur.Laporan.LaporanDetailActivity;
 import com.rosadi.haullur.List.Model.Keluarga;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
@@ -46,7 +47,7 @@ public class KeluargaAdapter extends RecyclerView.Adapter<KeluargaAdapter.ViewHo
         View view = null;
         if (context.getClass().getSimpleName().equals("DataKeluargaActivity")) {
             view = LayoutInflater.from(context).inflate(R.layout.list_keluarga, parent, false);
-        } else if (context.getClass().getSimpleName().equals("DetailAkunActivity")) {
+        } else if (context.getClass().getSimpleName().equals("DetailAkunActivity") || context.getClass().getSimpleName().equals("LaporanDetailActivity")) {
             view = LayoutInflater.from(context).inflate(R.layout.list_keluarga_lite, parent, false);
         }
         return new ViewHolder(view);
@@ -126,6 +127,20 @@ public class KeluargaAdapter extends RecyclerView.Adapter<KeluargaAdapter.ViewHo
                     }
 
 //                    Toast.makeText(context, "posisi : " + keluarga.getId(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else if (context.getClass().getSimpleName().equals("LaporanDetailActivity")) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((LaporanDetailActivity) context).idKeluarga = keluarga.getId();
+                    ((LaporanDetailActivity) context).pilihKeluargaRL.setVisibility(View.GONE);
+                    ((LaporanDetailActivity) context).totalAlmarhumTV.setText(keluarga.getJumlah());
+                    ((LaporanDetailActivity) context).namaTV.setText(keluarga.getNama());
+                    ((LaporanDetailActivity) context).rtTV.setText("RT " + keluarga.getRt());
+
+                    ((LaporanDetailActivity) context).pilihanKeluargaRL.setVisibility(View.VISIBLE);
+                    ((LaporanDetailActivity) context).dialogPilihKeluarga.dismiss();
                 }
             });
         }

@@ -2,7 +2,7 @@ package com.rosadi.haullur.List.Model;
 
 public class Haul {
 
-    String id, tanggal, deskripsi, status;
+    String id, tanggal, deskripsi, status, total;
 
     public String getId() {
         return id;
@@ -34,5 +34,13 @@ public class Haul {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
     }
 }

@@ -5,7 +5,7 @@ public class Konfigurasi {
      * URL FILE PHP
      */
 //    public static final String URL  = "http://192.168.1.69:8080/haullur/";
-    public static final String URL  = "http://192.168.0.129:8080/haullur/";
+    public static final String URL  = "http://192.168.0.145:8080/haullur/";
 
     public static final String URL_LOGIN                = URL + "akun/login.php";
     public static final String URL_LOAD_AKUN            = URL + "akun/load.php";
@@ -26,6 +26,9 @@ public class Konfigurasi {
     public static final String URL_EDIT_KELUARGA        = URL + "keluarga/edit.php";
     public static final String URL_HAPUS_KELUARGA       = URL + "keluarga/hapus.php";
 
+    public static final String URL_LOAD_KELUARGA_LIMIT_30       = URL + "keluarga/loadKeluargaLimit30.php";
+    public static final String URL_CARI_KELUARGA_LIMIT_30       = URL + "keluarga/cariKeluargaLimit30.php?cari=";
+
     public static final String URL_LOAD_ALMARHUM        = URL + "keluarga/loadAlmarhum.php?id=";
     public static final String URL_TAMBAH_ALMARHUM      = URL + "keluarga/tambahAlmarhum.php";
     public static final String URL_EDIT_ALMARHUM        = URL + "keluarga/editAlmarhum.php";
@@ -42,6 +45,13 @@ public class Konfigurasi {
     public static final String URL_TOTAL_DANA_PENARIKAN     = URL + "penarikan/getTotalPenarikanByPetugas.php";
     public static final String URL_UPDATE_DANA_PENARIKAN    = URL + "penarikan/update.php";
     public static final String URL_HAPUS_DANA_PENARIKAN     = URL + "penarikan/hapus.php";
+
+    public static final String URL_LOAD_LAPORAN_HAUL                = URL + "laporan/haul.php";
+    public static final String URL_LOAD_LAPORAN_DETAIL              = URL + "laporan/detailhaul.php?id_haul=";
+    public static final String URL_TRANSAKSI_TAMBAH_DANA_LAINNYA    = URL + "laporan/tambahDanaLainnya.php";
+
+    public static final String URL_LOAD_LAPORAN_HAUL_TOTAL_DANA     = URL + "laporan/loadTotalDana.php?id_haul=";
+    public static final String URL_LOAD_LAPORAN_DANA_LAINNYA        = URL + "laporan/loadDanaLainnya.php?id_haul=";
     /**
      * TAG / KEY
      */
@@ -73,4 +83,7 @@ public class Konfigurasi {
 
     public static final String KEY_JUMLAH_UANG          = "jumlah_uang";
     public static final String KEY_JUMLAH_ALMARHUM      = "jumlah_almarhum";
+
+    public static final String KEY_TOTAL      = "total";
+    public static final String KEY_SUBTOTAL      = "subtotal";
 }

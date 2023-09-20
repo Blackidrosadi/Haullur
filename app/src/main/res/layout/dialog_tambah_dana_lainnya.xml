@@ -4,17 +4,17 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primary"
-    android:gravity="center"
+    android:gravity="center_vertical"
     android:orientation="vertical"
     android:paddingHorizontal="50dp"
     android:paddingVertical="20dp">
 
     <TextView
-        android:id="@+id/nama"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingHorizontal="15dp"
+        android:layout_gravity="center_horizontal"
         android:text="Tambahan Dana Lainnya"
         android:textColor="@color/white"
         android:textSize="22sp"
@@ -24,45 +24,195 @@
         android:layout_width="100dp"
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
-        android:background="@color/white" />
+        android:background="@color/white"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tipe Dana"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginTop="25dp"/>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/radio_dari_keluarga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dari keluarga"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+
+        <RadioButton
+            android:id="@+id/radio_sumbangan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sumbangan"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_marginLeft="15dp"/>
+
+    </RadioGroup>
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/pilih_keluarga"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_card_primarydark_rounded"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginTop="5dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pilih Keluarga"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/pilihan_keluarga"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_button_rounded"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="20dp"
+                android:layout_marginBottom="10dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:id="@+id/item1"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_button_rounded_accent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/total_almarhums"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="\?"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_toEndOf="@+id/item1"
+                    android:layout_toStartOf="@+id/close"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/nama"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Robert Jumari Pattinson"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/rt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RT 2"
+                        android:textColor="@color/white_50"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/close"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_close"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/deskripsiLL"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Keterangan"
+            android:text="Deskripsi"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
 
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_card_secondary_rounded">
-
-        <EditText
-            android:id="@+id/keterangan"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/white"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:hint="Keterangan..."
-            android:textColorHint="@color/white_50"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="10dp"
-            android:background="@null"/>
+            android:layout_height="50dp"
+            android:background="@drawable/bg_card_secondary_rounded">
+
+            <EditText
+                android:id="@+id/deskripsi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:hint="Keterangan..."
+                android:textColorHint="@color/white_50"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="10dp"
+                android:background="@null"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
