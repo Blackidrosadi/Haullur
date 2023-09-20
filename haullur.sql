@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Sep 2023 pada 15.57
+-- Waktu pembuatan: 20 Sep 2023 pada 10.53
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.2.0
 
@@ -952,7 +952,8 @@ INSERT INTO `almarhums` (`id`, `nama`, `id_keluarga`) VALUES
 (927, 'Bapak Minin', 50),
 (928, 'Bu Mutmainah', 50),
 (929, 'Bu Suwaidah', 50),
-(930, 'Bu Tasmina', 50);
+(930, 'Bu Tasmina', 50),
+(932, 'TEST', 59);
 
 -- --------------------------------------------------------
 
@@ -996,7 +997,7 @@ CREATE TABLE `keluarga` (
 
 INSERT INTO `keluarga` (`id`, `nama`, `rt`, `telepon`, `id_user`) VALUES
 (15, 'Bapak Sukarso', 2, '', 0),
-(16, 'Bapak Mat Jailani', 2, '', 0),
+(16, 'Bapak Mat Jailani', 2, '', 4),
 (17, 'Bapak Jumawi', 2, '', 0),
 (18, 'Saudara Darmaji', 2, '', 0),
 (19, 'Bapak Diran', 2, '', 0),
@@ -1011,14 +1012,14 @@ INSERT INTO `keluarga` (`id`, `nama`, `rt`, `telepon`, `id_user`) VALUES
 (28, 'Bapak Samin', 2, '', 0),
 (29, 'Ibu Sumarni', 2, '', 0),
 (30, 'Bapak Kariono', 2, '', 0),
-(31, 'Bapak Karim', 2, '', 0),
+(31, 'Bapak Karim', 2, '', 1),
 (32, 'Bapak Andik/Rudi Yulianto', 2, '', 1),
 (33, 'Bapak Siyanto', 2, '', 0),
 (34, 'Bapak M. Imam Arip', 2, '', 0),
 (35, 'Bapak Misbakhul Isya', 2, '', 0),
 (36, 'Bapak Abdilah', 2, '', 0),
 (37, 'Bapak Samsuri/Ibu Khotimah', 2, '', 0),
-(38, 'Bapak Ayub', 2, '', 0),
+(38, 'Bapak Ayub', 2, '', 1),
 (39, 'Bapak Apri', 2, '', 0),
 (40, 'Bapak Yan Rakasiwi', 2, '', 0),
 (41, 'Bapak H. Mudjiono', 2, '', 4),
@@ -1052,8 +1053,32 @@ CREATE TABLE `penarikan` (
 --
 
 INSERT INTO `penarikan` (`id`, `id_haul`, `id_keluarga`, `jumlah`, `deskripsi`, `id_user`) VALUES
-(20, 16, 32, 100000, '', 1),
-(21, 16, 25, 80000, '', 1);
+(25, 14, 32, 25000, '', 1),
+(26, 16, 38, 50000, '', 1),
+(29, 16, 25, 25000, '', 1),
+(30, 16, 41, 100000, '', 4),
+(31, 16, 45, 20000, '', 4),
+(32, 16, 22, 50000, '', 0),
+(40, 16, 21, 25000, '', 0),
+(41, 16, 0, 500000, 'Sumbangan', 0),
+(42, 16, 17, 20000, '', 0),
+(43, 16, 0, 100000, 'Sumbangan 2', 0),
+(44, 14, 33, 25000, '', 0),
+(45, 14, 0, 100000, 'Sumbangan', 0),
+(46, 14, 39, 50000, '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pengeluaran`
+--
+
+CREATE TABLE `pengeluaran` (
+  `id` int(11) NOT NULL,
+  `id_haul` int(11) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `jumlah` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1113,6 +1138,12 @@ ALTER TABLE `penarikan`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `pengeluaran`
+--
+ALTER TABLE `pengeluaran`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
@@ -1126,25 +1157,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `almarhums`
 --
 ALTER TABLE `almarhums`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=932;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=933;
 
 --
 -- AUTO_INCREMENT untuk tabel `haul`
 --
 ALTER TABLE `haul`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `keluarga`
 --
 ALTER TABLE `keluarga`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT untuk tabel `penarikan`
 --
 ALTER TABLE `penarikan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
+-- AUTO_INCREMENT untuk tabel `pengeluaran`
+--
+ALTER TABLE `pengeluaran`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
