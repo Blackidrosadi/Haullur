@@ -3,6 +3,7 @@ package com.rosadi.haullur.Laporan;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -54,8 +55,19 @@ public class LaporanActivity extends AppCompatActivity {
         haulAdapter = new HaulAdapter(LaporanActivity.this, haulList);
         recyclerView.setAdapter(haulAdapter);
 
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadHaul();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         loadHaul();
     }
+
+
 
     private void loadHaul() {
         class LoadData extends AsyncTask<Void, Void, String> {

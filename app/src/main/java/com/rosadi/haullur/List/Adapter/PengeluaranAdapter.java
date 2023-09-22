@@ -1,7 +1,6 @@
 package com.rosadi.haullur.List.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,67 +9,52 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rosadi.haullur.Laporan.LaporanRincianActivity;
-import com.rosadi.haullur.List.Model.HaulDetail;
+import com.rosadi.haullur.List.Model.Pengeluaran;
 import com.rosadi.haullur.R;
 
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class HaulDetailAdapter extends RecyclerView.Adapter<HaulDetailAdapter.ViewHolder> {
+public class PengeluaranAdapter extends RecyclerView.Adapter<PengeluaranAdapter.ViewHolder> {
 
     Context context;
-    List<HaulDetail> haulDetailList;
-    String idHaul;
+    List<Pengeluaran> pengeluaranList;
 
-    public HaulDetailAdapter(Context context, List<HaulDetail> haulDetailList, String idHaul) {
+    public PengeluaranAdapter(Context context, List<Pengeluaran> pengeluaranList) {
         this.context = context;
-        this.haulDetailList = haulDetailList;
-        this.idHaul = idHaul;
+        this.pengeluaranList = pengeluaranList;
     }
 
     @NonNull
     @Override
-    public HaulDetailAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_haul_detail, parent, false);
+    public PengeluaranAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.list_pengeluaran_dana, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HaulDetailAdapter.ViewHolder holder, int position) {
-        HaulDetail haulDetail = haulDetailList.get(position);
+    public void onBindViewHolder(@NonNull PengeluaranAdapter.ViewHolder holder, int position) {
+        Pengeluaran pengeluaran = pengeluaranList.get(position);
 
-        holder.nama.setText(haulDetail.getNama());
-        holder.subtotal.setText("Rp" + rupiahFormat(haulDetail.getSubtotal()) + ",-");
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(context, LaporanRincianActivity.class);
-                i.putExtra("id_haul", idHaul);
-                i.putExtra("id_akun", haulDetail.getIdAkun());
-                i.putExtra("nama", haulDetail.getNama());
-                i.putExtra("subtotal", haulDetail.getSubtotal());
-                context.startActivity(i);
-            }
-        });
+        holder.deskripsi.setText(pengeluaran.getDeskripsi());
+        holder.jumlah.setText("Rp" + rupiahFormat(pengeluaran.getJumlahUang()) + ",-");
     }
 
     @Override
     public int getItemCount() {
-        return haulDetailList.size();
+        return pengeluaranList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView nama, subtotal;
+        TextView deskripsi, jumlah;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            nama = itemView.findViewById(R.id.nama);
-            subtotal = itemView.findViewById(R.id.subtotal);
+            deskripsi = itemView.findViewById(R.id.deskripsi);
+            jumlah = itemView.findViewById(R.id.jumlah);
         }
     }
 

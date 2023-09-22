@@ -1,25 +1,31 @@
 package com.rosadi.haullur.Laporan.Fragment;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.rosadi.haullur.Laporan.LaporanDetailActivity;
 import com.rosadi.haullur.List.Adapter.HaulDetailAdapter;
 import com.rosadi.haullur.List.Adapter.HaulDetailDanaLainnyaAdapter;
-import com.rosadi.haullur.List.Adapter.PenarikanAdapter;
 import com.rosadi.haullur.List.Model.DanaLainnya;
 import com.rosadi.haullur.List.Model.HaulDetail;
-import com.rosadi.haullur.List.Model.Penarikan;
-import com.rosadi.haullur.Penarikan.PenarikanActivity;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;
@@ -28,9 +34,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 public class PemasukanFragment extends Fragment {
@@ -62,7 +70,7 @@ public class PemasukanFragment extends Fragment {
         recyclerViewPetugas.setLayoutManager(linearLayoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewPetugas.getContext(), linearLayoutManager.getOrientation());
         recyclerViewPetugas.addItemDecoration(dividerItemDecoration);
-        haulDetailAdapter = new HaulDetailAdapter(getActivity(), haulDetailList);
+        haulDetailAdapter = new HaulDetailAdapter(getActivity(), haulDetailList, idHaul);
         recyclerViewPetugas.setAdapter(haulDetailAdapter);
 
         linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -74,7 +82,95 @@ public class PemasukanFragment extends Fragment {
         loadDataPenarikanPetugas();
         loadDataDanaLainnya();
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Dialog dialog = new Dialog(getContext());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_iya_tidak);
+                dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+
+                TextView judul = dialog.findViewById(R.id.judul);
+                TextView teks = dialog.findViewById(R.id.teks);
+                TextView teksiya = dialog.findViewById(R.id.teksiya);
+
+                int position = viewHolder.getAdapterPosition();
+                DanaLainnya danaLainnya = danaLainnyaList.get(position);
+
+                judul.setText("Hapus Dana Pengeluaran");
+                teks.setText("Apa Antum yakin ingin menghapus pemasukan dana dengan jumlah Rp" + rupiahFormat(danaLainnya.getJumlahUang()) + ",- ?");
+                teksiya.setText("Hapus");
+
+                dialog.findViewById(R.id.iya).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        hapusDanaPemasukkanLainnya(danaLainnya.getId());
+
+                        danaLainnyaList.remove(position);
+                        haulDetailDanaLainnyaAdapter.notifyDataSetChanged();
+
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.findViewById(R.id.batal).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+
+                        haulDetailDanaLainnyaAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(recyclerViewLainnya);
+
         return view;
+    }
+
+    private void hapusDanaPemasukkanLainnya(String id) {
+        class HapusProses extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog progressDialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog = ProgressDialog.show(getActivity(), "Informasi", "Proses menghapus...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                progressDialog.dismiss();
+
+                ((LaporanDetailActivity) getActivity()).loadTotalDana();
+
+                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put(Konfigurasi.KEY_ID, id);
+
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendPostRequest(Konfigurasi.URL_HAPUS_DANA_PEMASUKAN_LAINNYA, hashMap);
+
+                return s;
+            }
+        }
+
+        HapusProses hapusProses = new HapusProses();
+        hapusProses.execute();
     }
 
     private void loadDataDanaLainnya() {
@@ -162,7 +258,7 @@ public class PemasukanFragment extends Fragment {
                     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewPetugas.getContext(), linearLayoutManager.getOrientation());
                     dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_primary));
                     recyclerViewPetugas.addItemDecoration(dividerItemDecoration);
-                    haulDetailAdapter = new HaulDetailAdapter(getActivity(), haulDetailList);
+                    haulDetailAdapter = new HaulDetailAdapter(getActivity(), haulDetailList, idHaul);
                     recyclerViewPetugas.setAdapter(haulDetailAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -179,5 +275,34 @@ public class PemasukanFragment extends Fragment {
 
         LoadData loadData = new LoadData();
         loadData.execute();
+    }
+
+    public String rupiahFormat(String jumlah) {
+        Locale local = new Locale("id", "id");
+        String replaceable = String.format("[Rp,.\\s]",
+                NumberFormat.getCurrencyInstance()
+                        .getCurrency()
+                        .getSymbol(local));
+        String cleanString = jumlah.replaceAll(replaceable, "");
+
+        double parsed;
+        try {
+            parsed = Double.parseDouble(cleanString);
+        } catch (NumberFormatException e) {
+            parsed = 0.00;
+        }
+
+        NumberFormat formatter = NumberFormat
+                .getCurrencyInstance(local);
+        formatter.setMaximumFractionDigits(0);
+        formatter.setParseIntegerOnly(true);
+        String formatted = formatter.format((parsed));
+
+        String replace = String.format("[Rp\\s]",
+                NumberFormat.getCurrencyInstance().getCurrency()
+                        .getSymbol(local));
+        String clean = formatted.replaceAll(replace, "");
+
+        return clean;
     }
 }

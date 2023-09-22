@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="10dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingHorizontal="5dp">
+    <RelativeLayout
+        android:id="@+id/item1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_button_rounded_accent"
+        android:layout_centerVertical="true"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/icon"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/item1"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/deskripsi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 Januari 1999"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:maxLines="5"/>
+
+        <TextView
+            android:id="@+id/jumlah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp0,-"
+            android:textColor="@color/white_50"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

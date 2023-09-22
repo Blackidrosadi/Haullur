@@ -48,10 +48,16 @@ public class Konfigurasi {
 
     public static final String URL_LOAD_LAPORAN_HAUL                = URL + "laporan/haul.php";
     public static final String URL_LOAD_LAPORAN_DETAIL              = URL + "laporan/detailhaul.php?id_haul=";
+
     public static final String URL_TRANSAKSI_TAMBAH_DANA_LAINNYA    = URL + "laporan/tambahDanaLainnya.php";
+    public static final String URL_TRANSAKSI_PENGELUARAN_DANA    = URL + "laporan/tambahPengeluaran.php";
 
     public static final String URL_LOAD_LAPORAN_HAUL_TOTAL_DANA     = URL + "laporan/loadTotalDana.php?id_haul=";
     public static final String URL_LOAD_LAPORAN_DANA_LAINNYA        = URL + "laporan/loadDanaLainnya.php?id_haul=";
+    public static final String URL_LOAD_LAPORAN_PENGELUARAN_DANA    = URL + "laporan/loadPengeluaranDana.php?id_haul=";
+
+    public static final String URL_HAPUS_DANA_PEMASUKAN_LAINNYA     = URL + "laporan/hapusPemasukanLainnya.php";
+    public static final String URL_HAPUS_DANA_PENGELUARAN           = URL + "laporan/hapusPengeluaran.php";
     /**
      * TAG / KEY
      */

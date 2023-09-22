@@ -159,6 +159,42 @@ public class LaporanDetailActivity extends AppCompatActivity {
         dialog.findViewById(R.id.pengeluaran).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                openDialogPengeluaran();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void openDialogPengeluaran() {
+        Dialog dialog = new Dialog(LaporanDetailActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_pengeluaran_dana);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+
+        EditText deskripsi = dialog.findViewById(R.id.deskripsi);
+        EditText jumlahET = dialog.findViewById(R.id.jumlah);
+        setRupiahFormat(jumlahET);
+
+        dialog.findViewById(R.id.simpan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (deskripsi.getText().toString().trim().equals("")) {
+                    Toast.makeText(LaporanDetailActivity.this, "Masukkan Deskripsi!", Toast.LENGTH_SHORT).show();
+                } else if (jumlahET.getText().toString().equals("") || jumlahET.getText().toString().equals("0")) {
+                    Toast.makeText(LaporanDetailActivity.this, "Masukkan jumlah dana!", Toast.LENGTH_SHORT).show();
+                } else {
+                    int jumlah = Integer.parseInt(jumlahET.getText().toString().replace(".", ""));
+                    prosesTambahPengeluaranDana(dialog, deskripsi.getText().toString(), jumlah);
+                }
+            }
+        });
+
+        dialog.findViewById(R.id.batal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 dialog.dismiss();
             }
         });
@@ -318,7 +354,59 @@ public class LaporanDetailActivity extends AppCompatActivity {
         prosesTambah.execute();
     }
 
-    private void loadTotalDana() {
+    private void prosesTambahPengeluaranDana(Dialog dialog, String deskripsi, int jumlah) {
+        class ProsesTambah extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog progressDialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog = ProgressDialog.show(LaporanDetailActivity.this, "Informasi", "Proses transaksi pengeluaran dana...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                dialog.dismiss();
+                progressDialog.dismiss();
+
+                Toast.makeText(LaporanDetailActivity.this, s, Toast.LENGTH_SHORT).show();
+
+                loadTotalDana();
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame, new PengeluaranFragment(idHaul))
+                        .commit();
+
+                textPemasukanTV.setTextColor(getResources().getColor(R.color.white_50));
+                barPemasukan.setVisibility(View.GONE);
+                tabPemasukan.setBackground(null);
+
+                textPengeluaranTV.setTextColor(getResources().getColor(R.color.white));
+                barPengeluaran.setVisibility(View.VISIBLE);
+                tabPengeluaran.setBackground(getResources().getDrawable(R.drawable.bg_tab_rounded_right_primary_dark));
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put(Konfigurasi.KEY_ID_HAUL, idHaul);
+                hashMap.put(Konfigurasi.KEY_DESKRIPSI, deskripsi);
+                hashMap.put(Konfigurasi.KEY_JUMLAH_UANG, String.valueOf(jumlah));
+
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendPostRequest(Konfigurasi.URL_TRANSAKSI_PENGELUARAN_DANA, hashMap);
+
+                return s;
+            }
+        }
+
+        ProsesTambah prosesTambah = new ProsesTambah();
+        prosesTambah.execute();
+    }
+
+    public void loadTotalDana() {
         class LoadData extends AsyncTask<Void, Void, String> {
 
             @Override
