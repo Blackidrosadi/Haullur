@@ -1,4 +1,4 @@
-package com.rosadi.haullur.Keluarga;
+package com.rosadi.haullur.Kelas.Almarhum;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

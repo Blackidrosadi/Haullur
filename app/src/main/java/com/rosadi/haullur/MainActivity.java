@@ -3,7 +3,6 @@ package com.rosadi.haullur;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,13 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-import com.rosadi.haullur.Akun.AkunActivity;
-import com.rosadi.haullur.Haul.ProgramHaulActivity;
-import com.rosadi.haullur.Keluarga.DataKeluargaActivity;
-import com.rosadi.haullur.Laporan.LaporanActivity;
-import com.rosadi.haullur.List.Adapter.KeluargaAdapter;
-import com.rosadi.haullur.List.Model.Keluarga;
-import com.rosadi.haullur.Penarikan.PenarikanActivity;
+import com.rosadi.haullur.Kelas.Akun.AkunActivity;
+import com.rosadi.haullur.Kelas.Akun.Haul.ProgramHaulActivity;
+import com.rosadi.haullur.Kelas.Almarhum.DataKeluargaActivity;
+import com.rosadi.haullur.Kelas.Baca.BacaActivity;
+import com.rosadi.haullur.Kelas.Laporan.LaporanActivity;
+import com.rosadi.haullur.Kelas.Penarikan.PenarikanActivity;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;
 
@@ -35,6 +33,7 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
+    String idHaulAktif = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +94,19 @@ public class MainActivity extends AppCompatActivity {
         TextView nama = findViewById(R.id.nama);
         nama.setText(preferences.getString(Konfigurasi.KEY_USER_NAMA_PREFERENCE, null));
 
-        findViewById(R.id.button_informasi).setOnClickListener(new View.OnClickListener() {
+        loadProgramHaulAktif();
+
+        findViewById(R.id.button_baca).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(MainActivity.this, PenarikanActivity.class));
+                loadProgramHaulAktif();
+                if (idHaulAktif.equals("")) {
+                    Toast.makeText(MainActivity.this, "Tidak ada program haul yang aktif, silakan hubungi admin untuk mengaktifkan haul jemuah legi.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent i = new Intent(MainActivity.this, BacaActivity.class);
+                    i.putExtra("id_haul", idHaulAktif);
+                    startActivity(i);
+                }
             }
         });
         findViewById(R.id.button_penarikan).setOnClickListener(new View.OnClickListener() {
@@ -152,6 +160,43 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+        }
+
+        LoadData loadData = new LoadData();
+        loadData.execute();
+    }
+
+    private void loadProgramHaulAktif() {
+        class LoadData extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONArray result = jsonObject.getJSONArray(Konfigurasi.KEY_JSON_ARRAY_RESULT);
+                    JSONObject data = result.getJSONObject(0);
+
+                    idHaulAktif = data.getString(Konfigurasi.KEY_ID);
+                    String deskripsi = data.getString(Konfigurasi.KEY_DESKRIPSI);
+                    String tanggal = data.getString(Konfigurasi.KEY_TANGGAL);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendGetRequest(Konfigurasi.URL_LOAD_PROGRAM_AKTIF_HAUL);
+                return s;
+            }
         }
 
         LoadData loadData = new LoadData();

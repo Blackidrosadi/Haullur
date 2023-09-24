@@ -4,14 +4,20 @@ public class Konfigurasi {
     /**
      * URL FILE PHP
      */
-//    public static final String URL  = "http://192.168.1.69:8080/haullur/";
-    public static final String URL  = "http://192.168.0.145:8080/haullur/";
+    public static final String URL  = "http://192.168.1.69:8080/haullur/";
+//    public static final String URL  = "http://192.168.0.145:8080/haullur/";
 
     public static final String URL_LOGIN                = URL + "akun/login.php";
     public static final String URL_LOAD_AKUN            = URL + "akun/load.php";
     public static final String URL_TAMBAH_AKUN          = URL + "akun/tambah.php";
     public static final String URL_TAMBAH_PENUGASAN     = URL + "akun/tambahPenugasan.php";
     public static final String URL_HAPUS_PENUGASAN      = URL + "akun/hapusPenugasan.php";
+
+    public static final String URL_BACA_LOAD_ALMARHUM   = URL + "baca/load.php?id_haul=";
+    public static final String URL_LOAD_RINGKASAN_BACA  = URL + "baca/loadRingkasan.php?id_haul=";
+
+    public static final String URL_TANDAI_DIBACA        = URL + "baca/tandaiDibaca.php";
+    public static final String URL_HAPUS_TANDA_DIBACA   = URL + "baca/hapusTandaBaca.php";
 
     public static final String URL_LOAD_KELUARGA_BY_PETUGAS = URL + "keluarga/loadByPetugas.php?id=";
     public static final String URL_CARI_KELUARGA            = URL + "keluarga/cari.php?cari=";
@@ -89,7 +95,12 @@ public class Konfigurasi {
 
     public static final String KEY_JUMLAH_UANG          = "jumlah_uang";
     public static final String KEY_JUMLAH_ALMARHUM      = "jumlah_almarhum";
+    public static final String KEY_JUMLAH_BELUM_DIBACA      = "belum_dibaca";
+    public static final String KEY_JUMLAH_SUDAH_DIBACA      = "sudah_dibaca";
 
     public static final String KEY_TOTAL      = "total";
     public static final String KEY_SUBTOTAL      = "subtotal";
+
+    public static final String KEY_DIBACA      = "dibaca";
+    public static final String KEY_ALMARHUMS      = "almarhums";
 }

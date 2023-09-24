@@ -1,4 +1,4 @@
-package com.rosadi.haullur.Penarikan;
+package com.rosadi.haullur.Kelas.Penarikan;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,22 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.rosadi.haullur.Akun.DetailAkunActivity;
-import com.rosadi.haullur.Keluarga.DataKeluargaActivity;
-import com.rosadi.haullur.List.Adapter.KeluargaAdapter;
 import com.rosadi.haullur.List.Adapter.KeluargaByAkunAdapter;
 import com.rosadi.haullur.List.Adapter.PenarikanAdapter;
 import com.rosadi.haullur.List.Model.Keluarga;

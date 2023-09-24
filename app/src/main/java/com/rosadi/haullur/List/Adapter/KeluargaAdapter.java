@@ -5,22 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rosadi.haullur.Akun.DetailAkunActivity;
-import com.rosadi.haullur.Keluarga.DataKeluargaDetailActivity;
-import com.rosadi.haullur.Laporan.LaporanDetailActivity;
+import com.rosadi.haullur.Kelas.Akun.DetailAkunActivity;
+import com.rosadi.haullur.Kelas.Almarhum.DataKeluargaDetailActivity;
+import com.rosadi.haullur.Kelas.Laporan.LaporanDetailActivity;
 import com.rosadi.haullur.List.Model.Keluarga;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
-import com.rosadi.haullur._util.volley.RequestHandler;
 
 
 import java.net.URLEncoder;

@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.rosadi.haullur.Laporan.LaporanActivity;
-import com.rosadi.haullur.Laporan.LaporanDetailActivity;
+import com.rosadi.haullur.Kelas.Laporan.LaporanDetailActivity;
 import com.rosadi.haullur.List.Model.Haul;
-import com.rosadi.haullur.MainActivity;
 import com.rosadi.haullur.R;
 
 import java.text.NumberFormat;

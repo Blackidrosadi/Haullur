@@ -1,4 +1,4 @@
-package com.rosadi.haullur.Laporan.Fragment;
+package com.rosadi.haullur.Kelas.Laporan.Fragment;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -20,14 +21,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rosadi.haullur.Akun.DetailAkunActivity;
-import com.rosadi.haullur.Laporan.LaporanDetailActivity;
+import com.rosadi.haullur.Kelas.Laporan.LaporanDetailActivity;
 import com.rosadi.haullur.List.Adapter.HaulDetailAdapter;
 import com.rosadi.haullur.List.Adapter.HaulDetailDanaLainnyaAdapter;
-import com.rosadi.haullur.List.Adapter.PengeluaranAdapter;
 import com.rosadi.haullur.List.Model.DanaLainnya;
-import com.rosadi.haullur.List.Model.Keluarga;
-import com.rosadi.haullur.List.Model.Pengeluaran;
+import com.rosadi.haullur.List.Model.HaulDetail;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;
@@ -42,15 +40,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class PengeluaranFragment extends Fragment {
+
+public class PemasukanFragment extends Fragment {
 
     String idHaul;
-    List<Pengeluaran> pengeluaranList = new ArrayList<>();
-    PengeluaranAdapter pengeluaranAdapter;
+    List<HaulDetail> haulDetailList = new ArrayList<>();
+    HaulDetailAdapter haulDetailAdapter;
 
-    RecyclerView recyclerView;
+    List<DanaLainnya> danaLainnyaList = new ArrayList<>();
+    HaulDetailDanaLainnyaAdapter haulDetailDanaLainnyaAdapter;
 
-    public PengeluaranFragment(String idHaul) {
+    RecyclerView recyclerViewPetugas, recyclerViewLainnya;
+
+
+    public PemasukanFragment(String idHaul) {
         this.idHaul = idHaul;
     }
 
@@ -58,18 +61,26 @@ public class PengeluaranFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_pengeluaran, container, false);
+        View view = inflater.inflate(R.layout.fragment_pemasukan, container, false);
 
-        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerViewPetugas = view.findViewById(R.id.recycler_view_petugas);
+        recyclerViewLainnya = view.findViewById(R.id.recycler_view_lainnya);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), linearLayoutManager.getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
-        pengeluaranAdapter = new PengeluaranAdapter(getActivity(), pengeluaranList);
-        recyclerView.setAdapter(pengeluaranAdapter);
+        recyclerViewPetugas.setLayoutManager(linearLayoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewPetugas.getContext(), linearLayoutManager.getOrientation());
+        recyclerViewPetugas.addItemDecoration(dividerItemDecoration);
+        haulDetailAdapter = new HaulDetailAdapter(getActivity(), haulDetailList, idHaul);
+        recyclerViewPetugas.setAdapter(haulDetailAdapter);
 
-        loadDataPengeluaran();
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerViewLainnya.setLayoutManager(linearLayoutManager);
+        recyclerViewLainnya.addItemDecoration(dividerItemDecoration);
+        haulDetailDanaLainnyaAdapter = new HaulDetailDanaLainnyaAdapter(getActivity(), danaLainnyaList);
+        recyclerViewLainnya.setAdapter(haulDetailDanaLainnyaAdapter);
+
+        loadDataPenarikanPetugas();
+        loadDataDanaLainnya();
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
@@ -90,19 +101,19 @@ public class PengeluaranFragment extends Fragment {
                 TextView teksiya = dialog.findViewById(R.id.teksiya);
 
                 int position = viewHolder.getAdapterPosition();
-                Pengeluaran pengeluaran = pengeluaranList.get(position);
+                DanaLainnya danaLainnya = danaLainnyaList.get(position);
 
                 judul.setText("Hapus Dana Pengeluaran");
-                teks.setText("Apa Antum yakin ingin menghapus pengeluaran dana " + pengeluaran.getDeskripsi() + " dengan jumlah Rp" + rupiahFormat(pengeluaran.getJumlahUang()) + ",- ?");
+                teks.setText("Apa Antum yakin ingin menghapus pemasukan dana dengan jumlah Rp" + rupiahFormat(danaLainnya.getJumlahUang()) + ",- ?");
                 teksiya.setText("Hapus");
 
                 dialog.findViewById(R.id.iya).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        hapusDanaPengeluaran(pengeluaran.getId());
+                        hapusDanaPemasukkanLainnya(danaLainnya.getId());
 
-                        pengeluaranList.remove(position);
-                        pengeluaranAdapter.notifyDataSetChanged();
+                        danaLainnyaList.remove(position);
+                        haulDetailDanaLainnyaAdapter.notifyDataSetChanged();
 
                         dialog.dismiss();
                     }
@@ -113,19 +124,19 @@ public class PengeluaranFragment extends Fragment {
                     public void onClick(View view) {
                         dialog.dismiss();
 
-                        pengeluaranAdapter.notifyDataSetChanged();
+                        haulDetailDanaLainnyaAdapter.notifyDataSetChanged();
                     }
                 });
 
                 dialog.show();
             }
         });
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+        itemTouchHelper.attachToRecyclerView(recyclerViewLainnya);
 
         return view;
     }
 
-    private void hapusDanaPengeluaran(String id) {
+    private void hapusDanaPemasukkanLainnya(String id) {
         class HapusProses extends AsyncTask<Void, Void, String> {
 
             ProgressDialog progressDialog;
@@ -152,7 +163,7 @@ public class PengeluaranFragment extends Fragment {
                 hashMap.put(Konfigurasi.KEY_ID, id);
 
                 RequestHandler rh = new RequestHandler();
-                String s = rh.sendPostRequest(Konfigurasi.URL_HAPUS_DANA_PENGELUARAN, hashMap);
+                String s = rh.sendPostRequest(Konfigurasi.URL_HAPUS_DANA_PEMASUKAN_LAINNYA, hashMap);
 
                 return s;
             }
@@ -162,7 +173,7 @@ public class PengeluaranFragment extends Fragment {
         hapusProses.execute();
     }
 
-    private void loadDataPengeluaran() {
+    private void loadDataDanaLainnya() {
         class LoadData extends AsyncTask<Void, Void, String> {
 
             @Override
@@ -173,7 +184,7 @@ public class PengeluaranFragment extends Fragment {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                pengeluaranList.clear();
+                danaLainnyaList.clear();
 
                 try {
                     JSONObject jsonObject = new JSONObject(s);
@@ -181,20 +192,23 @@ public class PengeluaranFragment extends Fragment {
                     for (int i = 0; i < result.length(); i++) {
                         JSONObject object = result.getJSONObject(i);
 
-                        Pengeluaran pengeluaran = new Pengeluaran();
-                        pengeluaran.setId(object.getString(Konfigurasi.KEY_ID));
-                        pengeluaran.setIdHaul(object.getString(Konfigurasi.KEY_ID_HAUL));
-                        pengeluaran.setDeskripsi(object.getString(Konfigurasi.KEY_DESKRIPSI));
-                        pengeluaran.setJumlahUang(object.getString(Konfigurasi.KEY_JUMLAH_UANG));
-                        pengeluaranList.add(pengeluaran);
+                        DanaLainnya danaLainnya = new DanaLainnya();
+                        danaLainnya.setId(object.getString(Konfigurasi.KEY_ID));
+                        danaLainnya.setIdHaul(object.getString(Konfigurasi.KEY_ID_HAUL));
+                        danaLainnya.setIdKeluarga(object.getString(Konfigurasi.KEY_ID_KELUARGA));
+                        danaLainnya.setJumlahUang(object.getString(Konfigurasi.KEY_JUMLAH_UANG));
+                        danaLainnya.setDeskripsi(object.getString(Konfigurasi.KEY_DESKRIPSI));
+                        danaLainnya.setIdAkun(object.getString(Konfigurasi.KEY_ID_AKUN));
+                        danaLainnya.setNama(object.getString(Konfigurasi.KEY_NAMA));
+                        danaLainnya.setRt(object.getString(Konfigurasi.KEY_RT));
+                        danaLainnya.setJumlahAlmarhum(object.getString(Konfigurasi.KEY_JUMLAH_ALMARHUM));
+                        danaLainnyaList.add(danaLainnya);
                     }
 
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-                    recyclerView.setLayoutManager(linearLayoutManager);
-                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), linearLayoutManager.getOrientation());
-                    recyclerView.addItemDecoration(dividerItemDecoration);
-                    pengeluaranAdapter = new PengeluaranAdapter(getActivity(), pengeluaranList);
-                    recyclerView.setAdapter(pengeluaranAdapter);
+                    recyclerViewLainnya.setLayoutManager(linearLayoutManager);
+                    haulDetailDanaLainnyaAdapter = new HaulDetailDanaLainnyaAdapter(getActivity(), danaLainnyaList);
+                    recyclerViewLainnya.setAdapter(haulDetailDanaLainnyaAdapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -204,13 +218,63 @@ public class PengeluaranFragment extends Fragment {
             @Override
             protected String doInBackground(Void... voids) {
                 RequestHandler rh = new RequestHandler();
-                String s = rh.sendGetRequestParam(Konfigurasi.URL_LOAD_LAPORAN_PENGELUARAN_DANA, idHaul);
+                String s = rh.sendGetRequestParam(Konfigurasi.URL_LOAD_LAPORAN_DANA_LAINNYA, idHaul);
                 return s;
             }
         }
 
         LoadData LoadData = new LoadData();
         LoadData.execute();
+    }
+
+    private void loadDataPenarikanPetugas() {
+        class LoadData extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                haulDetailList.clear();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONArray result = jsonObject.getJSONArray(Konfigurasi.KEY_JSON_ARRAY_RESULT);
+                    for (int i = 0; i < result.length(); i++) {
+                        JSONObject object = result.getJSONObject(i);
+
+                        HaulDetail haulDetail = new HaulDetail();
+                        haulDetail.setIdAkun(object.getString(Konfigurasi.KEY_ID_AKUN));
+                        haulDetail.setNama(object.getString(Konfigurasi.KEY_NAMA));
+                        haulDetail.setSubtotal(object.getString(Konfigurasi.KEY_SUBTOTAL));
+                        haulDetailList.add(haulDetail);
+                    }
+
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                    recyclerViewPetugas.setLayoutManager(linearLayoutManager);
+                    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewPetugas.getContext(), linearLayoutManager.getOrientation());
+                    dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_primary));
+                    recyclerViewPetugas.addItemDecoration(dividerItemDecoration);
+                    haulDetailAdapter = new HaulDetailAdapter(getActivity(), haulDetailList, idHaul);
+                    recyclerViewPetugas.setAdapter(haulDetailAdapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendGetRequestParam(Konfigurasi.URL_LOAD_LAPORAN_DETAIL, idHaul);
+                return s;
+            }
+        }
+
+        LoadData loadData = new LoadData();
+        loadData.execute();
     }
 
     public String rupiahFormat(String jumlah) {

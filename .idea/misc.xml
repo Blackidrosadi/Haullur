@@ -32,6 +32,7 @@
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/font/segoe_ui.xml" value="0.38425925925925924" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout-v23/activity_main.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/activity_akun.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/activity_baca.xml" value="0.26944444444444443" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/activity_data_keluarga.xml" value="0.29907407407407405" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/activity_data_keluarga_detail.xml" value="0.2962962962962963" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/activity_detail_akun.xml" value="0.36102564102564105" />
@@ -64,10 +65,13 @@
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/fragment_gallery.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/list_akun.xml" value="0.35" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/list_almarhum.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/list_almarhum_simple.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/list_baca.xml" value="0.26944444444444443" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/list_haul.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/list_keluarga.xml" value="0.31666666666666665" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/list_keluarga_lite.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/list_keluarga_penarikan.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/list_keluarga_penarikan_tanpa_wa.xml" value="0.26944444444444443" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/nav_header_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/layout/spinner_item.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/user/Documents/Projects/Android/HAULLUR/app/src/main/res/menu/activity_main_drawer.xml" value="0.36666666666666664" />

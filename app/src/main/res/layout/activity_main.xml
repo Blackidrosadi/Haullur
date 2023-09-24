@@ -106,7 +106,7 @@
             android:layout_marginTop="20dp"
             android:baselineAligned="false">
             <RelativeLayout
-                android:id="@+id/button_informasi"
+                android:id="@+id/button_baca"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
@@ -122,13 +122,13 @@
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:src="@mipmap/ic_informasi" />
+                    android:src="@mipmap/ic_baca" />
 
                 <TextView
                     android:layout_toRightOf="@+id/img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Informasi"
+                    android:text="Baca Haul"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="16sp"

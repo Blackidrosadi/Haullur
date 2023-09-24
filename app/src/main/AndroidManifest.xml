@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rosadi.haullur">
+    package="com.rosadi.haullur" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,19 +11,22 @@
         android:roundIcon="@mipmap/ic_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HAULLUR"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
         <activity
-            android:name=".Akun.DetailAkunActivity"
+            android:name=".Kelas.Baca.BacaActivity"
             android:exported="false" />
         <activity
-            android:name=".Akun.AkunActivity"
+            android:name=".Kelas.Akun.DetailAkunActivity"
             android:exported="false" />
         <activity
-            android:name=".Haul.ProgramHaulActivity"
+            android:name=".Kelas.Akun.AkunActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Kelas.Akun.Haul.ProgramHaulActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,28 +34,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Keluarga.DataKeluargaDetailActivity"
+            android:name=".Kelas.Almarhum.DataKeluargaDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".Keluarga.DataKeluargaActivity"
+            android:name=".Kelas.Almarhum.DataKeluargaActivity"
             android:exported="false" />
         <activity
-            android:name=".Laporan.LaporanRincianActivity"
+            android:name=".Kelas.Laporan.LaporanRincianActivity"
             android:exported="false" />
         <activity
-            android:name=".Laporan.LaporanDetailActivity"
+            android:name=".Kelas.Laporan.LaporanDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".Laporan.LaporanActivity"
+            android:name=".Kelas.Laporan.LaporanActivity"
             android:exported="false" />
         <activity
-            android:name=".Penarikan.PenarikanActivity"
+            android:name=".Kelas.Penarikan.PenarikanActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

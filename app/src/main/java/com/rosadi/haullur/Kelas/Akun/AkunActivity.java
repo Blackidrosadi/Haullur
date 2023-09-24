@@ -1,10 +1,9 @@
-package com.rosadi.haullur.Akun;
+package com.rosadi.haullur.Kelas.Akun;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -13,17 +12,12 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rosadi.haullur.Haul.ProgramHaulActivity;
 import com.rosadi.haullur.List.Adapter.AkunAdapter;
-import com.rosadi.haullur.List.Adapter.HaulAdapter;
 import com.rosadi.haullur.List.Model.Akun;
-import com.rosadi.haullur.List.Model.Haul;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;
@@ -32,11 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 

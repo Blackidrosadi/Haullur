@@ -1,4 +1,4 @@
-package com.rosadi.haullur.Haul;
+package com.rosadi.haullur.Kelas.Akun.Haul;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -20,8 +19,6 @@ import android.widget.Toast;
 
 import com.rosadi.haullur.List.Adapter.HaulAdapter;
 import com.rosadi.haullur.List.Model.Haul;
-import com.rosadi.haullur.MainActivity;
-import com.rosadi.haullur.Penarikan.PenarikanActivity;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;

@@ -1,4 +1,4 @@
-package com.rosadi.haullur.Laporan;
+package com.rosadi.haullur.Kelas.Laporan;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,8 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rosadi.haullur.Laporan.Fragment.PemasukanFragment;
-import com.rosadi.haullur.Laporan.Fragment.PengeluaranFragment;
+import com.rosadi.haullur.Kelas.Laporan.Fragment.PemasukanFragment;
+import com.rosadi.haullur.Kelas.Laporan.Fragment.PengeluaranFragment;
 import com.rosadi.haullur.List.Adapter.KeluargaAdapter;
 import com.rosadi.haullur.List.Model.Keluarga;
 import com.rosadi.haullur.R;

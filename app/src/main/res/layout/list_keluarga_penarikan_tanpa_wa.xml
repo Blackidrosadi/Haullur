@@ -6,23 +6,22 @@
     android:background="@drawable/bg_button_rounded"
     android:paddingVertical="15dp"
     android:paddingHorizontal="20dp"
-    android:layout_marginBottom="10dp">
-
+    android:layout_marginBottom="5dp">
     <RelativeLayout
         android:id="@+id/item1"
-        android:layout_width="40dp"
-        android:layout_height="30dp"
-        android:layout_centerVertical="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/bg_button_rounded_accent"
+        android:layout_centerVertical="true"
         android:gravity="center">
 
         <TextView
-            android:id="@+id/nomor"
+            android:id="@+id/total_almarhums"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text="\?"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
@@ -34,6 +33,7 @@
         android:layout_marginHorizontal="10dp"
         android:layout_toEndOf="@+id/item1"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/nama"
             android:layout_width="wrap_content"
@@ -43,6 +43,13 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/jumlah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RP 20.000"
+            android:textColor="@color/white_50"
+            android:textSize="14sp" />
 
+    </LinearLayout>
 </RelativeLayout>

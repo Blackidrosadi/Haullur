@@ -1,4 +1,4 @@
-package com.rosadi.haullur.Laporan;
+package com.rosadi.haullur.Kelas.Laporan;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.rosadi.haullur.Haul.ProgramHaulActivity;
 import com.rosadi.haullur.List.Adapter.HaulAdapter;
 import com.rosadi.haullur.List.Model.Haul;
 import com.rosadi.haullur.R;

@@ -1,4 +1,4 @@
-package com.rosadi.haullur.Keluarga;
+package com.rosadi.haullur.Kelas.Almarhum;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,7 +8,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,12 +17,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -31,8 +30,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.rosadi.haullur.List.Adapter.KeluargaAdapter;
 import com.rosadi.haullur.List.Model.Keluarga;
-import com.rosadi.haullur.LoginActivity;
-import com.rosadi.haullur.MainActivity;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;
@@ -64,6 +61,7 @@ public class DataKeluargaActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         progressBar = findViewById(R.id.progress_bar);
         EditText cari = findViewById(R.id.cari);
+        ImageView close = findViewById(R.id.close);
 
         findViewById(R.id.kembali).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,13 +74,6 @@ public class DataKeluargaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openDialogTambahKeluarga();
-            }
-        });
-
-        findViewById(R.id.carinya).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cariKeluarga(cari.getText().toString());
             }
         });
 
@@ -118,16 +109,30 @@ public class DataKeluargaActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().isEmpty()) {
-                    finish();
-                    overridePendingTransition(0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition(0, 0);
+                    close.setVisibility(View.GONE);
+                    page = 1;
+                    keluargaList.clear();
+                    loadKeluarga();
+                } else {
+                    cariKeluarga(cari.getText().toString());
+                    close.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cari.setText("");
+                keluargaList.clear();
+                page = 1;
+
+                loadKeluarga();
             }
         });
 
@@ -201,18 +206,14 @@ public class DataKeluargaActivity extends AppCompatActivity {
     private void cariKeluarga(String cari) {
         class CariKeluarga extends AsyncTask<Void, Void, String> {
 
-            ProgressDialog progressDialog = new ProgressDialog(DataKeluargaActivity.this);
-
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                progressDialog = ProgressDialog.show(DataKeluargaActivity.this, "Informasi", "Mencari keluarga...", false, false);
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                progressDialog.dismiss();
                 keluargaList.clear();
 
                 try {

@@ -15,9 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rosadi.haullur.Keluarga.DataKeluargaDetailActivity;
 import com.rosadi.haullur.List.Model.Penarikan;
-import com.rosadi.haullur.Penarikan.PenarikanActivity;
+import com.rosadi.haullur.Kelas.Penarikan.PenarikanActivity;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;
@@ -43,7 +42,12 @@ public class PenarikanAdapter extends RecyclerView.Adapter<PenarikanAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_keluarga_penarikan, parent, false);
+        View view = null;
+        if (context.getClass().getSimpleName().equals("PenarikanActivity")) {
+            view = LayoutInflater.from(context).inflate(R.layout.list_keluarga_penarikan, parent, false);
+        } else if (context.getClass().getSimpleName().equals("LaporanRincianActivity")) {
+            view = LayoutInflater.from(context).inflate(R.layout.list_keluarga_penarikan_tanpa_wa, parent, false);
+        }
         return new ViewHolder(view);
     }
 
@@ -81,12 +85,14 @@ public class PenarikanAdapter extends RecyclerView.Adapter<PenarikanAdapter.View
 
         holder.jumlah.setText("Rp" + clean + ",-");
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialogEdit(penarikan.getId(), penarikan.getNama(), penarikan.getJumlahUang());
-            }
-        });
+        if (context.getClass().getSimpleName().equals("PenarikanActivity")) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openDialogEdit(penarikan.getId(), penarikan.getNama(), penarikan.getJumlahUang());
+                }
+            });
+        }
     }
 
     @Override

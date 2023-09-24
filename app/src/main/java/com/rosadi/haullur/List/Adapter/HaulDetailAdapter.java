@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rosadi.haullur.Laporan.LaporanRincianActivity;
+import com.rosadi.haullur.Kelas.Laporan.LaporanRincianActivity;
 import com.rosadi.haullur.List.Model.HaulDetail;
 import com.rosadi.haullur.R;
 

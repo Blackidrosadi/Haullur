@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Keluarga.DataKeluargaActivity"
+    tools:context=".Kelas.Almarhum.DataKeluargaActivity"
     android:background="@drawable/bg_layout"
     android:orientation="vertical">
     <RelativeLayout
@@ -15,7 +15,10 @@
             android:id="@+id/kembali"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -41,7 +44,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -65,7 +71,6 @@
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:layout_toLeftOf="@+id/carinya"
             android:paddingHorizontal="10dp">
 
             <EditText
@@ -82,23 +87,15 @@
                 android:textColorHint="@color/white_50"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/carinya"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/bg_button_rounded"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_marginStart="10dp"
-            android:layout_alignParentEnd="true">
 
             <ImageView
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:src="@drawable/ic_search" />
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="5dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_close"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 

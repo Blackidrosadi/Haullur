@@ -1,4 +1,4 @@
-package com.rosadi.haullur.Akun;
+package com.rosadi.haullur.Kelas.Akun;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,8 +23,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rosadi.haullur.Keluarga.DataKeluargaActivity;
-import com.rosadi.haullur.Keluarga.DataKeluargaDetailActivity;
 import com.rosadi.haullur.List.Adapter.KeluargaAdapter;
 import com.rosadi.haullur.List.Adapter.KeluargaByAkunAdapter;
 import com.rosadi.haullur.List.Model.Keluarga;

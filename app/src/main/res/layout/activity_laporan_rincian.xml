@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_layout_brighter"
+    android:background="@drawable/bg_layout"
     android:orientation="vertical"
-    tools:context=".Laporan.LaporanRincianActivity">
+    tools:context=".Kelas.Laporan.LaporanRincianActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -20,7 +20,10 @@
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true">
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -48,7 +51,7 @@
         android:layout_height="120dp"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="-60dp"
-        android:background="@drawable/bg_primary"
+        android:background="@drawable/bg_card_primarydark_rounded"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -124,6 +127,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"/>
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="5dp"/>
 
 </LinearLayout>
