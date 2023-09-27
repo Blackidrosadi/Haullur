@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,11 +13,14 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.rosadi.haullur.Akun.LoginActivity;
 import com.rosadi.haullur.Kelas.Akun.AkunActivity;
 import com.rosadi.haullur.Kelas.Akun.Haul.ProgramHaulActivity;
 import com.rosadi.haullur.Kelas.Almarhum.DataKeluargaActivity;
@@ -63,10 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.nav_log_out:
-                        preferences.edit().clear().commit();
-
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                        finish();
+                        openDialogLogout();
                 }
 
                 return true;
@@ -127,6 +128,43 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, LaporanActivity.class));
             }
         });
+    }
+
+    private void openDialogLogout() {
+        Dialog dialog = new Dialog(MainActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_iya_tidak);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+
+        TextView judul = dialog.findViewById(R.id.judul);
+        TextView teks = dialog.findViewById(R.id.teks);
+        TextView teksiya = dialog.findViewById(R.id.teksiya);
+
+        judul.setText("Logout");
+        teks.setText("Apakah anda yakin ingin logout ?");
+        teksiya.setText("Logout");
+
+        dialog.findViewById(R.id.iya).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+                preferences.edit().clear().commit();
+
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+
+        dialog.findViewById(R.id.batal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     private void cekProgramHaul() {

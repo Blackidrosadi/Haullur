@@ -4,14 +4,16 @@ public class Konfigurasi {
     /**
      * URL FILE PHP
      */
-    public static final String URL  = "http://192.168.1.69:8080/haullur/";
-//    public static final String URL  = "http://192.168.0.145:8080/haullur/";
+//    public static final String URL  = "http://192.168.1.69:8080/haullur/";
+    public static final String URL  = "http://192.168.0.126:8080/haullur/";
 
     public static final String URL_LOGIN                = URL + "akun/login.php";
     public static final String URL_LOAD_AKUN            = URL + "akun/load.php";
     public static final String URL_TAMBAH_AKUN          = URL + "akun/tambah.php";
     public static final String URL_TAMBAH_PENUGASAN     = URL + "akun/tambahPenugasan.php";
     public static final String URL_HAPUS_PENUGASAN      = URL + "akun/hapusPenugasan.php";
+
+    public static final String URL_CEK_NOMOR_TELEPON    = URL + "akun/cekNomorTelepon.php?telepon=";
 
     public static final String URL_BACA_LOAD_ALMARHUM   = URL + "baca/load.php?id_haul=";
     public static final String URL_LOAD_RINGKASAN_BACA  = URL + "baca/loadRingkasan.php?id_haul=";

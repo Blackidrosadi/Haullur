@@ -4,28 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_layout"
-    android:orientation="vertical"
-    android:paddingHorizontal="50dp"
+    android:paddingHorizontal="30dp"
     android:paddingVertical="20dp">
 
     <LinearLayout
-        android:layout_above="@+id/layout2"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="80dp">
+        android:layout_marginTop="30dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sugeng Rawuh,"
+            android:text="Pendaftaran"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="26sp" />
+            android:textSize="32sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Masyarakat"
+            android:text="Akun"
             android:textColor="@color/white"
             android:textSize="22sp"/>
 
@@ -42,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginTop="20dp"
         android:layout_centerInParent="true">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Telepon"
+                android:text="Nama"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -64,16 +64,14 @@
             android:background="@drawable/bg_card_primarydark_rounded">
 
             <EditText
-                android:id="@+id/telepon"
+                android:id="@+id/nama"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:inputType="number"
-                android:maxLines="1"
-                android:maxLength="15"
-                android:hint="Masukkan telepon..."
+                android:inputType="text"
+                android:hint="Masukkan nama..."
                 android:textColorHint="@color/white_50"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="10dp"
@@ -90,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Kata Sandi"
+                android:text="Email (Opsional)"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -100,18 +98,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/bg_card_primarydark_rounded"
-            android:orientation="vertical">
+            android:background="@drawable/bg_card_primarydark_rounded">
 
             <EditText
-                android:id="@+id/sandi"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:inputType="textPassword"
-                android:hint="Masukkan kata sandi..."
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:maxLength="15"
+                android:hint="Masukkan email..."
                 android:textColorHint="@color/white_50"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="10dp"
@@ -119,21 +118,12 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/lupa_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lupa Password ?"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="end"/>
+
 
         <LinearLayout
-            android:id="@+id/masuk"
+            android:id="@+id/daftar"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:gravity="center"
             android:background="@drawable/bg_card_accent_rounded"
             android:layout_marginTop="25dp"
@@ -146,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingHorizontal="15dp"
-                android:text="Masuk"
+                android:text="Daftar"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -154,14 +144,14 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/daftar"
+            android:id="@+id/masuk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:text="Belum mempunyai akun ? Daftar disini."
+            android:text="Sudah mempunyai akun ? Masuk disini."
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 

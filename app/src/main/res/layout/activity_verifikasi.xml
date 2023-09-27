@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_layout"
-    android:orientation="vertical"
-    android:paddingHorizontal="50dp"
+    android:paddingHorizontal="30dp"
     android:paddingVertical="20dp">
 
     <LinearLayout
-        android:layout_above="@+id/layout2"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="80dp">
+        android:layout_marginTop="30dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sugeng Rawuh,"
+            android:text="Verifikasi"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="26sp" />
+            android:textSize="32sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Masyarakat"
+            android:text="Nomor Telepon"
             android:textColor="@color/white"
             android:textSize="22sp"/>
 
@@ -41,11 +40,13 @@
         android:id="@+id/layout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,92 +62,45 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/bg_card_primarydark_rounded">
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_card_primarydark_rounded"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/telepon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:inputType="number"
-                android:maxLines="1"
-                android:maxLength="15"
-                android:hint="Masukkan telepon..."
-                android:textColorHint="@color/white_50"
+                android:background="@null"
                 android:gravity="center_vertical"
+                android:hint="Masukkan telepon..."
+                android:inputType="number"
+                android:maxLength="15"
+                android:maxLines="1"
                 android:paddingHorizontal="10dp"
-                android:background="@null"/>
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Kata Sandi"
                 android:textColor="@color/white"
-                android:textSize="14sp"
+                android:textColorHint="@color/white_50"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_card_primarydark_rounded"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/sandi"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:inputType="textPassword"
-                android:hint="Masukkan kata sandi..."
-                android:textColorHint="@color/white_50"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="10dp"
-                android:background="@null"/>
-
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/lupa_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lupa Password ?"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="end"/>
-
         <LinearLayout
-            android:id="@+id/masuk"
+            android:id="@+id/verifikasi"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:background="@drawable/bg_card_accent_rounded"
+            android:layout_height="50dp"
             android:layout_marginTop="25dp"
-            android:focusable="true"
+            android:background="@drawable/bg_card_accent_rounded"
             android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingHorizontal="15dp"
-                android:text="Masuk"
+                android:text="Verifikasi"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -154,12 +108,12 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/daftar"
+            android:id="@+id/masuk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="Belum mempunyai akun ? Daftar disini."
+            android:text="Sudah mempunyai akun ? Masuk disini."
             android:textColor="@color/white"
             android:textSize="14sp" />
 

@@ -1,5 +1,6 @@
-package com.rosadi.haullur;
+package com.rosadi.haullur.Akun;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -7,10 +8,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rosadi.haullur.Akun.Daftar.RegisterActivity;
+import com.rosadi.haullur.MainActivity;
+import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;
 
@@ -47,6 +57,30 @@ public class LoginActivity extends AppCompatActivity {
                 login(telepon.getText().toString(), sandi.getText().toString());
             }
         });
+
+        TextView daftarTV = findViewById(R.id.daftar);
+        String daftarS = "Belum memiliki akun ? Daftar disini.";
+        SpannableString span = new SpannableString(daftarS);
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View view) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+
+                ds.setColor(getResources().getColor(R.color.accent));
+                ds.setUnderlineText(false);
+                ds.setFakeBoldText(true);
+            }
+        };
+
+        span.setSpan(clickableSpan, 22, 36, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        daftarTV.setText(span);
+        daftarTV.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void login(String telepon, String sandi) {
@@ -89,15 +123,11 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     LoginActivity.this.finish();
 
-                    System.out.println("namasayaaaaa : " + id);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
 
                     Toast.makeText(LoginActivity.this, "Telepon atau Password salah!!", Toast.LENGTH_LONG).show();
                 }
-
-//                Toast.makeText(LoginActivity.this, s, Toast.LENGTH_LONG).show();
             }
 
             @Override
