@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (nama.getText().toString().equals("") || nama.getText().toString().length() == 0) {
                     Toast.makeText(RegisterActivity.this, "Masukkan nama!", Toast.LENGTH_SHORT).show();
-                } else if (nama.getText().toString().length() < 3) {
+                } else if (nama.getText().toString().length() < 4) {
                     Toast.makeText(RegisterActivity.this, "Masukkan nama lebih dari 3 karakter!", Toast.LENGTH_SHORT).show();
                 } else if (email.getText().toString().length() > 0 && !Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
                     Toast.makeText(RegisterActivity.this, "Email tidak valid!", Toast.LENGTH_SHORT).show();

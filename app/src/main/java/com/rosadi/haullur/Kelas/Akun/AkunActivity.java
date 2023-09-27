@@ -71,7 +71,7 @@ public class AkunActivity extends AppCompatActivity {
                             Toast.makeText(AkunActivity.this, "Lengkapi form terlebih dahulu!", Toast.LENGTH_SHORT).show();
                         } else if (namaET.getText().length() < 4) {
                             Toast.makeText(AkunActivity.this, "Masukkan nama minimal 4 karakter!", Toast.LENGTH_SHORT).show();
-                        } else if (teleponET.getText().length() < 11) {
+                        } else if (teleponET.getText().length() < 10) {
                             Toast.makeText(AkunActivity.this, "Nomor telepon tidak valid!", Toast.LENGTH_SHORT).show();
                         } else if (emailET.getText().length() > 0) {
                             if (!isValidEmail(emailET.getText().toString())) {
@@ -176,7 +176,8 @@ public class AkunActivity extends AppCompatActivity {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 progressDialog.dismiss();
-//                loadHaul();
+
+                loadAkun();
 
                 Toast.makeText(AkunActivity.this, s, Toast.LENGTH_SHORT).show();
             }
@@ -187,6 +188,7 @@ public class AkunActivity extends AppCompatActivity {
                 hashMap.put(Konfigurasi.KEY_NAMA, nama);
                 hashMap.put(Konfigurasi.KEY_TELEPON, telepon);
                 hashMap.put(Konfigurasi.KEY_EMAIL, email);
+                hashMap.put(Konfigurasi.KEY_SANDI, "123");
                 hashMap.put(Konfigurasi.KEY_LEVEL, "2");
 
                 RequestHandler rh = new RequestHandler();

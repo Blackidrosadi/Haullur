@@ -14,14 +14,14 @@
         android:theme="@style/Theme.HAULLUR"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".BuatPasswordActivity"
+            android:name=".Akun.Daftar.BuatPasswordActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".VerifikasiActivity"
+            android:name=".Akun.Daftar.VerifikasiActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

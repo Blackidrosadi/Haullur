@@ -109,7 +109,6 @@
                 android:textSize="18sp"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:maxLength="15"
                 android:hint="Masukkan email..."
                 android:textColorHint="@color/white_50"
                 android:gravity="center_vertical"

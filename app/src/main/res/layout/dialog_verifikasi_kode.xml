@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingHorizontal="15dp"
-            android:text="Ubah nomor telepon"
+            android:text="Kirim ulang kode"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />

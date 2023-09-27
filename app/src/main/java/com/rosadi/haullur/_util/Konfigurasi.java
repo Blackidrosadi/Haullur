@@ -4,8 +4,8 @@ public class Konfigurasi {
     /**
      * URL FILE PHP
      */
-//    public static final String URL  = "http://192.168.1.69:8080/haullur/";
-    public static final String URL  = "http://192.168.0.126:8080/haullur/";
+    public static final String URL  = "http://192.168.1.69:8080/haullur/";
+//    public static final String URL  = "http://192.168.0.126:8080/haullur/";
 
     public static final String URL_LOGIN                = URL + "akun/login.php";
     public static final String URL_LOAD_AKUN            = URL + "akun/load.php";

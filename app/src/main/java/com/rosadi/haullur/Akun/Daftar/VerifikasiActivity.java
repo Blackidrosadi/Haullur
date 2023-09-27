@@ -10,10 +10,16 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.rosadi.haullur.Akun.LoginActivity;
 import com.rosadi.haullur.Kelas.Penarikan.PenarikanActivity;
 import com.rosadi.haullur.List.Adapter.KeluargaByAkunAdapter;
 import com.rosadi.haullur.R;
@@ -38,6 +45,7 @@ public class VerifikasiActivity extends AppCompatActivity {
     EditText teleponEt, kodeET;
     LinearLayout verifikasi;
 
+    String nama, email, kode;
     String verificationId;
 
     @Override
@@ -46,6 +54,10 @@ public class VerifikasiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_verifikasi);
 
         auth = FirebaseAuth.getInstance();
+
+        Intent i = getIntent();
+        nama = i.getStringExtra("nama");
+        email = i.getStringExtra("email");
 
         teleponEt = findViewById(R.id.telepon);
         verifikasi = findViewById(R.id.verifikasi);
@@ -62,6 +74,30 @@ public class VerifikasiActivity extends AppCompatActivity {
                 }
             }
         });
+
+        TextView daftarTV = findViewById(R.id.masuk);
+        String daftarS = "Sudah mempunyai akun ? Masuk disini.";
+        SpannableString span = new SpannableString(daftarS);
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View view) {
+                startActivity(new Intent(VerifikasiActivity.this, LoginActivity.class));
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+
+                ds.setColor(getResources().getColor(R.color.accent));
+                ds.setUnderlineText(false);
+                ds.setFakeBoldText(true);
+            }
+        };
+
+        span.setSpan(clickableSpan, 23, 35, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        daftarTV.setText(span);
+        daftarTV.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void cekTeleponTerdaftar(String telepon) {
@@ -148,10 +184,11 @@ public class VerifikasiActivity extends AppCompatActivity {
 
         @Override
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-            final String kode = phoneAuthCredential.getSmsCode();
-            if (kode != null) {
-                kodeET.setText(kode);
-                verifikasiKodeNya(kode);
+            final String kodeNya = phoneAuthCredential.getSmsCode();
+            if (kodeNya != null) {
+                kodeET.setText(kodeNya);
+                kode = kodeNya;
+                verifikasiKodeNya(kodeNya);
             }
         }
 
@@ -168,7 +205,11 @@ public class VerifikasiActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-
+                    Intent i = new Intent(VerifikasiActivity.this, BuatPasswordActivity.class);
+                    i.putExtra("nama", nama);
+                    i.putExtra("email", email);
+                    i.putExtra("telepon", teleponEt.getText().toString());
+                    startActivity(i);
                 } else {
                     Toast.makeText(VerifikasiActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
