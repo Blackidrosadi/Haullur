@@ -4,8 +4,8 @@ public class Konfigurasi {
     /**
      * URL FILE PHP
      */
-    public static final String URL  = "http://192.168.1.69:8080/haullur/";
-//    public static final String URL  = "http://192.168.0.126:8080/haullur/";
+//    public static final String URL  = "http://192.168.1.69:8080/haullur/";
+    public static final String URL  = "https://officialfprg.online/haullur/";
 
     public static final String URL_LOGIN                = URL + "akun/login.php";
     public static final String URL_LOAD_AKUN            = URL + "akun/load.php";
@@ -76,6 +76,7 @@ public class Konfigurasi {
     public static final String KEY_USER_TELEPON_PREFERENCE  = "telepon_pref";
     public static final String KEY_USER_SANDI_PREFERENCE    = "sandi_pref";
     public static final String KEY_USER_LEVEL_PREFERENCE    = "level_pref";
+
     public static final String KEY_JSON_ARRAY_RESULT        = "result";
 
     public static final String KEY_ID               = "id";

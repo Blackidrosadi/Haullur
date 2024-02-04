@@ -34,6 +34,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
@@ -59,11 +61,19 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_menu_haul:
-                        startActivity(new Intent(MainActivity.this, ProgramHaulActivity.class));
+                        if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null), "1")) {
+                            Toast.makeText(MainActivity.this, "Selain admin tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            startActivity(new Intent(MainActivity.this, ProgramHaulActivity.class));
+                        }
                         return true;
 
                     case R.id.nav_menu_akun:
-                        startActivity(new Intent(MainActivity.this, AkunActivity.class));
+                        if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null), "1")) {
+                            Toast.makeText(MainActivity.this, "Selain admin tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            startActivity(new Intent(MainActivity.this, AkunActivity.class));
+                        }
                         return true;
 
                     case R.id.nav_log_out:
@@ -186,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 if (s.trim().equals("1")) {
                     startActivity(new Intent(MainActivity.this, PenarikanActivity.class));
                 } else {
-                    Toast.makeText(MainActivity.this, "Tidak ada program haul yang aktif, silakan hubungi admin untuk mengaktifkan haul jemuah legi.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Hubungi admin untuk mengaktifkan haul jemuah legi.", Toast.LENGTH_SHORT).show();
                 }
             }
 
