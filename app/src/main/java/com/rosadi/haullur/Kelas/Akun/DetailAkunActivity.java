@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,9 +24,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rosadi.haullur.Akun.LoginActivity;
+import com.rosadi.haullur.Kelas.Penarikan.PenarikanActivity;
 import com.rosadi.haullur.List.Adapter.KeluargaAdapter;
 import com.rosadi.haullur.List.Adapter.KeluargaByAkunAdapter;
 import com.rosadi.haullur.List.Model.Keluarga;
+import com.rosadi.haullur.MainActivity;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;
@@ -34,18 +38,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class DetailAkunActivity extends AppCompatActivity {
 
-    String idAkun, nama, email, telepon, level;
+    String idAkun, nama, email, telepon, sandi, level;
     ArrayList<Keluarga> keluargaList = new ArrayList<>();
     KeluargaAdapter keluargaAdapter;
     KeluargaByAkunAdapter keluargaByAkunAdapter;
 
-    TextView namaTV, emailTV, teleponTV, jumlahPenugasan, jumlahPenarikan;
+    TextView namaTV, emailTV, teleponTV, jumlahPenugasan, jumlahPenarikan, totalPenarikan;
     RecyclerView recyclerView;
+    PopupMenu popupMenu;
 
     public String idKeluarga = "";
 
@@ -63,46 +70,12 @@ public class DetailAkunActivity extends AppCompatActivity {
             }
         });
 
-        RelativeLayout pengaturan = findViewById(R.id.pengaturan);
-        pengaturan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PopupMenu popupMenu = new PopupMenu(DetailAkunActivity.this, pengaturan);
-                popupMenu.getMenuInflater().inflate(R.menu.menu_akun, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
-                            case R.id.pesan:
-                                Toast.makeText(DetailAkunActivity.this, "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                                return true;
-
-                            case R.id.admin:
-                                Toast.makeText(DetailAkunActivity.this, "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                                return true;
-
-                            case R.id.reset:
-                                Toast.makeText(DetailAkunActivity.this, "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                                return true;
-
-                            case R.id.hapus:
-                                Toast.makeText(DetailAkunActivity.this, "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                                return true;
-                        }
-
-                        return true;
-                    }
-                });
-                // Showing the popup menu
-                popupMenu.show();
-            }
-        });
-
         Intent i = getIntent();
         idAkun = i.getStringExtra(Konfigurasi.KEY_ID);
         nama = i.getStringExtra(Konfigurasi.KEY_NAMA);
         email = i.getStringExtra(Konfigurasi.KEY_EMAIL);
         telepon = i.getStringExtra(Konfigurasi.KEY_TELEPON);
+        sandi = i.getStringExtra(Konfigurasi.KEY_SANDI);
         level = i.getStringExtra(Konfigurasi.KEY_LEVEL);
 
         namaTV = findViewById(R.id.nama);
@@ -120,7 +93,72 @@ public class DetailAkunActivity extends AppCompatActivity {
 
         jumlahPenugasan = findViewById(R.id.jumlah_penugasan);
         jumlahPenarikan = findViewById(R.id.jumlah_penarikan);
+        totalPenarikan = findViewById(R.id.total);
         jumlahPenarikan.setText("0 Penarikan");
+        totalPenarikan.setText("0");
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DetailAkunActivity.this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        keluargaByAkunAdapter = new KeluargaByAkunAdapter(DetailAkunActivity.this, keluargaList);
+        recyclerView.setAdapter(keluargaByAkunAdapter);
+
+        loadKeluargaByPetugas();
+        loadPenarikanByUser();
+
+        RelativeLayout pengaturan = findViewById(R.id.pengaturan);
+        popupMenu = new PopupMenu(DetailAkunActivity.this, pengaturan);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_akun, popupMenu.getMenu());
+        if (level.equals("1")) {
+            popupMenu.getMenu().getItem(1).setTitle("Hapus dari Admin");
+        }
+
+        pengaturan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.pesan:
+                                kirimPesanWhatsApp();
+                                return true;
+
+                            case R.id.admin:
+                                if (level.equals("1")) {
+                                    openDialogJadikanAdmin(2);
+                                } else {
+                                    openDialogJadikanAdmin(1);
+                                }
+                                return true;
+
+                            case R.id.reset:
+                                if (sandi.equals("123")) {
+                                    Toast.makeText(DetailAkunActivity.this, "Password telah direset!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    openDialogResetPassword();
+                                }
+                                return true;
+
+                            case R.id.hapus:
+                                if (level.equals("1")) {
+                                    Toast.makeText(DetailAkunActivity.this, "Tidak bisa menghapus akun admin!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    if (keluargaList.size() > 0) {
+                                        Toast.makeText(DetailAkunActivity.this, "Tidak dapat menghapus akun karena akun masih ada tugas penarikan!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        openDialogHapusAkun();
+                                    }
+                                }
+                                return true;
+                        }
+
+                        return true;
+                    }
+                });
+                // Showing the popup menu
+                popupMenu.show();
+            }
+        });
 
         findViewById(R.id.tambah).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,13 +222,6 @@ public class DetailAkunActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DetailAkunActivity.this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        keluargaByAkunAdapter = new KeluargaByAkunAdapter(DetailAkunActivity.this, keluargaList);
-        recyclerView.setAdapter(keluargaByAkunAdapter);
-
-        loadKeluargaByPetugas();
-
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -242,6 +273,292 @@ public class DetailAkunActivity extends AppCompatActivity {
             }
         });
         itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    private void loadPenarikanByUser() {
+        class LoadData extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONArray result = jsonObject.getJSONArray(Konfigurasi.KEY_JSON_ARRAY_RESULT);
+                    JSONObject data = result.getJSONObject(0);
+
+                    String jumlah = data.getString(Konfigurasi.KEY_JUMLAH);
+                    String total = data.getString(Konfigurasi.KEY_TOTAL);
+
+                    jumlahPenarikan.setText(jumlah + " Penarikan");
+                    totalPenarikan.setText(rupiahFormat(total));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendGetRequestParam(Konfigurasi.URL_LOAD_PENARIKAN_AKUN, idAkun);
+                return s;
+            }
+        }
+
+        LoadData loadData = new LoadData();
+        loadData.execute();
+    }
+
+    private void openDialogHapusAkun() {
+        Dialog dialog = new Dialog(DetailAkunActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_iya_tidak);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+
+        TextView judul = dialog.findViewById(R.id.judul);
+        TextView teks = dialog.findViewById(R.id.teks);
+        TextView teksiya = dialog.findViewById(R.id.teksiya);
+
+        judul.setText("Hapus Akun");
+        teks.setText("Apakah anda yakin ingin menghapus akun " + nama + " ?");
+        teksiya.setText("Iya");
+
+        dialog.findViewById(R.id.iya).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+                prosesHapusAkun();
+            }
+        });
+
+        dialog.findViewById(R.id.batal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void prosesHapusAkun() {
+        class HapusProses extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog progressDialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog = ProgressDialog.show(DetailAkunActivity.this, "Informasi", "Proses menghapus...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                progressDialog.dismiss();
+
+                Toast.makeText(DetailAkunActivity.this, s, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(DetailAkunActivity.this, AkunActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                DetailAkunActivity.this.finish();
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put(Konfigurasi.KEY_ID, idAkun);
+
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendPostRequest(Konfigurasi.URL_HAPUS_AKUN, hashMap);
+
+                return s;
+            }
+        }
+
+        HapusProses hapusProses = new HapusProses();
+        hapusProses.execute();
+    }
+
+    private void openDialogResetPassword() {
+        Dialog dialog = new Dialog(DetailAkunActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_iya_tidak);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+
+        TextView judul = dialog.findViewById(R.id.judul);
+        TextView teks = dialog.findViewById(R.id.teks);
+        TextView teksiya = dialog.findViewById(R.id.teksiya);
+
+        judul.setText("Reset Password Akun");
+        teks.setText("Apakah anda yakin ingin mereset password " + nama + " ?");
+        teksiya.setText("Iya");
+
+        dialog.findViewById(R.id.iya).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+                prosesResetSandi();
+            }
+        });
+
+        dialog.findViewById(R.id.batal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void prosesResetSandi() {
+        class ProsesUpdate extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog progressDialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog = ProgressDialog.show(DetailAkunActivity.this, "Informasi", "Proses mereset...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                progressDialog.dismiss();
+
+                if (s.equals("Alhamdulillah sandi berhasil direset")) {
+                    sandi = "123";
+                }
+
+                Toast.makeText(DetailAkunActivity.this, s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put(Konfigurasi.KEY_ID, idAkun);
+
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendPostRequest(Konfigurasi.URL_RESET_SANDI, hashMap);
+
+                return s;
+            }
+        }
+
+        ProsesUpdate prosesUpdate = new ProsesUpdate();
+        prosesUpdate.execute();
+    }
+
+    private void openDialogJadikanAdmin(int levelBaru) {
+        Dialog dialog = new Dialog(DetailAkunActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_iya_tidak);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+
+        TextView judul = dialog.findViewById(R.id.judul);
+        TextView teks = dialog.findViewById(R.id.teks);
+        TextView teksiya = dialog.findViewById(R.id.teksiya);
+
+        if (level.equals("1")) {
+            judul.setText("Hapus dari status Admin");
+            teks.setText("Apakah anda yakin ingin menjadikan " + nama + " sebagai petugas biasa ?");
+            teksiya.setText("Iya");
+        } else {
+            judul.setText("Jadikan sebagai Admin");
+            teks.setText("Apakah anda yakin ingin menjadikan " + nama + " sebagai admin ?");
+            teksiya.setText("Iya");
+        }
+
+        dialog.findViewById(R.id.iya).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+                prosesJadikanAdmin(levelBaru);
+            }
+        });
+
+        dialog.findViewById(R.id.batal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void prosesJadikanAdmin(int levelBaru) {
+        class ProsesUpdate extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog progressDialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog = ProgressDialog.show(DetailAkunActivity.this, "Informasi", "Proses mengubah...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                progressDialog.dismiss();
+
+                if (s.equals("Alhamdulillah akun berhasil diperbarui")) {
+                    level = String.valueOf(levelBaru);
+                }
+                Toast.makeText(DetailAkunActivity.this, s, Toast.LENGTH_SHORT).show();
+
+                if (level.equals("1")) {
+                    popupMenu.getMenu().getItem(1).setTitle("Hapus dari Admin");
+                } else {
+                    popupMenu.getMenu().getItem(1).setTitle("Jadikan Admin");
+                }
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put(Konfigurasi.KEY_ID, idAkun);
+                hashMap.put(Konfigurasi.KEY_LEVEL, String.valueOf(levelBaru));
+
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendPostRequest(Konfigurasi.URL_JADIKAN_ADMIN, hashMap);
+
+                return s;
+            }
+        }
+
+        ProsesUpdate prosesUpdate = new ProsesUpdate();
+        prosesUpdate.execute();
+    }
+
+    private void kirimPesanWhatsApp() {
+        if (telepon.isEmpty()) {
+            Toast.makeText(this, "Nomor WhatsApp belum ditambahkan!", Toast.LENGTH_SHORT).show();
+        } else {
+            String teleponNya = "+62" + telepon;
+            String pesanNya = "Assalamu'alaikum...";
+
+            Intent i = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(
+                            String.format("https://api.whatsapp.com/send?phone=%s&text=%s", teleponNya, pesanNya)
+                    )
+            );
+            this.startActivity(i);
+        }
     }
 
     private void hapusPenugasan(String id) {
@@ -469,5 +786,34 @@ public class DetailAkunActivity extends AppCompatActivity {
 
         LoadData LoadData = new LoadData();
         LoadData.execute();
+    }
+
+    private String rupiahFormat(String jumlah) {
+        Locale local = new Locale("id", "id");
+        String replaceable = String.format("[Rp,.\\s]",
+                NumberFormat.getCurrencyInstance()
+                        .getCurrency()
+                        .getSymbol(local));
+        String cleanString = jumlah.replaceAll(replaceable, "");
+
+        double parsed;
+        try {
+            parsed = Double.parseDouble(cleanString);
+        } catch (NumberFormatException e) {
+            parsed = 0.00;
+        }
+
+        NumberFormat formatter = NumberFormat
+                .getCurrencyInstance(local);
+        formatter.setMaximumFractionDigits(0);
+        formatter.setParseIntegerOnly(true);
+        String formatted = formatter.format((parsed));
+
+        String replace = String.format("[Rp\\s]",
+                NumberFormat.getCurrencyInstance().getCurrency()
+                        .getSymbol(local));
+        String clean = formatted.replaceAll(replace, "");
+
+        return clean;
     }
 }

@@ -2,11 +2,13 @@ package com.rosadi.haullur.List.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rosadi.haullur.Kelas.Akun.DetailAkunActivity;
 import com.rosadi.haullur.List.Model.Akun;
@@ -45,12 +47,15 @@ public class AkunAdapter extends RecyclerView.Adapter<AkunAdapter.ViewHolder> {
             holder.email.setTextColor(context.getResources().getColor(R.color.yellow));
         } else {
             holder.email.setText(akun.getEmail());
+            holder.email.setTextColor(context.getResources().getColor(R.color.white));
         }
 
         if (akun.getLevel().equals("1")) {
             holder.level.setText("Admin");
-        } else {
+        } else if (akun.getLevel().equals("2")){
             holder.level.setText("Petugas");
+        } else {
+            holder.level.setText("Anggota");
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +66,28 @@ public class AkunAdapter extends RecyclerView.Adapter<AkunAdapter.ViewHolder> {
                 i.putExtra(Konfigurasi.KEY_NAMA, akun.getNama());
                 i.putExtra(Konfigurasi.KEY_EMAIL, akun.getEmail());
                 i.putExtra(Konfigurasi.KEY_TELEPON, akun.getTelepon());
-                i.putExtra(Konfigurasi.KEY_LEVEL, akun.getSandi());
+                i.putExtra(Konfigurasi.KEY_SANDI, akun.getSandi());
+                i.putExtra(Konfigurasi.KEY_LEVEL, akun.getLevel());
                 context.startActivity(i);
+            }
+        });
+
+        holder.telepon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (akun.getTelepon().isEmpty()) {
+                    Toast.makeText(context, "Nomor WhatsApp belum ditambahkan!", Toast.LENGTH_SHORT).show();
+                } else {
+                    String telepon = "+62" + akun.getTelepon();
+                    String pesan = "Assalamu'alaikum...";
+
+                    Intent i = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(
+                                    String.format("https://api.whatsapp.com/send?phone=%s&text=%s", telepon, pesan)
+                            )
+                    );
+                    context.startActivity(i);
+                }
             }
         });
     }

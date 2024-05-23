@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_menu_haul:
-                        if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null), "1")) {
+                        if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "1")) {
+                            System.out.println("id admin : " + preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
                             Toast.makeText(MainActivity.this, "Selain admin tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
                         } else {
                             startActivity(new Intent(MainActivity.this, ProgramHaulActivity.class));
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.nav_menu_akun:
-                        if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null), "1")) {
+                        if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "1")) {
                             Toast.makeText(MainActivity.this, "Selain admin tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
                         } else {
                             startActivity(new Intent(MainActivity.this, AkunActivity.class));

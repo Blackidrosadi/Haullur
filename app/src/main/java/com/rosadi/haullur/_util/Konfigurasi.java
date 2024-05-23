@@ -4,12 +4,16 @@ public class Konfigurasi {
     /**
      * URL FILE PHP
      */
-//    public static final String URL  = "http://192.168.1.69:8080/haullur/";
-    public static final String URL  = "https://officialfprg.online/haullur/";
+    public static final String URL  = "https://randugembolo.online/haullur/";
+//    public static final String URL  = "http://192.168.0.126:8080/haullur/";
 
     public static final String URL_LOGIN                = URL + "akun/login.php";
     public static final String URL_LOAD_AKUN            = URL + "akun/load.php";
     public static final String URL_TAMBAH_AKUN          = URL + "akun/tambah.php";
+    public static final String URL_JADIKAN_ADMIN        = URL + "akun/jadikanAdmin.php";
+    public static final String URL_RESET_SANDI          = URL + "akun/resetSandi.php";
+    public static final String URL_HAPUS_AKUN           = URL + "akun/hapusAkun.php";
+    public static final String URL_LOAD_PENARIKAN_AKUN  = URL + "akun/loadPenarikanAkun.php?id=";
     public static final String URL_TAMBAH_PENUGASAN     = URL + "akun/tambahPenugasan.php";
     public static final String URL_HAPUS_PENUGASAN      = URL + "akun/hapusPenugasan.php";
 
@@ -76,7 +80,6 @@ public class Konfigurasi {
     public static final String KEY_USER_TELEPON_PREFERENCE  = "telepon_pref";
     public static final String KEY_USER_SANDI_PREFERENCE    = "sandi_pref";
     public static final String KEY_USER_LEVEL_PREFERENCE    = "level_pref";
-
     public static final String KEY_JSON_ARRAY_RESULT        = "result";
 
     public static final String KEY_ID               = "id";
@@ -101,6 +104,7 @@ public class Konfigurasi {
     public static final String KEY_JUMLAH_BELUM_DIBACA      = "belum_dibaca";
     public static final String KEY_JUMLAH_SUDAH_DIBACA      = "sudah_dibaca";
 
+    public static final String KEY_JUMLAH      = "jumlah";
     public static final String KEY_TOTAL      = "total";
     public static final String KEY_SUBTOTAL      = "subtotal";
 

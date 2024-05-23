@@ -70,22 +70,17 @@ public class KeluargaByAkunAdapter extends RecyclerView.Adapter<KeluargaByAkunAd
                 @Override
                 public void onClick(View view) {
                     if (keluarga.getTelepon().isEmpty()) {
-                        Toast.makeText(context, "WhatsApp belum ditambahkan!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Nomor WhatsApp belum ditambahkan!", Toast.LENGTH_SHORT).show();
                     } else {
-                        PackageManager packageManager = context.getPackageManager();
-                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        String telepon = "+62" + keluarga.getTelepon();
+                        String pesan = "Assalamu'alaikum...";
 
-                        try {
-                            String pesan = "Haul jemuah legi, Wayah e penarikan";
-                            String url = "https://api.whatsapp.com/send?phone=" + keluarga.getTelepon() + "&text=" + URLEncoder.encode(pesan, "UTF-8");
-                            i.setPackage("com.whatsapp");
-                            i.setData(Uri.parse(url));
-                            if (i.resolveActivity(packageManager) != null) {
-                                context.startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        Intent i = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse(
+                                        String.format("https://api.whatsapp.com/send?phone=%s&text=%s", telepon, pesan)
+                                )
+                        );
+                        context.startActivity(i);
                     }
                 }
             });
