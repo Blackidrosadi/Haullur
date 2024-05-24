@@ -33,13 +33,14 @@ import java.util.HashMap;
 public class LoginActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
+    String id, nama, email, telepon, sandi, level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        preferences = getSharedPreferences(Konfigurasi.KEY_USER_PREFERENCE, MODE_PRIVATE);
+        preferences = getSharedPreferences(Konfigurasi.KEY_USER_PREFERENCE, 0);
         if (preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null) != null) {
             Intent intent = new Intent(this, MainActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -83,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         daftarTV.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    private void login(String telepon, String sandi) {
+    private void login(String teleponNya, String sandiNya) {
         class LoginProcess extends AsyncTask<Void, Void, String> {
 
             ProgressDialog dialog;
@@ -104,25 +105,37 @@ public class LoginActivity extends AppCompatActivity {
                     JSONArray result = jsonObject.getJSONArray(Konfigurasi.KEY_JSON_ARRAY_RESULT);
                     JSONObject data = result.getJSONObject(0);
 
-                    String id = data.getString(Konfigurasi.KEY_ID);
-                    String nama = data.getString(Konfigurasi.KEY_NAMA);
-                    String email = data.getString(Konfigurasi.KEY_EMAIL);
-                    String telepon = data.getString(Konfigurasi.KEY_TELEPON);
-                    String sandi = data.getString(Konfigurasi.KEY_SANDI);
-                    String level = data.getString(Konfigurasi.KEY_LEVEL);
+                    id = data.getString(Konfigurasi.KEY_ID);
+                    nama = data.getString(Konfigurasi.KEY_NAMA);
+                    email = data.getString(Konfigurasi.KEY_EMAIL);
+                    telepon = data.getString(Konfigurasi.KEY_TELEPON);
+                    sandi = data.getString(Konfigurasi.KEY_SANDI);
+                    level = data.getString(Konfigurasi.KEY_LEVEL);
 
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(Konfigurasi.KEY_USER_ID_PREFERENCE, id);
-                    editor.putString(Konfigurasi.KEY_USER_NAMA_PREFERENCE, nama);
-                    editor.putString(Konfigurasi.KEY_USER_EMAIL_PREFERENCE, email);
-                    editor.putString(Konfigurasi.KEY_USER_TELEPON_PREFERENCE, telepon);
-                    editor.putString(Konfigurasi.KEY_USER_SANDI_PREFERENCE, sandi);
-                    editor.putString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, level);
-                    editor.apply();
+                    if (sandi.equals("123")) {
+                        Intent i = new Intent(LoginActivity.this, BuatPasswordBaruActivity.class);
+                        i.putExtra(Konfigurasi.KEY_ID, id);
+                        i.putExtra(Konfigurasi.KEY_NAMA, nama);
+                        i.putExtra(Konfigurasi.KEY_EMAIL, email);
+                        i.putExtra(Konfigurasi.KEY_TELEPON, telepon);
+                        i.putExtra(Konfigurasi.KEY_LEVEL, level);
+                        startActivity(i);
+                        LoginActivity.this.finish();
+                    } else {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(Konfigurasi.KEY_USER_ID_PREFERENCE, id);
+                        editor.putString(Konfigurasi.KEY_USER_NAMA_PREFERENCE, nama);
+                        editor.putString(Konfigurasi.KEY_USER_EMAIL_PREFERENCE, email);
+                        editor.putString(Konfigurasi.KEY_USER_TELEPON_PREFERENCE, telepon);
+                        editor.putString(Konfigurasi.KEY_USER_SANDI_PREFERENCE, sandi);
+                        editor.putString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, level);
+                        editor.apply();
 
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    LoginActivity.this.finish();
+                        Toast.makeText(LoginActivity.this, "Login Berhasil", Toast.LENGTH_SHORT).show();
 
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        LoginActivity.this.finish();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
 
@@ -133,8 +146,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids) {
                 HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put(Konfigurasi.KEY_TELEPON, telepon);
-                hashMap.put(Konfigurasi.KEY_SANDI, sandi);
+                hashMap.put(Konfigurasi.KEY_TELEPON, teleponNya);
+                hashMap.put(Konfigurasi.KEY_SANDI, sandiNya);
 
                 RequestHandler rh = new RequestHandler();
                 String s = rh.sendPostRequest(Konfigurasi.URL_LOGIN, hashMap);

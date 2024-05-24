@@ -12,6 +12,7 @@ public class Konfigurasi {
     public static final String URL_TAMBAH_AKUN          = URL + "akun/tambah.php";
     public static final String URL_JADIKAN_ADMIN        = URL + "akun/jadikanAdmin.php";
     public static final String URL_RESET_SANDI          = URL + "akun/resetSandi.php";
+    public static final String URL_UPDATE_SANDI         = URL + "akun/updateSandi.php";
     public static final String URL_HAPUS_AKUN           = URL + "akun/hapusAkun.php";
     public static final String URL_LOAD_PENARIKAN_AKUN  = URL + "akun/loadPenarikanAkun.php?id=";
     public static final String URL_TAMBAH_PENUGASAN     = URL + "akun/tambahPenugasan.php";
