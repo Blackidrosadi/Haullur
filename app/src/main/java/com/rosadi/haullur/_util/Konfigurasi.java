@@ -51,6 +51,7 @@ public class Konfigurasi {
     public static final String URL_LOAD_PROGRAM_AKTIF_HAUL  = URL + "haul/loadProgramAktif.php";
     public static final String URL_TAMBAH_PROGRAM_HAUL      = URL + "haul/tambahProgram.php";
     public static final String URL_CEK_PROGRAM_HAUL         = URL + "haul/cekProgram.php";
+    public static final String URL_SELESAIKAN_HAUL         = URL + "haul/selesaikan.php";
 
     public static final String URL_LOAD_PENARIKAN           = URL + "penarikan/load.php";
     public static final String URL_TRANSAKSI_PENARIKAN      = URL + "penarikan/tambah.php";

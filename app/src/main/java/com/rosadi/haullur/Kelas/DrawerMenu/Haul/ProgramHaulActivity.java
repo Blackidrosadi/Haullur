@@ -1,4 +1,4 @@
-package com.rosadi.haullur.Kelas.Akun.Haul;
+package com.rosadi.haullur.Kelas.DrawerMenu.Haul;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -175,7 +175,7 @@ public class ProgramHaulActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void loadHaul() {
+    public void loadHaul() {
         class LoadData extends AsyncTask<Void, Void, String> {
 
             ProgressDialog progressDialog;
@@ -203,6 +203,7 @@ public class ProgramHaulActivity extends AppCompatActivity {
                         haul.setDeskripsi(object.getString(Konfigurasi.KEY_DESKRIPSI));
                         haul.setTanggal(object.getString(Konfigurasi.KEY_TANGGAL));
                         haul.setStatus(object.getString(Konfigurasi.KEY_STATUS));
+                        haul.setTotal(object.getString(Konfigurasi.KEY_TOTAL));
                         haulList.add(haul);
                     }
 

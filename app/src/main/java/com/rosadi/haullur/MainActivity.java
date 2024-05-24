@@ -21,8 +21,8 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.rosadi.haullur.Akun.LoginActivity;
-import com.rosadi.haullur.Kelas.Akun.AkunActivity;
-import com.rosadi.haullur.Kelas.Akun.Haul.ProgramHaulActivity;
+import com.rosadi.haullur.Kelas.DrawerMenu.Akun.AkunActivity;
+import com.rosadi.haullur.Kelas.DrawerMenu.Haul.ProgramHaulActivity;
 import com.rosadi.haullur.Kelas.Almarhum.DataKeluargaActivity;
 import com.rosadi.haullur.Kelas.Baca.BacaActivity;
 import com.rosadi.haullur.Kelas.Laporan.LaporanActivity;

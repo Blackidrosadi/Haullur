@@ -1,4 +1,4 @@
-package com.rosadi.haullur.Kelas.Akun;
+package com.rosadi.haullur.Kelas.DrawerMenu.Akun;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,12 +24,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rosadi.haullur.Akun.LoginActivity;
-import com.rosadi.haullur.Kelas.Penarikan.PenarikanActivity;
 import com.rosadi.haullur.List.Adapter.KeluargaAdapter;
 import com.rosadi.haullur.List.Adapter.KeluargaByAkunAdapter;
 import com.rosadi.haullur.List.Model.Keluarga;
-import com.rosadi.haullur.MainActivity;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;

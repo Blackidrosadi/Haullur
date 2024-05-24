@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rosadi.haullur.Kelas.Akun.DetailAkunActivity;
+import com.rosadi.haullur.Kelas.DrawerMenu.Akun.DetailAkunActivity;
 import com.rosadi.haullur.List.Model.Akun;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;

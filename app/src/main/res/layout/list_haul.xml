@@ -46,7 +46,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_above="@+id/selengkapnya"
+        android:layout_above="@+id/selesaikan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -70,7 +70,7 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/selengkapnya"
+        android:id="@+id/selesaikan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_primary"
@@ -82,12 +82,14 @@
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="15dp">
+
         <TextView
+            android:id="@+id/teks_selesaikan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="15dp"
             android:paddingVertical="10dp"
-            android:text="Baca Selengkapnya"
+            android:text="Selesaikan Haul"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold" />

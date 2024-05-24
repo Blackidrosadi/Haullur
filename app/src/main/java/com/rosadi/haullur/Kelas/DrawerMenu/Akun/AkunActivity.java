@@ -1,4 +1,4 @@
-package com.rosadi.haullur.Kelas.Akun;
+package com.rosadi.haullur.Kelas.DrawerMenu.Akun;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

@@ -38,13 +38,13 @@
             android:name=".Kelas.Baca.BacaActivity"
             android:exported="false" />
         <activity
-            android:name=".Kelas.Akun.DetailAkunActivity"
+            android:name=".Kelas.DrawerMenu.Akun.DetailAkunActivity"
             android:exported="false" />
         <activity
-            android:name=".Kelas.Akun.AkunActivity"
+            android:name=".Kelas.DrawerMenu.Akun.AkunActivity"
             android:exported="false" />
         <activity
-            android:name=".Kelas.Akun.Haul.ProgramHaulActivity"
+            android:name=".Kelas.DrawerMenu.Haul.ProgramHaulActivity"
             android:exported="false" />
         <activity
             android:name=".Akun.LoginActivity"
