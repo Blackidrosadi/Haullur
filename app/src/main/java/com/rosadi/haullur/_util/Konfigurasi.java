@@ -47,11 +47,15 @@ public class Konfigurasi {
     public static final String URL_EDIT_ALMARHUM        = URL + "keluarga/editAlmarhum.php";
     public static final String URL_HAPUS_ALMARHUM       = URL + "keluarga/hapusAlmarhum.php";
 
+    public static final String URL_LOAD_ARTIKEL                         = URL + "artikel/load.php";
+    public static final String URL_TAMBAH_ARTIKEL                       = URL + "artikel/tambah.php";
+    public static final String URL_LOAD_JUMLAH_KELUARGA_DAN_ALMARHUMS   = URL + "artikel/loadJumlahKeluargaDanAlmarhum.php?id_haul=";
+
     public static final String URL_LOAD_PROGRAM_HAUL        = URL + "haul/loadProgram.php";
     public static final String URL_LOAD_PROGRAM_AKTIF_HAUL  = URL + "haul/loadProgramAktif.php";
     public static final String URL_TAMBAH_PROGRAM_HAUL      = URL + "haul/tambahProgram.php";
     public static final String URL_CEK_PROGRAM_HAUL         = URL + "haul/cekProgram.php";
-    public static final String URL_SELESAIKAN_HAUL         = URL + "haul/selesaikan.php";
+    public static final String URL_SELESAIKAN_HAUL          = URL + "haul/selesaikan.php";
 
     public static final String URL_LOAD_PENARIKAN           = URL + "penarikan/load.php";
     public static final String URL_TRANSAKSI_PENARIKAN      = URL + "penarikan/tambah.php";
@@ -64,7 +68,7 @@ public class Konfigurasi {
     public static final String URL_LOAD_LAPORAN_DETAIL              = URL + "laporan/detailhaul.php?id_haul=";
 
     public static final String URL_TRANSAKSI_TAMBAH_DANA_LAINNYA    = URL + "laporan/tambahDanaLainnya.php";
-    public static final String URL_TRANSAKSI_PENGELUARAN_DANA    = URL + "laporan/tambahPengeluaran.php";
+    public static final String URL_TRANSAKSI_PENGELUARAN_DANA       = URL + "laporan/tambahPengeluaran.php";
 
     public static final String URL_LOAD_LAPORAN_HAUL_TOTAL_DANA     = URL + "laporan/loadTotalDana.php?id_haul=";
     public static final String URL_LOAD_LAPORAN_DANA_LAINNYA        = URL + "laporan/loadDanaLainnya.php?id_haul=";
@@ -82,7 +86,8 @@ public class Konfigurasi {
     public static final String KEY_USER_TELEPON_PREFERENCE  = "telepon_pref";
     public static final String KEY_USER_SANDI_PREFERENCE    = "sandi_pref";
     public static final String KEY_USER_LEVEL_PREFERENCE    = "level_pref";
-    public static final String KEY_JSON_ARRAY_RESULT        = "result";
+
+    public static final String KEY_JSON_ARRAY_RESULT    = "result";
 
     public static final String KEY_ID               = "id";
     public static final String KEY_NAMA             = "nama";
@@ -101,15 +106,20 @@ public class Konfigurasi {
     public static final String KEY_DESKRIPSI    = "deskripsi";
     public static final String KEY_STATUS       = "status";
 
-    public static final String KEY_JUMLAH_UANG          = "jumlah_uang";
-    public static final String KEY_JUMLAH_ALMARHUM      = "jumlah_almarhum";
+    public static final String KEY_JUMLAH_UANG              = "jumlah_uang";
+    public static final String KEY_JUMLAH_ALMARHUM          = "jumlah_almarhum";
     public static final String KEY_JUMLAH_BELUM_DIBACA      = "belum_dibaca";
     public static final String KEY_JUMLAH_SUDAH_DIBACA      = "sudah_dibaca";
 
-    public static final String KEY_JUMLAH      = "jumlah";
-    public static final String KEY_TOTAL      = "total";
-    public static final String KEY_SUBTOTAL      = "subtotal";
+    public static final String KEY_JUMLAH       = "jumlah";
+    public static final String KEY_TOTAL        = "total";
+    public static final String KEY_SUBTOTAL     = "subtotal";
 
-    public static final String KEY_DIBACA      = "dibaca";
-    public static final String KEY_ALMARHUMS      = "almarhums";
+    public static final String KEY_DIBACA       = "dibaca";
+    public static final String KEY_ALMARHUMS    = "almarhums";
+
+    public static final String KEY_FOTO_TAMNEL      = "foto_tamnel";
+    public static final String KEY_JUDUL            = "judul";
+    public static final String KEY_LOKASI           = "lokasi";
+    public static final String KEY_DILIHAT          = "dilihat";
 }

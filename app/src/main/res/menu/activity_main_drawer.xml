@@ -5,19 +5,29 @@
 
     <group android:checkableBehavior="none">
         <item
+            android:id="@+id/nav_menu_artikel"
+            android:icon="@drawable/ic_artikel"
+            android:title="Artikel Berita" />
+
+        <item
             android:id="@+id/nav_menu_haul"
-            android:icon="@mipmap/ic_penarikan_white"
-            android:title="Haul" />
+            android:icon="@drawable/ic_penarikan"
+            android:title="Program Haul" />
 
         <item
             android:id="@+id/nav_menu_akun"
             android:icon="@drawable/ic_user"
-            android:title="Akun" />
+            android:title="Daftar Akun" />
 
     </group>
 
     <item android:title="Lainnya">
         <menu>
+            <item
+                android:id="@+id/nav_tentang"
+                android:icon="@drawable/ic_tentang"
+                android:title="Tentang Kami" />
+
             <item
                 android:id="@+id/nav_log_out"
                 android:icon="@android:drawable/ic_lock_power_off"

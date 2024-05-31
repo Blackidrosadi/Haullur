@@ -63,7 +63,7 @@ public class BacaAdapter extends RecyclerView.Adapter<BacaAdapter.ViewHolder> {
             public void onClick(View view) {
                 if (holder.dibacaCB.isChecked()) {
                     tandaiTelahDibaca(baca.getId());
-                } else {
+                } else if (!holder.dibacaCB.isChecked()){
                     hapusTandaDibaca(baca.getId());
                 }
             }

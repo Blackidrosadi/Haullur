@@ -14,6 +14,7 @@ import com.rosadi.haullur.List.Adapter.PenarikanAdapter;
 import com.rosadi.haullur.List.Model.Penarikan;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
+import com.rosadi.haullur._util.Util;
 import com.rosadi.haullur._util.volley.RequestHandler;
 
 import org.json.JSONArray;
@@ -57,7 +58,7 @@ public class LaporanRincianActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
 
         petugasTV.setText(petugas);
-        totalDanaTV.setText(rupiahFormat(subtotal) + ",-");
+        totalDanaTV.setText(Util.rupiahFormat(subtotal) + ",-");
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(LaporanRincianActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -123,34 +124,5 @@ public class LaporanRincianActivity extends AppCompatActivity {
 
         LoadData LoadData = new LoadData();
         LoadData.execute();
-    }
-
-    public String rupiahFormat(String jumlah) {
-        Locale local = new Locale("id", "id");
-        String replaceable = String.format("[Rp,.\\s]",
-                NumberFormat.getCurrencyInstance()
-                        .getCurrency()
-                        .getSymbol(local));
-        String cleanString = jumlah.replaceAll(replaceable, "");
-
-        double parsed;
-        try {
-            parsed = Double.parseDouble(cleanString);
-        } catch (NumberFormatException e) {
-            parsed = 0.00;
-        }
-
-        NumberFormat formatter = NumberFormat
-                .getCurrencyInstance(local);
-        formatter.setMaximumFractionDigits(0);
-        formatter.setParseIntegerOnly(true);
-        String formatted = formatter.format((parsed));
-
-        String replace = String.format("[Rp\\s]",
-                NumberFormat.getCurrencyInstance().getCurrency()
-                        .getSymbol(local));
-        String clean = formatted.replaceAll(replace, "");
-
-        return clean;
     }
 }

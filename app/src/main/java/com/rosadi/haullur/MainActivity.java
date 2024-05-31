@@ -3,6 +3,8 @@ package com.rosadi.haullur;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -21,12 +23,15 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.rosadi.haullur.Akun.LoginActivity;
+import com.rosadi.haullur.Kelas.DrawerMenu.Artikel.ArtikelActivity;
 import com.rosadi.haullur.Kelas.DrawerMenu.Akun.AkunActivity;
 import com.rosadi.haullur.Kelas.DrawerMenu.Haul.ProgramHaulActivity;
 import com.rosadi.haullur.Kelas.Almarhum.DataKeluargaActivity;
 import com.rosadi.haullur.Kelas.Baca.BacaActivity;
 import com.rosadi.haullur.Kelas.Laporan.LaporanActivity;
 import com.rosadi.haullur.Kelas.Penarikan.PenarikanActivity;
+import com.rosadi.haullur.List.Adapter.ArtikelAdapter;
+import com.rosadi.haullur.List.Model.Artikel;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;
 
@@ -34,12 +39,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
     String idHaulAktif = "";
+
+    RecyclerView recyclerView;
+    ArtikelAdapter artikelAdapter;
+    List<Artikel> artikelList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +65,23 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.finish();
         }
 
+        recyclerView = findViewById(R.id.recycler_view);
+
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.nav_menu_artikel:
+                        if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "1")) {
+                            System.out.println("id admin : " + preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
+                            Toast.makeText(MainActivity.this, "Selain admin tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            startActivity(new Intent(MainActivity.this, ArtikelActivity.class));
+                        }
+                        return true;
+
                     case R.id.nav_menu_haul:
                         if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "1")) {
                             System.out.println("id admin : " + preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
@@ -139,6 +161,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, LaporanActivity.class));
             }
         });
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        artikelAdapter = new ArtikelAdapter(this, artikelList);
+        recyclerView.setAdapter(artikelAdapter);
     }
 
     private void openDialogLogout() {
