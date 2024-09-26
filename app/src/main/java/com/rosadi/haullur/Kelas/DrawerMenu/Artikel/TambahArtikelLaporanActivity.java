@@ -50,9 +50,12 @@ public class TambahArtikelLaporanActivity extends AppCompatActivity {
 
     RelativeLayout tambahFoto;
     ImageView imageViewTamnel, imageView, imageView2;
-    Bitmap foto = null, foto2 = null;
+    LinearLayout simpan;
+
+    Bitmap foto_tamnel = null, foto = null, foto2 = null;
     String jumlahKeluarga, jumlahAlmarhums;
 
+    private static final int KODE_FOTO_TAMNEL = 12;
     private static final int KODE_FOTO_PERTAMA = 1;
     private static final int KODE_FOTO_KEDUA = 2;
 
@@ -86,6 +89,7 @@ public class TambahArtikelLaporanActivity extends AppCompatActivity {
         tambahFoto = findViewById(R.id.tambah_foto);
         imageView = findViewById(R.id.imageView);
         imageView2 = findViewById(R.id.imageView2);
+        simpan = findViewById(R.id.simpan);
 
         templateLaporan.setVisibility(View.GONE);
         artikelForm.setVisibility(View.GONE);
@@ -130,6 +134,15 @@ public class TambahArtikelLaporanActivity extends AppCompatActivity {
             }
         });
 
+        imageViewTamnel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), KODE_FOTO_TAMNEL);
+            }
+        });
+
         tambahFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +172,23 @@ public class TambahArtikelLaporanActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (foto2 != null) {
                     openDialogUbahFoto(KODE_FOTO_KEDUA);
+                }
+            }
+        });
+
+        simpan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (foto_tamnel == null) {
+                    Toast.makeText(TambahArtikelLaporanActivity.this, "Tambahkan foto artikel!", Toast.LENGTH_SHORT).show();
+                } else if (judul.getText().toString().isEmpty()) {
+                    Toast.makeText(TambahArtikelLaporanActivity.this, "Isikan judul artikel!", Toast.LENGTH_SHORT).show();
+                } else if (lokasi.getText().toString().isEmpty()) {
+                    Toast.makeText(TambahArtikelLaporanActivity.this, "Isikan lokasi!", Toast.LENGTH_SHORT).show();
+                } else if (deskripsi.getText().toString().isEmpty()) {
+                    Toast.makeText(TambahArtikelLaporanActivity.this, "Isikan deskripsi artikel!", Toast.LENGTH_SHORT).show();
+                } else {
+                    tambahArtikelLaporan();shjadgsagdas
                 }
             }
         });
@@ -238,6 +268,22 @@ public class TambahArtikelLaporanActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == KODE_FOTO_TAMNEL && resultCode == RESULT_OK) {
+            if (data == null) {
+                Toast.makeText(this, "Gagal mengambil foto!", Toast.LENGTH_SHORT).show();
+            }
+
+            try {
+                File fotoAsli = FileUtil.from(this, data.getData());
+                foto_tamnel = new Compressor(this).compressToBitmap(fotoAsli);
+
+                imageViewTamnel.setImageBitmap(foto_tamnel);
+            } catch (IOException e) {
+                Toast.makeText(this, "Gagal membaca data foto yang dipilih!", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+
         if (requestCode == KODE_FOTO_PERTAMA && resultCode == RESULT_OK) {
             if (data == null) {
                 Toast.makeText(this, "Gagal mengambil foto!", Toast.LENGTH_SHORT).show();
@@ -348,7 +394,7 @@ public class TambahArtikelLaporanActivity extends AppCompatActivity {
                     jumlahKeluarga = object.getString("jumlah_keluarga");
                     jumlahAlmarhums = object.getString("jumlah_almarhums");
 
-                    judul.setText("Laporan " + deskripsiHaul.getText().toString());
+                    judul.setText("Laporan " + deskripsiHaul.getText().toString() + " pada " + tanggalHaul.getText().toString().trim());
                     lokasi.setText("Musholla Baiturrahman");
                     deskripsi.setText("Alhamdulillahirabbil'alamin, acara " + deskripsiHaul.getText().toString().trim() + " yang dilaksanakan " +
                             "pada hari " + tanggalHaul.getText().toString().trim() + " berjalan dengan lancar. Acara ini diikuti oleh " +

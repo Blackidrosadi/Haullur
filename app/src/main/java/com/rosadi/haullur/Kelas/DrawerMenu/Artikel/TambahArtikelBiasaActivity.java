@@ -76,7 +76,9 @@ public class TambahArtikelBiasaActivity extends AppCompatActivity {
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (judul.getText().toString().isEmpty()) {
+                if (fotoKompress == null) {
+                    Toast.makeText(TambahArtikelBiasaActivity.this, "Tambahkan foto artikel!", Toast.LENGTH_SHORT).show();
+                } else if (judul.getText().toString().isEmpty()) {
                     Toast.makeText(TambahArtikelBiasaActivity.this, "Isikan judul artikel!", Toast.LENGTH_SHORT).show();
                 } else if (lokasi.getText().toString().isEmpty()) {
                     Toast.makeText(TambahArtikelBiasaActivity.this, "Isikan lokasi!", Toast.LENGTH_SHORT).show();
