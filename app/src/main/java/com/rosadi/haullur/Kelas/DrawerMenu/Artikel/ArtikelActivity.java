@@ -129,6 +129,8 @@ public class ArtikelActivity extends AppCompatActivity {
                         artikel.setDeskripsi(object.getString(Konfigurasi.KEY_DESKRIPSI));
                         artikel.setDilihat(object.getString(Konfigurasi.KEY_DILIHAT));
                         artikel.setIdHaul(object.getString(Konfigurasi.KEY_ID_HAUL));
+                        artikel.setFoto(object.getString(Konfigurasi.KEY_FOTO));
+                        artikel.setFoto2(object.getString(Konfigurasi.KEY_FOTO_2));
                         artikelList.add(artikel);
                     }
 

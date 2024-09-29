@@ -13,9 +13,11 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -38,10 +40,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -68,7 +75,8 @@ public class TambahArtikelLaporanActivity extends AppCompatActivity {
     public Dialog dialogPilihanHaul;
     public String idHaul = "", totalDanaHaul = "";
     public RelativeLayout pilihanHaul;
-    public TextView deskripsiHaul, tanggalHaul, judul, lokasi, deskripsi;
+    public TextView deskripsiHaul, tanggalHaul;
+    public EditText judul, lokasi, deskripsi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,10 +196,73 @@ public class TambahArtikelLaporanActivity extends AppCompatActivity {
                 } else if (deskripsi.getText().toString().isEmpty()) {
                     Toast.makeText(TambahArtikelLaporanActivity.this, "Isikan deskripsi artikel!", Toast.LENGTH_SHORT).show();
                 } else {
-                    tambahArtikelLaporan();shjadgsagdas
+                    tambahArtikelLaporan();
                 }
             }
         });
+    }
+
+    private void tambahArtikelLaporan() {
+        class ProsesTambah extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog progressDialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog = ProgressDialog.show(TambahArtikelLaporanActivity.this, "Informasi", "Proses menambahkan...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                progressDialog.dismiss();
+
+                if (s.equals("Alhamdulillah berhasil menambahkan artikel")) {
+                    TambahArtikelLaporanActivity.this.finish();
+                    Intent i = new Intent(TambahArtikelLaporanActivity.this, ArtikelActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
+
+                Toast.makeText(TambahArtikelLaporanActivity.this, s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                Date date = Calendar.getInstance().getTime();
+                Locale local = new Locale("id", "id");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy", local);
+
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put(Konfigurasi.KEY_FOTO_TAMNEL, getStringImage(foto_tamnel));
+                hashMap.put(Konfigurasi.KEY_JUDUL, judul.getText().toString());
+                hashMap.put(Konfigurasi.KEY_LOKASI, lokasi.getText().toString());
+                hashMap.put(Konfigurasi.KEY_TANGGAL, "" + simpleDateFormat.format(date));
+                hashMap.put(Konfigurasi.KEY_DESKRIPSI, deskripsi.getText().toString());
+                hashMap.put(Konfigurasi.KEY_ID_HAUL, idHaul);
+                hashMap.put(Konfigurasi.KEY_FOTO, getStringImage(foto));
+                hashMap.put(Konfigurasi.KEY_FOTO_2, getStringImage(foto2));
+
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendPostRequest(Konfigurasi.URL_TAMBAH_ARTIKEL_LAPORAN, hashMap);
+                return s;
+            }
+        }
+
+        ProsesTambah prosesTambah = new ProsesTambah();
+        prosesTambah.execute();
+    }
+
+    public String getStringImage(Bitmap bitmap) {
+        if (bitmap != null) {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] imageBytes = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        } else {
+            return "";
+        }
     }
 
     private void openDialogListHaul() {
@@ -396,7 +467,7 @@ public class TambahArtikelLaporanActivity extends AppCompatActivity {
 
                     judul.setText("Laporan " + deskripsiHaul.getText().toString() + " pada " + tanggalHaul.getText().toString().trim());
                     lokasi.setText("Musholla Baiturrahman");
-                    deskripsi.setText("Alhamdulillahirabbil'alamin, acara " + deskripsiHaul.getText().toString().trim() + " yang dilaksanakan " +
+                    deskripsi.setText("Alhamdulillahirabbilalamin, acara " + deskripsiHaul.getText().toString().trim() + " yang dilaksanakan " +
                             "pada hari " + tanggalHaul.getText().toString().trim() + " berjalan dengan lancar. Acara ini diikuti oleh " +
                             jumlahKeluarga + " keluarga dengan " + jumlahAlmarhums + " almarhum/almarhumah. Total dana " +
                             "yang telah dikumpulkan sebanyak Rp" + Util.rupiahFormat(totalDanaHaul) + ".");

@@ -11,6 +11,9 @@
         android:theme="@style/Theme.HAULLUR"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Kelas.DrawerMenu.Artikel.EditArtikelLaporanActivity"
+            android:exported="false" />
+        <activity
             android:name=".Kelas.DrawerMenu.Artikel.TambahArtikelLaporanActivity"
             android:exported="false" />
         <activity
@@ -89,9 +92,9 @@
             android:name=".MainActivity"
             android:exported="true" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

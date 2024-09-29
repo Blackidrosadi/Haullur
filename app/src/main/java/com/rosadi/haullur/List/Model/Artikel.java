@@ -2,7 +2,7 @@ package com.rosadi.haullur.List.Model;
 
 public class Artikel {
 
-    private String id, fotoTamnel, judul, tanggal, lokasi, deskripsi, dilihat, idHaul;
+    private String id, fotoTamnel, judul, tanggal, lokasi, deskripsi, dilihat, idHaul, foto, foto2;
 
     public String getId() {
         return id;
@@ -66,5 +66,21 @@ public class Artikel {
 
     public void setIdHaul(String idHaul) {
         this.idHaul = idHaul;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public String getFoto2() {
+        return foto2;
+    }
+
+    public void setFoto2(String foto2) {
+        this.foto2 = foto2;
     }
 }
