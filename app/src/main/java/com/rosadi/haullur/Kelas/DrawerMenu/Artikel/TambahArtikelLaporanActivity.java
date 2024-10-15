@@ -470,7 +470,9 @@ public class TambahArtikelLaporanActivity extends AppCompatActivity {
                     deskripsi.setText("Alhamdulillahirabbilalamin, acara " + deskripsiHaul.getText().toString().trim() + " yang dilaksanakan " +
                             "pada hari " + tanggalHaul.getText().toString().trim() + " berjalan dengan lancar. Acara ini diikuti oleh " +
                             jumlahKeluarga + " keluarga dengan " + jumlahAlmarhums + " almarhum/almarhumah. Total dana " +
-                            "yang telah dikumpulkan sebanyak Rp" + Util.rupiahFormat(totalDanaHaul) + ".");
+                            "yang telah dikumpulkan sebanyak Rp" + Util.rupiahFormat(totalDanaHaul) + ".\n\n" +
+                            "Semoga almarhum - almarhumah husnul khotimah diampuni segala dosa, ditempatkan di tempat yang tinggi di sisi Allah " +
+                            "dan keluarga yang ditinggalkan diberikan kesabaran.. Amin Allahuma Amiiiin.");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

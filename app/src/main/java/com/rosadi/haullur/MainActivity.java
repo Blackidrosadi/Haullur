@@ -74,18 +74,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_menu_artikel:
-                        if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "1")) {
-                            System.out.println("id admin : " + preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
-                            Toast.makeText(MainActivity.this, "Selain admin tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
+                        if (Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
+                            Toast.makeText(MainActivity.this, "Selain admin dan petugas tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
                         } else {
                             startActivity(new Intent(MainActivity.this, ArtikelActivity.class));
                         }
                         return true;
 
                     case R.id.nav_menu_haul:
-                        if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "1")) {
-                            System.out.println("id admin : " + preferences.getString(Konfigurasi.KEY_USER_ID_PREFERENCE, null));
-                            Toast.makeText(MainActivity.this, "Selain admin tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
+                        if (Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
+                            Toast.makeText(MainActivity.this, "Selain admin dan petugas  tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
                         } else {
                             startActivity(new Intent(MainActivity.this, ProgramHaulActivity.class));
                         }
@@ -146,7 +144,11 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button_penarikan).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cekProgramHaul();
+                if (Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
+                    Toast.makeText(MainActivity.this, "Selain admin dan petugas  tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
+                } else {
+                    cekProgramHaul();
+                }
             }
         });
         findViewById(R.id.button_dataalmarhum).setOnClickListener(new View.OnClickListener() {
@@ -166,6 +168,67 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         artikelAdapter = new ArtikelAdapter(this, artikelList);
         recyclerView.setAdapter(artikelAdapter);
+
+        loadArtikel();
+    }
+
+    private void loadArtikel() {
+        class LoadData extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog progressDialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog = ProgressDialog.show(MainActivity.this, "Informasi", "Memuat data artikel", false, false);
+                progressDialog.setCancelable(true);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                progressDialog.dismiss();
+                artikelList.clear();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONArray result = jsonObject.getJSONArray(Konfigurasi.KEY_JSON_ARRAY_RESULT);
+                    for (int i = 0; i < result.length(); i++) {
+                        JSONObject object = result.getJSONObject(i);
+
+                        Artikel artikel = new Artikel();
+                        artikel.setId(object.getString(Konfigurasi.KEY_ID));
+                        artikel.setFotoTamnel(object.getString(Konfigurasi.KEY_FOTO_TAMNEL));
+                        artikel.setJudul(object.getString(Konfigurasi.KEY_JUDUL));
+                        artikel.setTanggal(object.getString(Konfigurasi.KEY_TANGGAL));
+                        artikel.setLokasi(object.getString(Konfigurasi.KEY_LOKASI));
+                        artikel.setDeskripsi(object.getString(Konfigurasi.KEY_DESKRIPSI));
+                        artikel.setDilihat(object.getString(Konfigurasi.KEY_DILIHAT));
+                        artikel.setIdHaul(object.getString(Konfigurasi.KEY_ID_HAUL));
+                        artikel.setFoto(object.getString(Konfigurasi.KEY_FOTO));
+                        artikel.setFoto2(object.getString(Konfigurasi.KEY_FOTO_2));
+                        artikelList.add(artikel);
+                    }
+
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                    artikelAdapter = new ArtikelAdapter(MainActivity.this, artikelList);
+                    recyclerView.setAdapter(artikelAdapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendGetRequest(Konfigurasi.URL_LOAD_ARTIKEL);
+                return s;
+            }
+        }
+
+        LoadData loadData = new LoadData();
+        loadData.execute();
     }
 
     private void openDialogLogout() {
@@ -208,18 +271,14 @@ public class MainActivity extends AppCompatActivity {
     private void cekProgramHaul() {
         class LoadData extends AsyncTask<Void, Void, String> {
 
-            ProgressDialog progressDialog;
-
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                progressDialog = ProgressDialog.show(MainActivity.this, "Informasi", "Memeriksa program haul...", false, false);
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                progressDialog.dismiss();
 
                 if (s.trim().equals("1")) {
                     startActivity(new Intent(MainActivity.this, PenarikanActivity.class));

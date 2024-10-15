@@ -48,10 +48,12 @@ public class Konfigurasi {
     public static final String URL_HAPUS_ALMARHUM       = URL + "keluarga/hapusAlmarhum.php";
 
     public static final String URL_LOAD_ARTIKEL                         = URL + "artikel/load.php";
-    public static final String URL_TAMBAH_ARTIKEL                       = URL + "artikel/tambah.php";
+    public static final String URL_TAMBAH_ARTIKEL                       = URL + "artikel/tambah_artikel.php";
     public static final String URL_TAMBAH_ARTIKEL_LAPORAN               = URL + "artikel/tambah_laporan.php";
+    public static final String URL_UPDATE_ARTIKEL                       = URL + "artikel/update_artikel.php";
     public static final String URL_UPDATE_ARTIKEL_LAPORAN               = URL + "artikel/update_laporan.php";
-    public static final String URL_HAPUS_ARTIKEL_LAPORAN               = URL + "artikel/hapus_laporan.php";
+    public static final String URL_HAPUS_ARTIKEL                        = URL + "artikel/hapus_artikel.php";
+    public static final String URL_HAPUS_ARTIKEL_LAPORAN                = URL + "artikel/hapus_laporan.php";
     public static final String URL_LOAD_JUMLAH_KELUARGA_DAN_ALMARHUMS   = URL + "artikel/loadJumlahKeluargaDanAlmarhum.php?id_haul=";
 
     public static final String URL_LOAD_PROGRAM_HAUL        = URL + "haul/loadProgram.php";

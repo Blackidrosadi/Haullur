@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 public class BuatPasswordActivity extends AppCompatActivity {
 
-    FirebaseAuth auth;
+//    FirebaseAuth auth;
 
     EditText sandiET, konfirmasiSandiET;
     String nama, email, telepon;
@@ -36,8 +36,8 @@ public class BuatPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buat_password);
 
-        auth = FirebaseAuth.getInstance();
-        auth.signOut();
+//        auth = FirebaseAuth.getInstance();
+//        auth.signOut();
 
         Intent i = getIntent();
         nama = i.getStringExtra("nama");
@@ -54,6 +54,8 @@ public class BuatPasswordActivity extends AppCompatActivity {
                     Toast.makeText(BuatPasswordActivity.this, "Masukkan kata sandi!", Toast.LENGTH_SHORT).show();
                 } else if (sandiET.getText().toString().length() < 6) {
                     Toast.makeText(BuatPasswordActivity.this, "Masukkan kata sandi minimal 6 karakter!", Toast.LENGTH_SHORT).show();
+                } else if (sandiET.getText().toString().length() > 20) {
+                    Toast.makeText(BuatPasswordActivity.this, "Masukkan kata sandi maksimal 20 karakter!", Toast.LENGTH_SHORT).show();
                 } else if (konfirmasiSandiET.getText().toString().isEmpty() || konfirmasiSandiET.getText().toString().length() == 0) {
                     Toast.makeText(BuatPasswordActivity.this, "Masukkan konfirmasi kata sandi!", Toast.LENGTH_SHORT).show();
                 } else if (!konfirmasiSandiET.getText().toString().equals(sandiET.getText().toString())) {

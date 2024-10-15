@@ -119,8 +119,14 @@ public class VerifikasiActivity extends AppCompatActivity {
                 if (s.trim().equals("1")) {
                     Toast.makeText(VerifikasiActivity.this, "Nomor telepon sudah terdaftar!", Toast.LENGTH_SHORT).show();
                 } else {
-                    String teleponNya = "+62" + telepon;
-                    openDialogVerifikasiKode(teleponNya);
+//                    String teleponNya = "+62" + telepon;
+//                    openDialogVerifikasiKode(teleponNya);
+
+                    Intent i = new Intent(VerifikasiActivity.this, BuatPasswordActivity.class);
+                    i.putExtra("nama", nama);
+                    i.putExtra("email", email);
+                    i.putExtra("telepon", teleponEt.getText().toString());
+                    startActivity(i);
                 }
             }
 
@@ -136,84 +142,84 @@ public class VerifikasiActivity extends AppCompatActivity {
         loadData.execute();
     }
 
-    private void openDialogVerifikasiKode(String telepon) {
-        Dialog dialog = new Dialog(VerifikasiActivity.this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_verifikasi_kode);
-        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false);
-
-        kodeET = dialog.findViewById(R.id.kode);
-
-        kirimKodeVerifikasi(telepon);
-
-        dialog.findViewById(R.id.verifikasi).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                verifikasiKodeNya(kodeET.getText().toString());
-            }
-        });
-
-        dialog.findViewById(R.id.ganti).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-    }
-
-    private void kirimKodeVerifikasi(String telepon) {
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(auth)
-                        .setPhoneNumber(telepon)            // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(this)                 // Activity (for callback binding)
-                        .setCallbacks(callbacks)           // OnVerificationStateChangedCallbacks
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
-    }
-
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-        @Override
-        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-            super.onCodeSent(s, forceResendingToken);
-            verificationId = s;
-        }
-
-        @Override
-        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-            final String kodeNya = phoneAuthCredential.getSmsCode();
-            if (kodeNya != null) {
-                kodeET.setText(kodeNya);
-                kode = kodeNya;
-                verifikasiKodeNya(kodeNya);
-            }
-        }
-
-        @Override
-        public void onVerificationFailed(@NonNull FirebaseException e) {
-            Toast.makeText(VerifikasiActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    private void verifikasiKodeNya(String kode) {
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, kode);
-
-        auth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Intent i = new Intent(VerifikasiActivity.this, BuatPasswordActivity.class);
-                    i.putExtra("nama", nama);
-                    i.putExtra("email", email);
-                    i.putExtra("telepon", teleponEt.getText().toString());
-                    startActivity(i);
-                } else {
-                    Toast.makeText(VerifikasiActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+//    private void openDialogVerifikasiKode(String telepon) {
+//        Dialog dialog = new Dialog(VerifikasiActivity.this);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setContentView(R.layout.dialog_verifikasi_kode);
+//        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//        dialog.setCancelable(false);
+//
+//        kodeET = dialog.findViewById(R.id.kode);
+//
+//        kirimKodeVerifikasi(telepon);
+//
+//        dialog.findViewById(R.id.verifikasi).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                verifikasiKodeNya(kodeET.getText().toString());
+//            }
+//        });
+//
+//        dialog.findViewById(R.id.ganti).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        dialog.show();
+//    }
+//
+//    private void kirimKodeVerifikasi(String telepon) {
+//        PhoneAuthOptions options =
+//                PhoneAuthOptions.newBuilder(auth)
+//                        .setPhoneNumber(telepon)            // Phone number to verify
+//                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+//                        .setActivity(this)                 // Activity (for callback binding)
+//                        .setCallbacks(callbacks)           // OnVerificationStateChangedCallbacks
+//                        .build();
+//        PhoneAuthProvider.verifyPhoneNumber(options);
+//    }
+//
+//    private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+//        @Override
+//        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+//            super.onCodeSent(s, forceResendingToken);
+//            verificationId = s;
+//        }
+//
+//        @Override
+//        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+//            final String kodeNya = phoneAuthCredential.getSmsCode();
+//            if (kodeNya != null) {
+//                kodeET.setText(kodeNya);
+//                kode = kodeNya;
+//                verifikasiKodeNya(kodeNya);
+//            }
+//        }
+//
+//        @Override
+//        public void onVerificationFailed(@NonNull FirebaseException e) {
+//            Toast.makeText(VerifikasiActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+//    };
+//
+//    private void verifikasiKodeNya(String kode) {
+//        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, kode);
+//
+//        auth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if (task.isSuccessful()) {
+//                    Intent i = new Intent(VerifikasiActivity.this, BuatPasswordActivity.class);
+//                    i.putExtra("nama", nama);
+//                    i.putExtra("email", email);
+//                    i.putExtra("telepon", teleponEt.getText().toString());
+//                    startActivity(i);
+//                } else {
+//                    Toast.makeText(VerifikasiActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
 }

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rosadi.haullur.Akun.LoginActivity;
 import com.rosadi.haullur.List.Adapter.AlmarhumAdapter;
 import com.rosadi.haullur.List.Model.Almarhum;
 import com.rosadi.haullur.R;
@@ -31,8 +33,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class DataKeluargaDetailActivity extends AppCompatActivity {
+
+    SharedPreferences preferences;
 
     TextView namaTV, jumlahAlmarhumTV;
     RecyclerView recyclerView;
@@ -46,6 +51,14 @@ public class DataKeluargaDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_keluarga_detail);
 
+        preferences = getSharedPreferences(Konfigurasi.KEY_USER_PREFERENCE, 0);
+        if (preferences == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            DataKeluargaDetailActivity.this.finish();
+        }
+
         findViewById(R.id.kembali).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,21 +69,33 @@ public class DataKeluargaDetailActivity extends AppCompatActivity {
         findViewById(R.id.edit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialogEditKeluarga();
+                if (Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
+                    Toast.makeText(DataKeluargaDetailActivity.this, "Selain admin dan petugas tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
+                } else {
+                    openDialogEditKeluarga();
+                }
             }
         });
 
         findViewById(R.id.hapus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialogHapusKeluarga();
+                if (Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
+                    Toast.makeText(DataKeluargaDetailActivity.this, "Selain admin dan petugas tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
+                } else {
+                    openDialogHapusKeluarga();
+                }
             }
         });
 
         findViewById(R.id.tambah_almarhum).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialogTambahAlmarhum();
+                if (Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
+                    Toast.makeText(DataKeluargaDetailActivity.this, "Selain admin dan petugas tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
+                } else {
+                    openDialogTambahAlmarhum();
+                }
             }
         });
 
@@ -88,7 +113,7 @@ public class DataKeluargaDetailActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DataKeluargaDetailActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        almarhumAdapter = new AlmarhumAdapter(DataKeluargaDetailActivity.this, almarhumList);
+        almarhumAdapter = new AlmarhumAdapter(DataKeluargaDetailActivity.this, almarhumList, preferences);
         recyclerView.setAdapter(almarhumAdapter);
 
         loadAlmarhums();
@@ -162,7 +187,7 @@ public class DataKeluargaDetailActivity extends AppCompatActivity {
 
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DataKeluargaDetailActivity.this);
                     recyclerView.setLayoutManager(linearLayoutManager);
-                    almarhumAdapter = new AlmarhumAdapter(DataKeluargaDetailActivity.this, almarhumList);
+                    almarhumAdapter = new AlmarhumAdapter(DataKeluargaDetailActivity.this, almarhumList, preferences);
                     recyclerView.setAdapter(almarhumAdapter);
 
                 } catch (JSONException e) {

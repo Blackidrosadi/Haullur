@@ -17,6 +17,8 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.rosadi.haullur.Kelas.Artikel.DetailArtikelActivity;
+import com.rosadi.haullur.Kelas.DrawerMenu.Artikel.EditArtikelBiasaActivity;
 import com.rosadi.haullur.Kelas.DrawerMenu.Artikel.EditArtikelLaporanActivity;
 import com.rosadi.haullur.List.Model.Artikel;
 import com.rosadi.haullur.R;
@@ -71,21 +73,56 @@ public class ArtikelAdapter extends RecyclerView.Adapter<ArtikelAdapter.ViewHold
         holder.selengkapnya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (artikel.getIdHaul().equals("0")) {
-                    Toast.makeText(context, "Edit artikel biasa", Toast.LENGTH_SHORT).show();
-                } else {
-                    Intent i = new Intent(context, EditArtikelLaporanActivity.class);
-                    i.putExtra(Konfigurasi.KEY_ID, artikel.getId());
-                    i.putExtra(Konfigurasi.KEY_FOTO_TAMNEL, artikel.getFotoTamnel());
-                    i.putExtra(Konfigurasi.KEY_JUDUL, artikel.getJudul());
-                    i.putExtra(Konfigurasi.KEY_TANGGAL, artikel.getTanggal());
-                    i.putExtra(Konfigurasi.KEY_LOKASI, artikel.getLokasi());
-                    i.putExtra(Konfigurasi.KEY_DESKRIPSI, artikel.getDeskripsi());
-                    i.putExtra(Konfigurasi.KEY_DILIHAT, artikel.getDilihat());
-                    i.putExtra(Konfigurasi.KEY_ID_HAUL, artikel.getIdHaul());
-                    i.putExtra(Konfigurasi.KEY_FOTO, artikel.getFoto());
-                    i.putExtra(Konfigurasi.KEY_FOTO_2, artikel.getFoto2());
-                    context.startActivity(i);
+                if (context.getClass().getSimpleName().equals("MainActivity")) {
+                    if (artikel.getIdHaul().equals("0")) {
+//                        Intent i = new Intent(context, DetailArtikelActivity.class);
+//                        i.putExtra(Konfigurasi.KEY_ID, artikel.getId());
+//                        i.putExtra(Konfigurasi.KEY_FOTO_TAMNEL, artikel.getFotoTamnel());
+//                        i.putExtra(Konfigurasi.KEY_JUDUL, artikel.getJudul());
+//                        i.putExtra(Konfigurasi.KEY_TANGGAL, artikel.getTanggal());
+//                        i.putExtra(Konfigurasi.KEY_LOKASI, artikel.getLokasi());
+//                        i.putExtra(Konfigurasi.KEY_DESKRIPSI, artikel.getDeskripsi());
+//                        i.putExtra(Konfigurasi.KEY_DILIHAT, artikel.getDilihat());
+//                        context.startActivity(i);
+                    } else {
+                        Intent i = new Intent(context, DetailArtikelActivity.class);
+                        i.putExtra(Konfigurasi.KEY_ID, artikel.getId());
+                        i.putExtra(Konfigurasi.KEY_FOTO_TAMNEL, artikel.getFotoTamnel());
+                        i.putExtra(Konfigurasi.KEY_JUDUL, artikel.getJudul());
+                        i.putExtra(Konfigurasi.KEY_TANGGAL, artikel.getTanggal());
+                        i.putExtra(Konfigurasi.KEY_LOKASI, artikel.getLokasi());
+                        i.putExtra(Konfigurasi.KEY_DESKRIPSI, artikel.getDeskripsi());
+                        i.putExtra(Konfigurasi.KEY_DILIHAT, artikel.getDilihat());
+                        i.putExtra(Konfigurasi.KEY_ID_HAUL, artikel.getIdHaul());
+                        i.putExtra(Konfigurasi.KEY_FOTO, artikel.getFoto());
+                        i.putExtra(Konfigurasi.KEY_FOTO_2, artikel.getFoto2());
+                        context.startActivity(i);
+                    }
+                } else if (context.getClass().getSimpleName().equals("ArtikelActivity")) {
+                    if (artikel.getIdHaul().equals("0")) {
+                        Intent i = new Intent(context, EditArtikelBiasaActivity.class);
+                        i.putExtra(Konfigurasi.KEY_ID, artikel.getId());
+                        i.putExtra(Konfigurasi.KEY_FOTO_TAMNEL, artikel.getFotoTamnel());
+                        i.putExtra(Konfigurasi.KEY_JUDUL, artikel.getJudul());
+                        i.putExtra(Konfigurasi.KEY_TANGGAL, artikel.getTanggal());
+                        i.putExtra(Konfigurasi.KEY_LOKASI, artikel.getLokasi());
+                        i.putExtra(Konfigurasi.KEY_DESKRIPSI, artikel.getDeskripsi());
+                        i.putExtra(Konfigurasi.KEY_DILIHAT, artikel.getDilihat());
+                        context.startActivity(i);
+                    } else {
+                        Intent i = new Intent(context, EditArtikelLaporanActivity.class);
+                        i.putExtra(Konfigurasi.KEY_ID, artikel.getId());
+                        i.putExtra(Konfigurasi.KEY_FOTO_TAMNEL, artikel.getFotoTamnel());
+                        i.putExtra(Konfigurasi.KEY_JUDUL, artikel.getJudul());
+                        i.putExtra(Konfigurasi.KEY_TANGGAL, artikel.getTanggal());
+                        i.putExtra(Konfigurasi.KEY_LOKASI, artikel.getLokasi());
+                        i.putExtra(Konfigurasi.KEY_DESKRIPSI, artikel.getDeskripsi());
+                        i.putExtra(Konfigurasi.KEY_DILIHAT, artikel.getDilihat());
+                        i.putExtra(Konfigurasi.KEY_ID_HAUL, artikel.getIdHaul());
+                        i.putExtra(Konfigurasi.KEY_FOTO, artikel.getFoto());
+                        i.putExtra(Konfigurasi.KEY_FOTO_2, artikel.getFoto2());
+                        context.startActivity(i);
+                    }
                 }
             }
         });

@@ -1,4 +1,4 @@
-package com.rosadi.haullur.Kelas.Baca;
+package com.rosadi.haullur.Kelas.Artikel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,13 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.rosadi.haullur.Akun.LoginActivity;
+import com.rosadi.haullur.Kelas.Baca.BacaActivity;
 import com.rosadi.haullur.List.Adapter.BacaAdapter;
 import com.rosadi.haullur.List.Model.Almarhums;
 import com.rosadi.haullur.List.Model.Baca;
@@ -27,10 +26,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BacaActivity extends AppCompatActivity {
+public class ListAlmarhumActivity extends AppCompatActivity {
 
-    SharedPreferences preferences;
-    public String idHaulAktif;
+    public String idHaul;
 
     RecyclerView recyclerView;
     List<Baca> bacaList = new ArrayList<>();
@@ -41,23 +39,7 @@ public class BacaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_baca);
-
-        preferences = getSharedPreferences(Konfigurasi.KEY_USER_PREFERENCE, 0);
-        if (preferences == null) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            BacaActivity.this.finish();
-        }
-
-        Intent i = getIntent();
-        idHaulAktif = i.getStringExtra("id_haul");
-
-        jumlah = findViewById(R.id.jumlah);
-        jumlahBelumDibaca = findViewById(R.id.jumlah_belum_dibaca);
-        jumlahSudahDibaca = findViewById(R.id.jumlah_sudah_dibaca);
-        recyclerView = findViewById(R.id.recycler_view);
+        setContentView(R.layout.activity_list_almarhum);
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,16 +48,24 @@ public class BacaActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(BacaActivity.this);
+        Intent i = getIntent();
+        idHaul = i.getStringExtra("id_haul");
+
+        jumlah = findViewById(R.id.jumlah);
+        jumlahBelumDibaca = findViewById(R.id.jumlah_belum_dibaca);
+        jumlahSudahDibaca = findViewById(R.id.jumlah_sudah_dibaca);
+        recyclerView = findViewById(R.id.recycler_view);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ListAlmarhumActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        bacaAdapter = new BacaAdapter(BacaActivity.this, bacaList, preferences);
+        bacaAdapter = new BacaAdapter(ListAlmarhumActivity.this, bacaList, null);
         recyclerView.setAdapter(bacaAdapter);
 
         loadRingkasan();
         loadDataHaul();
     }
 
-    public void loadRingkasan() {
+    private void loadRingkasan() {
         class LoadData extends AsyncTask<Void, Void, String> {
 
             @Override
@@ -103,7 +93,7 @@ public class BacaActivity extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids) {
                 RequestHandler rh = new RequestHandler();
-                String s = rh.sendGetRequestParam(Konfigurasi.URL_LOAD_RINGKASAN_BACA, idHaulAktif);
+                String s = rh.sendGetRequestParam(Konfigurasi.URL_LOAD_RINGKASAN_BACA, idHaul);
                 return s;
             }
         }
@@ -120,7 +110,7 @@ public class BacaActivity extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                progressDialog = ProgressDialog.show(BacaActivity.this, "Informasi", "Memuat almarhum / almarhumah...", false, false);
+                progressDialog = ProgressDialog.show(ListAlmarhumActivity.this, "Informasi", "Memuat almarhum / almarhumah...", false, false);
             }
 
             @Override
@@ -157,9 +147,9 @@ public class BacaActivity extends AppCompatActivity {
                         bacaList.add(baca);
                     }
 
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(BacaActivity.this);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ListAlmarhumActivity.this);
                     recyclerView.setLayoutManager(linearLayoutManager);
-                    bacaAdapter = new BacaAdapter(BacaActivity.this, bacaList, preferences);
+                    bacaAdapter = new BacaAdapter(ListAlmarhumActivity.this, bacaList, null);
                     recyclerView.setAdapter(bacaAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -169,7 +159,7 @@ public class BacaActivity extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids) {
                 RequestHandler rh = new RequestHandler();
-                String s = rh.sendGetRequestParam(Konfigurasi.URL_BACA_LOAD_ALMARHUM, idHaulAktif);
+                String s = rh.sendGetRequestParam(Konfigurasi.URL_BACA_LOAD_ALMARHUM, idHaul);
                 return s;
             }
         }

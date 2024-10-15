@@ -8,6 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.rosadi.haullur.Akun.LoginActivity;
+import com.rosadi.haullur.Kelas.Laporan.LaporanDetailActivity;
 import com.rosadi.haullur.List.Adapter.KeluargaAdapter;
 import com.rosadi.haullur.List.Model.Keluarga;
 import com.rosadi.haullur.R;
@@ -41,8 +44,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class DataKeluargaActivity extends AppCompatActivity {
+
+    SharedPreferences preferences;
 
     RecyclerView recyclerView;
     public ProgressBar progressBar;
@@ -57,6 +63,14 @@ public class DataKeluargaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_keluarga);
+
+        preferences = getSharedPreferences(Konfigurasi.KEY_USER_PREFERENCE, 0);
+        if (preferences == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            DataKeluargaActivity.this.finish();
+        }
 
         recyclerView = findViewById(R.id.recycler_view);
         progressBar = findViewById(R.id.progress_bar);
@@ -73,7 +87,11 @@ public class DataKeluargaActivity extends AppCompatActivity {
         findViewById(R.id.tambahkeluarga).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialogTambahKeluarga();
+                if (Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
+                    Toast.makeText(DataKeluargaActivity.this, "Selain admin dan petugas tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
+                } else {
+                    openDialogTambahKeluarga();
+                }
             }
         });
 

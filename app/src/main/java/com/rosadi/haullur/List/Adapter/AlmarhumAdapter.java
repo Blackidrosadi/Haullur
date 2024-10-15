@@ -3,6 +3,7 @@ package com.rosadi.haullur.List.Adapter;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,18 +22,21 @@ import com.rosadi.haullur._util.volley.RequestHandler;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AlmarhumAdapter extends RecyclerView.Adapter<AlmarhumAdapter.ViewHolder> {
 
+    SharedPreferences preferences;
     Context context;
     List<Almarhum> almarhumList;
 
-    public AlmarhumAdapter(Context context, List<Almarhum> almarhumList) {
+    public AlmarhumAdapter(Context context, List<Almarhum> almarhumList, SharedPreferences preferences) {
         this.context = context;
         this.almarhumList = almarhumList;
+        this.preferences = preferences;
     }
 
     @NonNull
@@ -52,72 +56,74 @@ public class AlmarhumAdapter extends RecyclerView.Adapter<AlmarhumAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog(context);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.dialog_ubah_almarhum);
-                dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                dialog.setCancelable(false);
+                if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
+                    Dialog dialog = new Dialog(context);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.dialog_ubah_almarhum);
+                    dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    dialog.setCancelable(false);
 
-                EditText namaEd = dialog.findViewById(R.id.nama);
-                namaEd.setText(almarhum.getNama());
+                    EditText namaEd = dialog.findViewById(R.id.nama);
+                    namaEd.setText(almarhum.getNama());
 
-                dialog.findViewById(R.id.simpan).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (namaEd.getText().toString().isEmpty()) {
-                            Toast.makeText(context, "Masukkan nama!!", Toast.LENGTH_SHORT).show();
-                        } else if (namaEd.getText().toString().length() < 4) {
-                            Toast.makeText(context, "Masukkan nama minimal 4 karakter!!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            ubahAlmarhum(almarhum.getId(), namaEd.getText().toString());
+                    dialog.findViewById(R.id.simpan).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (namaEd.getText().toString().isEmpty()) {
+                                Toast.makeText(context, "Masukkan nama!!", Toast.LENGTH_SHORT).show();
+                            } else if (namaEd.getText().toString().length() < 4) {
+                                Toast.makeText(context, "Masukkan nama minimal 4 karakter!!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                ubahAlmarhum(almarhum.getId(), namaEd.getText().toString());
+                                dialog.dismiss();
+                            }
+                        }
+                    });
+
+                    dialog.findViewById(R.id.batal).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
                             dialog.dismiss();
                         }
-                    }
-                });
+                    });
 
-                dialog.findViewById(R.id.batal).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
+                    dialog.findViewById(R.id.hapus).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Dialog dialog_info = new Dialog(context);
+                            dialog_info.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog_info.setContentView(R.layout.dialog_iya_tidak);
+                            dialog_info.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            dialog_info.setCancelable(false);
 
-                dialog.findViewById(R.id.hapus).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Dialog dialog_info = new Dialog(context);
-                        dialog_info.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                        dialog_info.setContentView(R.layout.dialog_iya_tidak);
-                        dialog_info.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        dialog_info.setCancelable(false);
+                            TextView judul = dialog_info.findViewById(R.id.judul);
+                            TextView teks = dialog_info.findViewById(R.id.teks);
+                            TextView teksiya = dialog_info.findViewById(R.id.teksiya);
 
-                        TextView judul = dialog_info.findViewById(R.id.judul);
-                        TextView teks = dialog_info.findViewById(R.id.teks);
-                        TextView teksiya = dialog_info.findViewById(R.id.teksiya);
+                            judul.setText("Hapus Data Almarhum");
+                            teks.setText("Apakah Anda ingin menghapus almarhum / almarhumah ini ?");
+                            teksiya.setText("Hapus");
 
-                        judul.setText("Hapus Data Almarhum");
-                        teks.setText("Apakah Anda ingin menghapus almarhum / almarhumah ini ?");
-                        teksiya.setText("Hapus");
+                            dialog_info.findViewById(R.id.iya).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    hapusAlmarhum(almarhum.getId(), dialog, dialog_info);
+                                }
+                            });
 
-                        dialog_info.findViewById(R.id.iya).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                hapusAlmarhum(almarhum.getId(), dialog, dialog_info);
-                            }
-                        });
+                            dialog_info.findViewById(R.id.batal).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog_info.dismiss();
+                                }
+                            });
 
-                        dialog_info.findViewById(R.id.batal).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                dialog_info.dismiss();
-                            }
-                        });
+                            dialog_info.show();
+                        }
+                    });
 
-                        dialog_info.show();
-                    }
-                });
-
-                dialog.show();
+                    dialog.show();
+                }
             }
         });
     }

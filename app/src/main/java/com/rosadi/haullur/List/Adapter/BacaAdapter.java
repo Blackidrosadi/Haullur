@@ -1,7 +1,8 @@
 package com.rosadi.haullur.List.Adapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +14,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rosadi.haullur.Kelas.Baca.BacaActivity;
-import com.rosadi.haullur.Kelas.Penarikan.PenarikanActivity;
+import com.rosadi.haullur.Kelas.DrawerMenu.Haul.ProgramHaulActivity;
 import com.rosadi.haullur.List.Model.Almarhums;
 import com.rosadi.haullur.List.Model.Baca;
+import com.rosadi.haullur.MainActivity;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -32,16 +35,23 @@ public class BacaAdapter extends RecyclerView.Adapter<BacaAdapter.ViewHolder> {
 
     Context context;
     List<Baca> bacaList;
+    SharedPreferences preferences;
 
-    public BacaAdapter(Context context, List<Baca> bacaList) {
+    public BacaAdapter(Context context, List<Baca> bacaList, SharedPreferences preferences) {
         this.context = context;
         this.bacaList = bacaList;
+        this.preferences = preferences;
     }
 
     @NonNull
     @Override
     public BacaAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_baca, parent, false);
+        View view = null;
+        if (context.getClass().getSimpleName().equals("BacaActivity")) {
+            view = LayoutInflater.from(context).inflate(R.layout.list_baca, parent, false);
+        } else if (context.getClass().getSimpleName().equals("ListAlmarhumActivity")) {
+            view = LayoutInflater.from(context).inflate(R.layout.list_baca_tok, parent, false);
+        }
         return new ViewHolder(view);
     }
 
@@ -52,22 +62,35 @@ public class BacaAdapter extends RecyclerView.Adapter<BacaAdapter.ViewHolder> {
         holder.namaTV.setText(baca.getNama());
         holder.rtTV.setText("RT " + baca.getRt());
         holder.jumlahAlmarhumTV.setText(baca.getJumlahAlmarhum());
-        if (baca.getDibaca().equals("1")) {
-            holder.dibacaCB.setChecked(true);
-        } else {
-            holder.dibacaCB.setChecked(false);
-        }
 
-        holder.dibacaCB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (holder.dibacaCB.isChecked()) {
-                    tandaiTelahDibaca(baca.getId());
-                } else if (!holder.dibacaCB.isChecked()){
-                    hapusTandaDibaca(baca.getId());
-                }
+        if (context.getClass().getSimpleName().equals("BacaActivity")) {
+            if (baca.getDibaca().equals("1")) {
+                holder.dibacaCB.setChecked(true);
+            } else {
+                holder.dibacaCB.setChecked(false);
             }
-        });
+
+            if (Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
+                holder.dibacaCB.setEnabled(false);
+            } else {
+                holder.dibacaCB.setEnabled(true);
+            }
+
+            holder.dibacaCB.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
+                        if (holder.dibacaCB.isChecked()) {
+                            tandaiTelahDibaca(baca.getId());
+                        } else if (!holder.dibacaCB.isChecked()){
+                            hapusTandaDibaca(baca.getId());
+                        }
+                    } else {
+                        holder.dibacaCB.setEnabled(false);
+                    }
+                }
+            });
+        }
 
         List<Almarhums> almarhumsList = baca.getAlmarhumsList();
 

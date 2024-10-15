@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,10 +21,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rosadi.haullur.Akun.LoginActivity;
+import com.rosadi.haullur.Kelas.DrawerMenu.Artikel.ArtikelActivity;
 import com.rosadi.haullur.Kelas.Laporan.Fragment.PemasukanFragment;
 import com.rosadi.haullur.Kelas.Laporan.Fragment.PengeluaranFragment;
 import com.rosadi.haullur.List.Adapter.KeluargaAdapter;
 import com.rosadi.haullur.List.Model.Keluarga;
+import com.rosadi.haullur.MainActivity;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
 import com.rosadi.haullur._util.volley.RequestHandler;
@@ -37,8 +41,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class LaporanDetailActivity extends AppCompatActivity {
+
+    SharedPreferences preferences;
 
     TextView tanggalTV, totalTV, textPemasukanTV, textPengeluaranTV;
     View barPemasukan, barPengeluaran;
@@ -57,6 +64,14 @@ public class LaporanDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_laporan_detail);
+
+        preferences = getSharedPreferences(Konfigurasi.KEY_USER_PREFERENCE, 0);
+        if (preferences == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            LaporanDetailActivity.this.finish();
+        }
 
         Intent i = getIntent();
         idHaul = i.getStringExtra("id");
@@ -129,7 +144,11 @@ public class LaporanDetailActivity extends AppCompatActivity {
         findViewById(R.id.tambah).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialogTransaksi();
+                if (Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
+                    Toast.makeText(LaporanDetailActivity.this, "Selain admin dan petugas tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
+                } else {
+                    openDialogTransaksi();
+                }
             }
         });
     }
@@ -271,6 +290,8 @@ public class LaporanDetailActivity extends AppCompatActivity {
                 } else if (radioGroup.getCheckedRadioButtonId() == R.id.radio_sumbangan) {
                     if (deskripsi.getText().length() == 0 || deskripsi.getText().toString().trim().equals("")) {
                         Toast.makeText(LaporanDetailActivity.this, "Masukkan deskripsi!", Toast.LENGTH_SHORT).show();
+                    } else if (deskripsi.getText().length() > 200) {
+                        Toast.makeText(LaporanDetailActivity.this, "Deskripsi maksimal 200 karakter!", Toast.LENGTH_SHORT).show();
                     } else if (jumlahET.getText().toString().equals("") || jumlahET.getText().toString().equals("0")) {
                         Toast.makeText(LaporanDetailActivity.this, "Masukkan jumlah dana!", Toast.LENGTH_SHORT).show();
                     } else {

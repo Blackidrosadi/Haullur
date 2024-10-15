@@ -55,7 +55,15 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.masuk).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login(telepon.getText().toString(), sandi.getText().toString());
+                if (telepon.getText().toString().equals("") && sandi.getText().toString().equals("")) {
+                    Toast.makeText(LoginActivity.this, "Masukkan telepon dan kata sandi!", Toast.LENGTH_SHORT).show();
+                } else if (telepon.getText().toString().equals("")) {
+                    Toast.makeText(LoginActivity.this, "Masukkan nomor telepon!", Toast.LENGTH_SHORT).show();
+                } else if (sandi.getText().toString().equals("")) {
+                    Toast.makeText(LoginActivity.this, "Masukkan kata sandi!", Toast.LENGTH_SHORT).show();
+                } else {
+                    login(telepon.getText().toString(), sandi.getText().toString());
+                }
             }
         });
 

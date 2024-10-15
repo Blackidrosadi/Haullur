@@ -66,8 +66,6 @@ public class LaporanActivity extends AppCompatActivity {
         loadHaul();
     }
 
-
-
     private void loadHaul() {
         class LoadData extends AsyncTask<Void, Void, String> {
 

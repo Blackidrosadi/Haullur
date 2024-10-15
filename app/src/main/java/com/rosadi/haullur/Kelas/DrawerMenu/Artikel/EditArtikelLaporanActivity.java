@@ -77,6 +77,13 @@ public class EditArtikelLaporanActivity extends AppCompatActivity {
         hapus = findViewById(R.id.hapus);
         simpan = findViewById(R.id.simpan);
 
+        findViewById(R.id.kembali).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
         Intent intent = getIntent();
         id = intent.getStringExtra(Konfigurasi.KEY_ID);
         fotoTamnel = intent.getStringExtra(Konfigurasi.KEY_FOTO_TAMNEL);
