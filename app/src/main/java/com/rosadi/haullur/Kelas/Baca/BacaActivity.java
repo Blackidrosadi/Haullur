@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rosadi.haullur.Akun.LoginActivity;
 import com.rosadi.haullur.List.Adapter.BacaAdapter;
@@ -73,6 +74,11 @@ public class BacaActivity extends AppCompatActivity {
 
         loadRingkasan();
         loadDataHaul();
+    }
+
+    public void scrollToPosition(int pos) {
+        recyclerView.smoothScrollToPosition(pos);
+        bacaAdapter.notifyItemChanged(pos);
     }
 
     public void loadRingkasan() {

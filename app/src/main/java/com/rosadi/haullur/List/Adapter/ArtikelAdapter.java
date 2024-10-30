@@ -10,14 +10,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.rosadi.haullur.Kelas.Artikel.DetailArtikelActivity;
+import com.rosadi.haullur.Kelas.Artikel.DetailArtikelLaporanActivity;
 import com.rosadi.haullur.Kelas.DrawerMenu.Artikel.EditArtikelBiasaActivity;
 import com.rosadi.haullur.Kelas.DrawerMenu.Artikel.EditArtikelLaporanActivity;
 import com.rosadi.haullur.List.Model.Artikel;
@@ -85,7 +84,7 @@ public class ArtikelAdapter extends RecyclerView.Adapter<ArtikelAdapter.ViewHold
 //                        i.putExtra(Konfigurasi.KEY_DILIHAT, artikel.getDilihat());
 //                        context.startActivity(i);
                     } else {
-                        Intent i = new Intent(context, DetailArtikelActivity.class);
+                        Intent i = new Intent(context, DetailArtikelLaporanActivity.class);
                         i.putExtra(Konfigurasi.KEY_ID, artikel.getId());
                         i.putExtra(Konfigurasi.KEY_FOTO_TAMNEL, artikel.getFotoTamnel());
                         i.putExtra(Konfigurasi.KEY_JUDUL, artikel.getJudul());

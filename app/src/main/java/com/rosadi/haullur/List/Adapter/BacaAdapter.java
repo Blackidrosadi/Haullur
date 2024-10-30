@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rosadi.haullur.Kelas.Artikel.ListAlmarhumActivity;
 import com.rosadi.haullur.Kelas.Baca.BacaActivity;
 import com.rosadi.haullur.Kelas.DrawerMenu.Haul.ProgramHaulActivity;
 import com.rosadi.haullur.List.Model.Almarhums;
@@ -116,6 +117,11 @@ public class BacaAdapter extends RecyclerView.Adapter<BacaAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 holder.listAlmarhum.setVisibility(View.GONE);
+                if (context.getClass().getSimpleName().equals("BacaActivity")) {
+                    ((BacaActivity) context).scrollToPosition(holder.getAdapterPosition());
+                } else if (context.getClass().getSimpleName().equals("ListAlmarhumActivity")) {
+                    ((ListAlmarhumActivity) context).scrollToPosition(holder.getAdapterPosition());
+                }
             }
         });
     }

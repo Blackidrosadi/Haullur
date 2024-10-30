@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -170,6 +171,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(artikelAdapter);
 
         loadArtikel();
+
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                recreate();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     private void loadArtikel() {

@@ -34,7 +34,7 @@ public class ListAlmarhumActivity extends AppCompatActivity {
     List<Baca> bacaList = new ArrayList<>();
     BacaAdapter bacaAdapter;
 
-    TextView jumlah, jumlahBelumDibaca, jumlahSudahDibaca;
+    TextView jumlah;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +52,6 @@ public class ListAlmarhumActivity extends AppCompatActivity {
         idHaul = i.getStringExtra("id_haul");
 
         jumlah = findViewById(R.id.jumlah);
-        jumlahBelumDibaca = findViewById(R.id.jumlah_belum_dibaca);
-        jumlahSudahDibaca = findViewById(R.id.jumlah_sudah_dibaca);
         recyclerView = findViewById(R.id.recycler_view);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ListAlmarhumActivity.this);
@@ -63,6 +61,11 @@ public class ListAlmarhumActivity extends AppCompatActivity {
 
         loadRingkasan();
         loadDataHaul();
+    }
+
+    public void scrollToPosition(int pos) {
+        recyclerView.smoothScrollToPosition(pos);
+        bacaAdapter.notifyItemChanged(pos);
     }
 
     private void loadRingkasan() {
@@ -82,8 +85,6 @@ public class ListAlmarhumActivity extends AppCompatActivity {
                     JSONObject data = result.getJSONObject(0);
 
                     jumlah.setText(data.getString(Konfigurasi.KEY_TOTAL) + " Keluarga");
-                    jumlahBelumDibaca.setText(data.getString(Konfigurasi.KEY_JUMLAH_BELUM_DIBACA) + " Belum dibaca");
-                    jumlahSudahDibaca.setText(data.getString(Konfigurasi.KEY_JUMLAH_SUDAH_DIBACA) + " Sudah dibaca");
 
                 } catch (JSONException e) {
                     e.printStackTrace();

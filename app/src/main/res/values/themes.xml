@@ -16,17 +16,21 @@
         <item name="android:fontFamily">@font/segoe_ui_font</item>
         <item name="fontFamily">@font/segoe_ui_font</item>
     </style>
+
     <style name="Theme.HAULLUR.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="Theme.HAULLUR.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="Theme.HAULLUR.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="ThemeOverlay.Material3.NavigationView" >
+    <style name="ThemeOverlay.Material3.NavigationView">
         <item name="android:listDivider">@color/white_50</item>
         <item name="android:textColorSecondary">@color/white</item>
     </style>
+
     <style name="MyDatePickerStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/primary</item>
     </style>
