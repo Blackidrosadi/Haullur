@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Sep 2024 pada 15.38
+-- Waktu pembuatan: 11 Nov 2024 pada 08.13
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.2.0
 
@@ -4443,7 +4443,7 @@ INSERT INTO `almarhums` (`id`, `nama`, `id_keluarga`) VALUES
 (4470, 'Muhammad muthok', 99),
 (4471, 'Muhammad suryanto', 96),
 (4472, 'Bp. Gunari', 108),
-(4473, 'Mbah Raminten', 124),
+(4473, 'Mbok Raminten', 124),
 (4474, 'Mbah Raminten ', 127),
 (4475, 'Bapak Nodo Sekalian', 193),
 (4476, 'Bapak Drais Sekalian ', 193),
@@ -4456,7 +4456,21 @@ INSERT INTO `almarhums` (`id`, `nama`, `id_keluarga`) VALUES
 (4483, 'Ibu Palima', 193),
 (4484, 'Ibu Watenah', 191),
 (4485, 'Nyai Supiyah', 191),
-(4486, 'Mbah Rumini', 191);
+(4486, 'Mbah Rumini', 191),
+(4487, 'Bapak Dola', 75),
+(4488, 'H. abdul jalil', 37),
+(4489, 'mbok pinama', 167),
+(4490, 'Mbok Sanah', 27),
+(4491, 'bpk h abdul jalil', 43),
+(4492, 'bpk h.abdul jalil', 61),
+(4493, 'mbok sana', 126),
+(4494, 'bapak andrim', 126),
+(4495, 'mbok pinama', 126),
+(4496, 'mbok pinama', 118),
+(4497, 'mbok pinama', 115),
+(4498, 'mbok sarniti', 115),
+(4499, 'Isti Nur Vita', 132),
+(4500, 'Mbah Raminten ', 127);
 
 -- --------------------------------------------------------
 
@@ -4482,15 +4496,7 @@ CREATE TABLE `artikel` (
 --
 
 INSERT INTO `artikel` (`id`, `tamnel`, `judul`, `tanggal`, `lokasi`, `deskripsi`, `dilihat`, `id_haul`, `foto`, `foto2`) VALUES
-(6, '28052024-172610.png', 'Artikel Pertama', 'Selasa, 28 Mei 2024', 'Dusun Randugembolo', 'Ini adalah deskripsi artikel pertama', 87, 0, '', ''),
-(9, '28052024-224742.png', 'Artikel kedua', 'Selasa, 28 Mei 2024', 'Randugembolo ', 'ini adalah deskripsi untuk artikel kedua', 87, 0, '', ''),
-(10, '28052024-230502.png', 'Ahjaiwjshsjwjwwj', 'Selasa, 28 Mei 2024', 'heusiejejehehjwjwn', 'bebebwjwhwhhwe', 87, 0, '', ''),
-(11, '28052024-230712.png', 'asdasdasdajksdh', 'Selasa, 28 Mei 2024', 'hsajdhasjd dasjkdaskjd', 'jsahdjkahsjkdh jashdjksahdkj ashdjkahsdjk hsajkdh ajkhsdkhasdkhaksjh dakshdkjash dkjhasd', 87, 0, '', ''),
-(12, '28052024-230830.png', 'hehejekwoe', 'Selasa, 28 Mei 2024', 'uwuwiwiwjj', 'hwhqiquww', 87, 0, '', ''),
-(13, '29052024-090324.png', 'hwhjwj', 'Rabu, 29 Mei 2024', 'rjejejj', 'djwjkwoqos', 87, 0, '', ''),
-(14, '18092024-114726.png', 'bshsjs', 'Rabu, 18 September 2024', 'hwjwiw', 'jsiwiw', 87, 0, '', ''),
-(15, '24092024-150635.png', 'Test', 'Selasa, 24 September 2024', 'test', 'test', 87, 0, '', ''),
-(17, '27092024-051026.png', 'test data', 'Jumat, 27 September 2024', 'lokasi', 'deskripsi ', 87, 0, '', '');
+(17, '11102024-133009.png', 'Laporan Haul Jemuah Legi pada Jumat, 11 Oktober 2024', 'Jumat, 11 Oktober 2024', 'Musholla Baiturrahman', 'Alhamdulillahirabbilalamin, acara Haul Jemuah Legi yang dilaksanakan pada hari Jumat, 11 Oktober 2024 berjalan dengan lancar. Acara ini diikuti oleh 99 keluarga dengan 2777 almarhum/almarhumah. Total dana yang telah dikumpulkan sebanyak Rp2.195.500.\n\nSemoga almarhum - almarhumah husnul khotimah diampuni segala dosa, ditempatkan di tempat yang tinggi di sisi Allah dan keluarga yang ditinggalkan diberikan kesabaran.. Amin Allahuma Amiiiin.', 98, 28, '', '');
 
 -- --------------------------------------------------------
 
@@ -4514,7 +4520,9 @@ INSERT INTO `haul` (`id`, `tanggal`, `deskripsi`, `status`) VALUES
 (23, 'Jumat, 24 Mei 2024', 'Haul Jemuah Legi', 0),
 (25, 'Jumat, 28 Juni 2024', 'Haul Jemuah Legi', 0),
 (26, 'Jumat, 02 Agustus 2024', 'Haul Jemuah Legi', 0),
-(27, 'Jumat, 06 September 2024', 'Haul Jemuah Legi', 0);
+(27, 'Jumat, 06 September 2024', 'Haul Jemuah Legi', 0),
+(28, 'Jumat, 11 Oktober 2024', 'Haul Jemuah Legi', 0),
+(29, 'Jumat, 15 November 2024', 'Haul Jemuah Legi', 1);
 
 -- --------------------------------------------------------
 
@@ -4574,26 +4582,26 @@ INSERT INTO `keluarga` (`id`, `nama`, `rt`, `telepon`, `id_user`) VALUES
 (66, 'bpk zazuli', 2, '', 31),
 (68, 'Saudara Darmaji (Hasan)', 2, '', 27),
 (69, 'Bpk Untung', 2, '', 27),
-(70, 'Bapak Yuri', 1, '', 21),
+(70, 'Bapak Yuri', 1, '', 0),
 (71, 'ibu susana', 3, '', 18),
 (72, 'bpk sunarji', 2, '', 31),
 (73, 'Bapak Slamet', 2, '', 24),
 (74, 'ibu sukarlin', 2, '', 27),
 (75, 'BPK riamin', 2, '', 19),
 (76, 'm. nur khasan', 3, '', 0),
-(77, 'Bapak Sifa.', 1, '', 21),
+(77, 'Bapak Sifa.', 1, '', 0),
 (78, 'bpk poniman', 2, '', 27),
 (79, 'bpk hariyanto (sayur)', 2, '', 27),
 (80, 'Bapak Mukhit (Misnan)', 2, '', 24),
 (81, 'ibu siti munawati', 3, '', 18),
 (83, 'Bapak H. Zainal Abidin', 2, '', 27),
 (84, 'Bapak Warkhan', 3, '085961589530', 18),
-(85, 'H. Ghufron Hasan', 5, '', 21),
+(85, 'H. Ghufron Hasan', 5, '', 0),
 (86, 'bpk amir', 2, '', 31),
 (87, 'ibu Safa.atin', 2, '', 19),
 (89, 'Bapak Sodiq', 2, '', 27),
 (90, 'bpk misroj kholil', 3, '', 18),
-(91, 'Ibu Riami', 1, '', 21),
+(91, 'Ibu Riami', 1, '', 0),
 (92, 'bpk abdilah', 2, '', 31),
 (93, 'Bapak Kaspani', 2, '', 27),
 (94, 'BAPAK H MUJIONO', 2, '', 31),
@@ -4610,22 +4618,22 @@ INSERT INTO `keluarga` (`id`, `nama`, `rt`, `telepon`, `id_user`) VALUES
 (105, 'bapak ngatemun', 3, '', 18),
 (106, 'H. Slamet (Pondok)', 2, '', 29),
 (107, 'bpk wifqul adhan', 2, '', 28),
-(108, 'Bpk Edi Santoso', 1, '', 21),
-(109, 'BAPAK DIDIK', 3, '', 18),
+(108, 'Bpk Edi Santoso', 1, '', 0),
+(109, 'BAPAK DIDIK', 3, '', 21),
 (110, 'Bapak Ainul ', 5, '', 31),
 (111, 'Bapak Kastamun', 3, '', 18),
 (112, 'bapak sunariyo', 3, '', 26),
 (113, 'Sdr. Sobirin', 2, '', 30),
 (114, 'bpk santoso', 3, '', 26),
 (115, 'bpk aripin', 2, '', 28),
-(116, 'Ibu Kinana', 3, '', 21),
+(116, 'Ibu Kinana', 3, '', 0),
 (117, 'BPK sukirno', 2, '', 28),
 (118, 'bpk juma.in', 2, '', 28),
 (119, 'Bapak Mansur', 2, '', 30),
 (120, 'bpk lasiman', 2, '', 28),
 (121, 'Bpk Khoironi', 3, '', 26),
 (122, 'Sdr Wawan', 3, '', 26),
-(123, 'Bpk H. Mustari', 3, '', 18),
+(123, 'Bpk H. Mustari', 3, '', 21),
 (124, 'Bpk Taman', 2, '', 30),
 (125, 'Bpk Duriyat', 1, '', 29),
 (126, 'Bpk Kahar', 2, '', 28),
@@ -4633,27 +4641,27 @@ INSERT INTO `keluarga` (`id`, `nama`, `rt`, `telepon`, `id_user`) VALUES
 (128, 'Bpk Iswanto', 3, '', 26),
 (129, 'Bpk Hariyanto (ibu ul)', 2, '', 28),
 (130, 'Bpk Mulyono', 2, '', 28),
-(131, 'Bpk H. Samar', 3, '', 18),
+(131, 'Bpk H. Samar', 3, '', 21),
 (132, 'Bpk Asad Fauzi', 3, '', 26),
 (133, 'Bpk Ipin', 2, '', 30),
 (134, 'Sdr Dimas', 3, '', 26),
 (135, 'Bpk Masrikin', 2, '', 28),
 (136, 'Bpk Suud', 3, '', 28),
-(137, 'Ibu Sumiasih', 3, '', 18),
-(138, 'Bpk Hanafi', 1, '', 21),
+(137, 'Ibu Sumiasih', 3, '', 21),
+(138, 'Bpk Hanafi', 1, '', 0),
 (139, 'Bpk Ratemun', 3, '', 26),
 (140, 'Bpk Janib Pawito', 3, '', 26),
 (141, 'Bpk Rofiq', 3, '', 18),
 (142, 'Bpk Sugeng', 2, '', 30),
-(143, 'Ibu Sita', 1, '', 21),
-(144, 'Bpk Jumadi', 3, '', 18),
+(143, 'Ibu Sita', 1, '', 0),
+(144, 'Bpk Jumadi', 3, '', 21),
 (145, 'Bpk Talim', 2, '', 30),
 (146, 'Bpk Kandar', 2, '', 30),
-(147, 'Bpk Agus Salim', 3, '', 18),
-(148, 'Bpk Ismail', 3, '', 18),
+(147, 'Bpk Agus Salim', 3, '', 21),
+(148, 'Bpk Ismail', 3, '', 21),
 (149, 'Mbok Pa', 2, '', 30),
 (150, 'Bpk H. Abd Rochim', 2, '', 30),
-(151, 'Ibu Jumiati', 3, '', 18),
+(151, 'Ibu Jumiati', 3, '', 21),
 (152, 'Bpk Ali Usman', 2, '', 30),
 (155, 'BPK Sofyan Sauri', 2, '', 31),
 (156, 'Bapak Solikin (Nasgor)', 2, '', 32),
@@ -4664,31 +4672,31 @@ INSERT INTO `keluarga` (`id`, `nama`, `rt`, `telepon`, `id_user`) VALUES
 (162, 'bpk hendro', 2, '', 31),
 (163, 'bapak rustam yonkaf', 2, '', 0),
 (164, 'bpk irwan', 2, '', 32),
-(165, 'Bpk Muhamad Ajib', 3, '', 20),
-(166, 'BPK.abdul jalil', 3, '', 20),
+(165, 'Bpk Muhamad Ajib', 3, '', 21),
+(166, 'BPK.abdul jalil', 3, '', 21),
 (167, 'bpk Hartono ', 2, '', 34),
 (168, 'bok suyuti', 2, '', 0),
-(169, 'BAPAK YANTO', 3, '', 20),
-(170, 'bapak supai', 3, '', 20),
+(169, 'BAPAK YANTO', 3, '', 21),
+(170, 'bapak supai', 3, '', 21),
 (171, 'bpk a.an', 2, '', 34),
-(173, 'Bapak Suwito ', 3, '', 20),
-(174, 'Bpk Winoto', 3, '', 20),
-(175, 'Bpk Jumari', 3, '', 20),
+(173, 'Bapak Suwito ', 3, '', 21),
+(174, 'Bpk Winoto', 3, '', 21),
+(175, 'Bpk Jumari', 3, '', 21),
 (176, 'Bpk Saipul', 2, '', 32),
-(177, 'Bpk Nurfayakun', 3, '', 20),
+(177, 'Bpk Nurfayakun', 3, '', 21),
 (178, 'Bpk Kohar', 2, '', 34),
 (179, 'Bpk Hariyanto (Ida)', 2, '', 32),
-(180, 'Bpk Didiek Syarifudin', 3, '', 18),
-(181, 'Bpk Nasir', 3, '', 20),
+(180, 'Bpk Didiek Syarifudin', 3, '', 21),
+(181, 'Bpk Nasir', 3, '', 21),
 (182, 'Bpk Paidi', 2, '', 34),
 (183, 'Bapak Akrim', 2, '', 19),
 (184, 'Bapak Suliono', 3, '', 0),
-(185, 'Bapak Karsimin', 3, '', 21),
-(186, 'Bapak Saproni', 3, '', 21),
+(185, 'Bapak Karsimin', 3, '', 0),
+(186, 'Bapak Saproni', 3, '', 0),
 (187, 'Bpk Dadang', 3, '', 0),
 (188, 'Bapak Adnan', 2, '', 31),
 (189, 'Bapak Fahmi (Robi)', 2, '', 24),
-(190, 'Abah Abdul Wahab', 3, '', 21),
+(190, 'Abah Abdul Wahab', 3, '', 0),
 (191, 'ibu yaumi chasanah', 3, '', 0),
 (192, 'Ibu nurul fadilah', 4, '', 0),
 (193, 'Bapak Sultan', 2, '', 0);
@@ -5222,7 +5230,106 @@ INSERT INTO `penarikan` (`id`, `id_haul`, `id_keluarga`, `jumlah`, `deskripsi`, 
 (605, 27, 0, 620000, 'Kotak Amal ', 0, 0),
 (606, 27, 0, 2500000, 'Parkiran ', 0, 0),
 (607, 27, 144, 20000, '', 0, 1),
-(609, 27, 0, 41500, 'rokok', 0, 0);
+(609, 27, 0, 41500, 'rokok', 0, 0),
+(611, 28, 16, 20000, '', 29, 1),
+(612, 28, 98, 25000, '', 29, 1),
+(613, 28, 19, 20000, '', 29, 1),
+(614, 28, 63, 20000, '', 29, 1),
+(615, 28, 31, 10000, '', 29, 1),
+(616, 28, 65, 30000, '', 19, 1),
+(617, 28, 75, 70000, '', 19, 1),
+(618, 28, 87, 15000, '', 19, 1),
+(619, 28, 95, 10000, '', 19, 1),
+(620, 28, 100, 20000, '', 19, 1),
+(621, 28, 183, 30000, '', 19, 1),
+(622, 28, 93, 20000, '', 27, 1),
+(623, 28, 89, 15000, '', 27, 1),
+(624, 28, 37, 25000, '', 34, 1),
+(625, 28, 32, 20000, '', 34, 1),
+(626, 28, 182, 20000, '', 34, 1),
+(627, 28, 83, 25000, '', 27, 1),
+(628, 28, 167, 20000, '', 34, 1),
+(629, 28, 78, 10000, '', 27, 1),
+(630, 28, 74, 10000, '', 27, 1),
+(631, 28, 69, 10000, '', 27, 1),
+(632, 28, 68, 10000, '', 27, 1),
+(633, 28, 27, 20000, '', 27, 1),
+(634, 28, 171, 20000, '', 34, 1),
+(635, 28, 17, 20000, '', 34, 1),
+(636, 28, 178, 20000, '', 34, 1),
+(637, 28, 79, 15000, '', 27, 1),
+(638, 28, 30, 20000, '', 27, 1),
+(639, 28, 28, 20000, '', 34, 1),
+(640, 28, 25, 20000, '', 24, 1),
+(641, 28, 40, 20000, '', 24, 1),
+(642, 28, 21, 15000, '', 32, 1),
+(643, 28, 35, 15000, '', 24, 1),
+(644, 28, 26, 15000, '', 32, 1),
+(645, 28, 50, 20000, '', 24, 1),
+(646, 28, 189, 20000, '', 24, 1),
+(647, 28, 29, 7000, '', 32, 1),
+(648, 28, 80, 10000, '', 24, 1),
+(649, 28, 33, 20000, '', 32, 1),
+(650, 28, 44, 5000, '', 32, 1),
+(651, 28, 156, 15000, '', 32, 1),
+(652, 28, 161, 20000, '', 32, 1),
+(653, 28, 164, 10000, '', 32, 1),
+(654, 28, 176, 20000, '', 32, 1),
+(655, 28, 179, 20000, '', 32, 1),
+(656, 28, 45, 20000, '', 29, 1),
+(657, 28, 61, 50000, '', 31, 1),
+(658, 28, 43, 50000, '', 31, 1),
+(659, 28, 48, 20000, '', 29, 1),
+(660, 28, 47, 10000, '', 29, 1),
+(661, 28, 72, 15000, '', 31, 1),
+(662, 28, 39, 25000, '', 29, 1),
+(663, 28, 86, 10000, '', 31, 1),
+(664, 28, 188, 20000, '', 31, 1),
+(665, 28, 135, 15000, '', 28, 1),
+(666, 28, 129, 25000, '', 28, 1),
+(667, 28, 117, 20000, '', 28, 1),
+(668, 28, 130, 10000, '', 28, 1),
+(669, 28, 126, 30000, '', 28, 1),
+(670, 28, 118, 20000, '', 28, 1),
+(671, 28, 115, 20000, '', 28, 1),
+(672, 28, 136, 15000, '', 28, 1),
+(673, 28, 152, 15000, '', 30, 1),
+(674, 28, 150, 10000, '', 30, 1),
+(675, 28, 149, 25000, '', 30, 1),
+(676, 28, 146, 15000, '', 30, 1),
+(677, 28, 145, 20000, '', 30, 1),
+(678, 28, 142, 60000, '', 30, 1),
+(679, 28, 133, 20000, '', 30, 1),
+(680, 28, 124, 20000, '', 30, 1),
+(681, 28, 119, 15000, '', 30, 1),
+(682, 28, 113, 30000, '', 30, 1),
+(683, 28, 92, 20000, '', 31, 1),
+(684, 28, 34, 20000, '', 31, 1),
+(685, 28, 94, 20000, '', 31, 1),
+(686, 28, 60, 20000, '', 18, 1),
+(687, 28, 71, 20000, '', 18, 1),
+(688, 28, 23, 20000, '', 34, 1),
+(689, 28, 22, 50000, '', 29, 1),
+(691, 28, 191, 30000, '', 0, 1),
+(692, 28, 106, 50000, '', 29, 1),
+(693, 28, 122, 50000, '', 0, 1),
+(694, 28, 121, 25000, '', 0, 1),
+(695, 28, 132, 50000, '', 0, 1),
+(696, 28, 128, 10000, '', 0, 1),
+(697, 28, 140, 20000, '', 0, 1),
+(698, 28, 84, 20000, '', 0, 1),
+(699, 28, 127, 50000, '', 0, 1),
+(700, 28, 114, 20000, '', 0, 1),
+(701, 28, 131, 20000, '', 0, 1),
+(702, 28, 143, 20000, '', 0, 1),
+(703, 28, 170, 20000, '', 0, 1),
+(704, 28, 108, 50000, '', 0, 1),
+(705, 28, 107, 10000, '', 28, 1),
+(706, 28, 104, 50000, '', 0, 1),
+(707, 28, 123, 50000, '', 0, 1),
+(708, 28, 148, 30000, '', 0, 1),
+(709, 28, 157, 20000, '', 0, 1),
+(710, 28, 116, 30000, '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -5243,7 +5350,8 @@ CREATE TABLE `pengeluaran` (
 
 INSERT INTO `pengeluaran` (`id`, `id_haul`, `deskripsi`, `jumlah`) VALUES
 (8, 23, 'Rokok + Tisuy', 52500),
-(9, 25, 'Konsumsi Rokok', 50000);
+(9, 25, 'Konsumsi Rokok', 50000),
+(10, 28, 'rokok ', 46500);
 
 -- --------------------------------------------------------
 
@@ -5284,7 +5392,8 @@ INSERT INTO `user` (`id`, `nama`, `email`, `telepon`, `sandi`, `level`) VALUES
 (33, 'Ibor', 'ramadanirobby7@gmail.com', '0882009952489', 'sembarangwes', 2),
 (34, 'newachmadrozi97@gmail.com', 'newachmadrozi97@gmail.com', '087841532262', 'randugembolo', 2),
 (35, 'Ahmad Syarif ', 'syarif8ahmad@gmail.com', '089694386868', 'syarive1987', 2),
-(36, 'muhammadfitroharisetiawan@gmail.com', 'muhammadfitroharisetiawan@gmail.com', '0895376670407', 'Paimooo44', 2);
+(36, 'muhammadfitroharisetiawan@gmail.com', 'muhammadfitroharisetiawan@gmail.com', '0895376670407', 'Paimooo44', 2),
+(42, 'Pengguna', '', '0877503543051', 'rosadi123', 0);
 
 --
 -- Indexes for dumped tables
@@ -5340,43 +5449,43 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `almarhums`
 --
 ALTER TABLE `almarhums`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4487;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4518;
 
 --
 -- AUTO_INCREMENT untuk tabel `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `haul`
 --
 ALTER TABLE `haul`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT untuk tabel `keluarga`
 --
 ALTER TABLE `keluarga`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
 
 --
 -- AUTO_INCREMENT untuk tabel `penarikan`
 --
 ALTER TABLE `penarikan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=610;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=716;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengeluaran`
 --
 ALTER TABLE `pengeluaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
