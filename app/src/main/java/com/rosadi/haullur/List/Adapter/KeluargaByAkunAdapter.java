@@ -49,7 +49,7 @@ public class KeluargaByAkunAdapter extends RecyclerView.Adapter<KeluargaByAkunAd
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = null;
-        if (context.getClass().getSimpleName().equals("DetailAkunActivity")) {
+        if (context.getClass().getSimpleName().equals("DetailAkunActivity") || context.getClass().getSimpleName().equals("ProfilActivity")) {
             view = LayoutInflater.from(context).inflate(R.layout.list_keluarga, parent, false);
         } else if (context.getClass().getSimpleName().equals("PenarikanActivity")) {
             view = LayoutInflater.from(context).inflate(R.layout.list_keluarga_lite, parent, false);
@@ -65,14 +65,14 @@ public class KeluargaByAkunAdapter extends RecyclerView.Adapter<KeluargaByAkunAd
         holder.rt.setText("RT " + keluarga.getRt());
         holder.jumlah.setText(keluarga.getJumlah());
 
-        if (context.getClass().getSimpleName().equals("DetailAkunActivity")) {
+        if (context.getClass().getSimpleName().equals("DetailAkunActivity") || context.getClass().getSimpleName().equals("ProfilActivity")) {
             holder.telepon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (keluarga.getTelepon().isEmpty()) {
                         Toast.makeText(context, "Nomor WhatsApp belum ditambahkan!", Toast.LENGTH_SHORT).show();
                     } else {
-                        String telepon = "+62" + keluarga.getTelepon();
+                        String telepon = "62" + keluarga.getTelepon();
                         String pesan = "Assalamu'alaikum...";
 
                         Intent i = new Intent(Intent.ACTION_VIEW,

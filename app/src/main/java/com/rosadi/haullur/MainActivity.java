@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +25,10 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.rosadi.haullur.Akun.LoginActivity;
+import com.rosadi.haullur.Akun.ProfilActivity;
+import com.rosadi.haullur.Kelas.DrawerMenu.HubungiKamiActivity;
+import com.rosadi.haullur.Kelas.DrawerMenu.TentangAplikasiActivity;
+import com.rosadi.haullur.Kelas.Pendaftaran.InfoPendaftaranActivity;
 import com.rosadi.haullur.Kelas.DrawerMenu.Artikel.ArtikelActivity;
 import com.rosadi.haullur.Kelas.DrawerMenu.Akun.AkunActivity;
 import com.rosadi.haullur.Kelas.DrawerMenu.Haul.ProgramHaulActivity;
@@ -66,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.finish();
         }
 
+        TextView title = findViewById(R.id.title);
+        TextView title2 = findViewById(R.id.title2);
+        if (preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null).equals("0")) {
+            title.setText("Sugeng Rawuh,");
+            title2.setText("Haul musholla tiap malem jemuah legi.");
+        }
+
         recyclerView = findViewById(R.id.recycler_view);
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -74,28 +86,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.nav_menu_profil:
+                        startActivity(new Intent(MainActivity.this, ProfilActivity.class));
+                        return true;
+
                     case R.id.nav_menu_artikel:
-                        if (Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
-                            Toast.makeText(MainActivity.this, "Selain admin dan petugas tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            startActivity(new Intent(MainActivity.this, ArtikelActivity.class));
-                        }
+                        startActivity(new Intent(MainActivity.this, ArtikelActivity.class));
                         return true;
 
                     case R.id.nav_menu_haul:
-                        if (Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {
-                            Toast.makeText(MainActivity.this, "Selain admin dan petugas  tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            startActivity(new Intent(MainActivity.this, ProgramHaulActivity.class));
-                        }
+                        startActivity(new Intent(MainActivity.this, ProgramHaulActivity.class));
                         return true;
 
                     case R.id.nav_menu_akun:
-                        if (!Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "1")) {
-                            Toast.makeText(MainActivity.this, "Selain admin tidak bisa mengakses menu ini!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            startActivity(new Intent(MainActivity.this, AkunActivity.class));
-                        }
+                        startActivity(new Intent(MainActivity.this, AkunActivity.class));
+                        return true;
+                        
+                    case R.id.nav_hubungi:
+                        startActivity(new Intent(MainActivity.this, HubungiKamiActivity.class));
+                        return true;
+
+                    case R.id.nav_tentang:
+                        startActivity(new Intent(MainActivity.this, TentangAplikasiActivity.class));
                         return true;
 
                     case R.id.nav_log_out:
@@ -105,6 +117,17 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        Menu menu = navigationView.getMenu();
+        if (preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null).equals("2")) {
+            menu.findItem(R.id.nav_menu_haul).setVisible(false);
+            menu.findItem(R.id.nav_menu_akun).setVisible(false);
+        } else if (preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null).equals("0")) {
+            menu.findItem(R.id.nav_menu_profil).setVisible(false);
+            menu.findItem(R.id.nav_menu_artikel).setVisible(false);
+            menu.findItem(R.id.nav_menu_haul).setVisible(false);
+            menu.findItem(R.id.nav_menu_akun).setVisible(false);
+        }
 
         TextView namaDrawer = navigationView.getHeaderView(0).findViewById(R.id.nama);
         namaDrawer.setText(preferences.getString(Konfigurasi.KEY_USER_NAMA_PREFERENCE, null));
@@ -162,6 +185,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, LaporanActivity.class));
+            }
+        });
+        findViewById(R.id.button_daftaralmarhum).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, InfoPendaftaranActivity.class));
             }
         });
 

@@ -11,6 +11,30 @@
         android:theme="@style/Theme.HAULLUR"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Kelas.DrawerMenu.TentangAplikasiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Kelas.DrawerMenu.HubungiKamiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Akun.ProfilActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Kelas.Pendaftaran.PendaftaranBerhasilActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Kelas.Pendaftaran.FormAlmarhumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Kelas.Pendaftaran.FormKeluargaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Kelas.Pendaftaran.InfoPendaftaranActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Kelas.Artikel.DetailArtikelBiasaActivity"
+            android:exported="false" />
+        <activity
             android:name=".Kelas.Artikel.ListAlmarhumActivity"
             android:exported="false" />
         <activity
@@ -98,10 +122,9 @@
             android:name=".MainActivity"
             android:exported="true" />
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

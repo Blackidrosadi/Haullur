@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class DataKeluargaDetailActivity extends AppCompatActivity {
 
     TextView namaTV, jumlahAlmarhumTV;
     RecyclerView recyclerView;
+    RelativeLayout tambah, edit, hapus;
 
     String idNya, namaNya, rtNya, teleponNya;
     List<Almarhum> almarhumList = new ArrayList<>();
@@ -98,6 +100,20 @@ public class DataKeluargaDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+        tambah = findViewById(R.id.tambah_almarhum);
+        edit = findViewById(R.id.edit);
+        hapus = findViewById(R.id.hapus);
+
+        if (preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null).equals("0")) {
+            tambah.setVisibility(View.GONE);
+            edit.setVisibility(View.GONE);
+            hapus.setVisibility(View.GONE);
+        } else {
+            tambah.setVisibility(View.VISIBLE);
+            edit.setVisibility(View.VISIBLE);
+            hapus.setVisibility(View.VISIBLE);
+        }
 
         Intent i = getIntent();
         idNya = i.getStringExtra(Konfigurasi.KEY_ID);

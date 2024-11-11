@@ -4,8 +4,8 @@ public class Konfigurasi {
     /**
      * URL FILE PHP
      */
-//    public static final String URL  = "https://randugembolo.online/haullur/";
-    public static final String URL  = "http://192.168.0.108:8080/haullur/";
+    public static final String URL  = "https://randugembolo.online/haullur/";
+//    public static final String URL  = "http://192.168.0.108:8080/haullur/";
 
     public static final String URL_LOGIN                = URL + "akun/login.php";
     public static final String URL_LOAD_AKUN            = URL + "akun/load.php";
@@ -55,6 +55,7 @@ public class Konfigurasi {
     public static final String URL_HAPUS_ARTIKEL                        = URL + "artikel/hapus_artikel.php";
     public static final String URL_HAPUS_ARTIKEL_LAPORAN                = URL + "artikel/hapus_laporan.php";
     public static final String URL_LOAD_JUMLAH_KELUARGA_DAN_ALMARHUMS   = URL + "artikel/loadJumlahKeluargaDanAlmarhum.php?id_haul=";
+    public static final String URL_UPDATE_DILIHAT                       = URL + "artikel/update_dilihat.php";
 
     public static final String URL_LOAD_PROGRAM_HAUL        = URL + "haul/loadProgram.php";
     public static final String URL_LOAD_PROGRAM_AKTIF_HAUL  = URL + "haul/loadProgramAktif.php";
@@ -81,6 +82,9 @@ public class Konfigurasi {
 
     public static final String URL_HAPUS_DANA_PEMASUKAN_LAINNYA     = URL + "laporan/hapusPemasukanLainnya.php";
     public static final String URL_HAPUS_DANA_PENGELUARAN           = URL + "laporan/hapusPengeluaran.php";
+
+
+    public static final String URL_DAFTAR_KELUARGA = URL + "keluarga/daftarKeluarga.php";
     /**
      * TAG / KEY
      */

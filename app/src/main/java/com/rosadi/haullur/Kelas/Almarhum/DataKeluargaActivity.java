@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class DataKeluargaActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     public ProgressBar progressBar;
+    RelativeLayout tambahKeluarga;
 
     List<Keluarga> keluargaList = new ArrayList<>();
     KeluargaAdapter keluargaAdapter;
@@ -74,6 +76,7 @@ public class DataKeluargaActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         progressBar = findViewById(R.id.progress_bar);
+        tambahKeluarga = findViewById(R.id.tambahkeluarga);
         EditText cari = findViewById(R.id.cari);
         ImageView close = findViewById(R.id.close);
 
@@ -83,6 +86,12 @@ public class DataKeluargaActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        if (preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null).equals("0")) {
+            tambahKeluarga.setVisibility(View.GONE);
+        } else {
+            tambahKeluarga.setVisibility(View.VISIBLE);
+        }
 
         findViewById(R.id.tambahkeluarga).setOnClickListener(new View.OnClickListener() {
             @Override

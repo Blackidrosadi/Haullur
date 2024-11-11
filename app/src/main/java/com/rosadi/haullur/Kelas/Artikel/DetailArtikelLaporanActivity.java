@@ -90,7 +90,7 @@ public class DetailArtikelLaporanActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         almarhums = findViewById(R.id.almarhums);
 
-        Glide.with(DetailArtikelLaporanActivity.this)
+        Glide.with(this)
                 .load(Konfigurasi.URL + "images/thumbnail/" + fotoTamnel)
                 .listener(new RequestListener<Drawable>() {
                     @Override

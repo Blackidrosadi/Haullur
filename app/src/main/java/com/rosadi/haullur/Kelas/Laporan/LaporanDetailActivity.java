@@ -141,7 +141,14 @@ public class LaporanDetailActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.tambah).setOnClickListener(new View.OnClickListener() {
+        RelativeLayout tambah = findViewById(R.id.tambah);
+        if (preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null).equals("0")) {
+            tambah.setVisibility(View.GONE);
+        } else {
+            tambah.setVisibility(View.VISIBLE);
+        }
+
+        tambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (Objects.equals(preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null), "0")) {

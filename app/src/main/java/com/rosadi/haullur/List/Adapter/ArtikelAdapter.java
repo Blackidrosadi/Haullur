@@ -3,6 +3,7 @@ package com.rosadi.haullur.List.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +11,24 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.rosadi.haullur.Kelas.Artikel.DetailArtikelBiasaActivity;
 import com.rosadi.haullur.Kelas.Artikel.DetailArtikelLaporanActivity;
+import com.rosadi.haullur.Kelas.Baca.BacaActivity;
 import com.rosadi.haullur.Kelas.DrawerMenu.Artikel.EditArtikelBiasaActivity;
 import com.rosadi.haullur.Kelas.DrawerMenu.Artikel.EditArtikelLaporanActivity;
 import com.rosadi.haullur.List.Model.Artikel;
 import com.rosadi.haullur.R;
 import com.rosadi.haullur._util.Konfigurasi;
+import com.rosadi.haullur._util.volley.RequestHandler;
 
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -67,22 +73,29 @@ public class ArtikelAdapter extends RecyclerView.Adapter<ArtikelAdapter.ViewHold
                 })
                 .into(holder.tamnel);
 
-        holder.judul.setText(artikel.getJudul());
+        if (artikel.getJudul().length() > 25) {
+            if (artikel.getJudul().startsWith("Laporan Haul Jemuah Legi")) {
+                holder.judul.setText(artikel.getJudul().substring(0, 24));
+            }
+        } else {
+            holder.judul.setText(artikel.getJudul());
+        }
         holder.tanggal.setText(artikel.getTanggal());
         holder.selengkapnya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (context.getClass().getSimpleName().equals("MainActivity")) {
+                    updateDilihat(artikel.getId());
                     if (artikel.getIdHaul().equals("0")) {
-//                        Intent i = new Intent(context, DetailArtikelActivity.class);
-//                        i.putExtra(Konfigurasi.KEY_ID, artikel.getId());
-//                        i.putExtra(Konfigurasi.KEY_FOTO_TAMNEL, artikel.getFotoTamnel());
-//                        i.putExtra(Konfigurasi.KEY_JUDUL, artikel.getJudul());
-//                        i.putExtra(Konfigurasi.KEY_TANGGAL, artikel.getTanggal());
-//                        i.putExtra(Konfigurasi.KEY_LOKASI, artikel.getLokasi());
-//                        i.putExtra(Konfigurasi.KEY_DESKRIPSI, artikel.getDeskripsi());
-//                        i.putExtra(Konfigurasi.KEY_DILIHAT, artikel.getDilihat());
-//                        context.startActivity(i);
+                        Intent i = new Intent(context, DetailArtikelBiasaActivity.class);
+                        i.putExtra(Konfigurasi.KEY_ID, artikel.getId());
+                        i.putExtra(Konfigurasi.KEY_FOTO_TAMNEL, artikel.getFotoTamnel());
+                        i.putExtra(Konfigurasi.KEY_JUDUL, artikel.getJudul());
+                        i.putExtra(Konfigurasi.KEY_TANGGAL, artikel.getTanggal());
+                        i.putExtra(Konfigurasi.KEY_LOKASI, artikel.getLokasi());
+                        i.putExtra(Konfigurasi.KEY_DESKRIPSI, artikel.getDeskripsi());
+                        i.putExtra(Konfigurasi.KEY_DILIHAT, artikel.getDilihat());
+                        context.startActivity(i);
                     } else {
                         Intent i = new Intent(context, DetailArtikelLaporanActivity.class);
                         i.putExtra(Konfigurasi.KEY_ID, artikel.getId());
@@ -148,5 +161,34 @@ public class ArtikelAdapter extends RecyclerView.Adapter<ArtikelAdapter.ViewHold
             selengkapnya = itemView.findViewById(R.id.selengkapnya);
             progressBar = itemView.findViewById(R.id.progress_bar);
         }
+    }
+
+    private void updateDilihat(String id) {
+        class ProsesUpdate extends AsyncTask<Void, Void, String> {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+            }
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put(Konfigurasi.KEY_ID, id);
+
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendPostRequest(Konfigurasi.URL_UPDATE_DILIHAT, hashMap);
+
+                return s;
+            }
+        }
+
+        ProsesUpdate prosesUpdate = new ProsesUpdate();
+        prosesUpdate.execute();
     }
 }

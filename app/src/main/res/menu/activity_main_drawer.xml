@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_menu_profil"
+            android:icon="@drawable/ic_user"
+            android:title="Profil" />
+
         <item
             android:id="@+id/nav_menu_artikel"
             android:icon="@drawable/ic_artikel"
@@ -21,13 +27,23 @@
 
     </group>
 
-    <item android:title="Lainnya">
+    <item android:title="Informasi">
         <menu>
+            <item
+                android:id="@+id/nav_hubungi"
+                android:icon="@drawable/ic_hubungi"
+                android:title="Hubungi Kami"/>
+
             <item
                 android:id="@+id/nav_tentang"
                 android:icon="@drawable/ic_tentang"
-                android:title="Tentang Kami" />
+                android:title="Tentang Aplikasi" />
 
+        </menu>
+    </item>
+
+    <item android:title="Akun">
+        <menu>
             <item
                 android:id="@+id/nav_log_out"
                 android:icon="@android:drawable/ic_lock_power_off"

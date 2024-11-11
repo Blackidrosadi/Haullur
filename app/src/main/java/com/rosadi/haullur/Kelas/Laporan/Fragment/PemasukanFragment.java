@@ -2,6 +2,7 @@ package com.rosadi.haullur.Kelas.Laporan.Fragment;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -43,6 +44,8 @@ import java.util.Locale;
 
 public class PemasukanFragment extends Fragment {
 
+    SharedPreferences preferences;
+
     String idHaul;
     List<HaulDetail> haulDetailList = new ArrayList<>();
     HaulDetailAdapter haulDetailAdapter;
@@ -51,7 +54,6 @@ public class PemasukanFragment extends Fragment {
     HaulDetailDanaLainnyaAdapter haulDetailDanaLainnyaAdapter;
 
     RecyclerView recyclerViewPetugas, recyclerViewLainnya;
-
 
     public PemasukanFragment(String idHaul) {
         this.idHaul = idHaul;
@@ -62,6 +64,8 @@ public class PemasukanFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pemasukan, container, false);
+
+        preferences = getActivity().getSharedPreferences(Konfigurasi.KEY_USER_PREFERENCE, 0);
 
         recyclerViewPetugas = view.findViewById(R.id.recycler_view_petugas);
         recyclerViewLainnya = view.findViewById(R.id.recycler_view_lainnya);
@@ -131,7 +135,10 @@ public class PemasukanFragment extends Fragment {
                 dialog.show();
             }
         });
-        itemTouchHelper.attachToRecyclerView(recyclerViewLainnya);
+
+        if (!preferences.getString(Konfigurasi.KEY_USER_LEVEL_PREFERENCE, null).equals("0")) {
+            itemTouchHelper.attachToRecyclerView(recyclerViewLainnya);
+        }
 
         return view;
     }
